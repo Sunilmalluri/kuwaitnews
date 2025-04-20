@@ -1,169 +1,172 @@
 <div class="header-bg">
-    <header class="header-container">
-        <div class="logo-container">
-            <img src="/images/logo.png" alt="Kuwait News Logo" class="logo">
-            <div class="logo-text">
-                <h1 class="site-title">Think</h1>
-                <p class="site-tagline">Beyond The Headlines</p>
-            </div>
-        </div>
+  <header class="header-container">
+    <div class="logo-container">
+      <img src="/images/logo.png" alt="Kuwait News Logo" class="logo">
+      <div class="logo-text">
+        <h1 class="site-title">Think</h1>
+        <p class="site-tagline">Beyond The Headlines</p>
+      </div>
+    </div>
 
-        <!-- Weather, Location, and Date -->
-        <div class="weather-info">
-            <strong id="weather" class="fs-4 text-secondary">Loading...</strong>
-            <span id="location" class="text-body">Detecting location...</span>
-            <small id="currentDate">Loading date...</small>
-        </div>
-    </header>
+    <!-- Weather, Location, and Date -->
+    <div class="weather-info">
+      <strong id="weather" class="fs-4 text-secondary">Loading...</strong>
+      <span id="location" class="text-body">Detecting location...</span>
+      <small id="currentDate">Loading date...</small>
+    </div>
+  </header>
 </div>
 
 <!-- JavaScript for live weather and date -->
 <script>
-    const apiKey = "905531ee3dd45fb93242bdeaced55660";
+  function updateDate() {
+    const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
+    const today = new Date().toLocaleDateString('en-US', options);
+    document.getElementById("currentDate").textContent = today;
+  }
 
-    function updateDate() {
-      const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
-      const today = new Date().toLocaleDateString('en-US', options);
-      document.getElementById("currentDate").textContent = today;
+  function updateLocationAndWeather() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async position => {
+        const { latitude, longitude } = position.coords;
+
+        try {
+          // Reverse Geocoding to get city name
+          const geoRes = await fetch(`https://geocode.maps.co/reverse?lat=${latitude}&lon=${longitude}`);
+          const geoData = await geoRes.json();
+          const city = geoData.address.city || geoData.address.town || geoData.address.state || "Unknown";
+          const country = geoData.address.country || "";
+
+          // Get weather from Open-Meteo
+          const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
+          const weatherData = await weatherRes.json();
+          const temperature = weatherData.current_weather.temperature;
+
+          document.getElementById("location").textContent = `${city}, ${country}`;
+          document.getElementById("weather").textContent = `${temperature}°C`;
+
+        } catch (error) {
+          console.error("Error:", error);
+          document.getElementById("weather").textContent = "Weather unavailable";
+          document.getElementById("location").textContent = "Location unavailable";
+        }
+
+      }, () => {
+        document.getElementById("weather").textContent = "Permission denied";
+        document.getElementById("location").textContent = "Location blocked";
+      });
+    } else {
+      document.getElementById("weather").textContent = "No GPS";
+      document.getElementById("location").textContent = "Unsupported browser";
     }
+  }
 
-    function updateLocationAndWeather() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(async position => {
-          const { latitude, longitude } = position.coords;
-          try {
-            const url = `https://api.weatherstack.com/current?access_key=${apiKey}&query=${latitude},${longitude}`;
-            const res = await fetch(url);
-            const data = await res.json();
-
-            if (!data.location) throw new Error("Weatherstack error");
-
-            const city = data.location.name;
-            const country = data.location.country;
-            const temperature = data.current.temperature;
-
-            document.getElementById("location").textContent = `${city}, ${country}`;
-            document.getElementById("weather").textContent = `${temperature}°C`;
-          } catch (error) {
-            document.getElementById("weather").textContent = "Weather unavailable";
-            document.getElementById("location").textContent = "Location unavailable";
-          }
-        }, () => {
-          document.getElementById("weather").textContent = "Permission denied";
-          document.getElementById("location").textContent = "Location blocked";
-        });
-      } else {
-        document.getElementById("weather").textContent = "No GPS";
-        document.getElementById("location").textContent = "Unsupported browser";
-      }
-    }
-
-    updateDate();
-    updateLocationAndWeather();
+  updateDate();
+  updateLocationAndWeather();
 </script>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:ital,wght@0,400;1,400&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:ital,wght@0,400;1,400&display=swap');
 
-    .header-bg {
-        background: #fff;
-        width: 100%;
-        padding: 1rem 0;
-        position: relative;
-        z-index: 1001;
-    }
+  .header-bg {
+    background: #fff;
+    width: 100%;
+    padding: 1rem 0;
+    position: relative;
+    z-index: 1001;
+  }
 
+  .header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .logo {
+    width: 60px;
+    height: auto;
+  }
+
+  .logo-text {
+    color: #000;
+  }
+
+  .site-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.05em;
+    color: #000;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  .site-tagline {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    font-style: italic;
+    margin: 0;
+    color: #333;
+    letter-spacing: 0.03em;
+  }
+
+  .weather-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-family: 'Open Sans', sans-serif;
+    text-align: right;
+    gap: 0.2rem;
+  }
+
+  #weather {
+    font-size: 1.1rem;
+    color: #333;
+  }
+
+  #location {
+    font-size: 0.95rem;
+    color: #666;
+  }
+
+  #currentDate {
+    font-size: 0.85rem;
+    color: #888;
+  }
+
+  @media (max-width: 768px) {
     .header-container {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 0 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-    }
-
-    .logo-container {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.8rem;
     }
 
     .logo {
-        width: 60px;
-        height: auto;
-    }
-
-    .logo-text {
-        color: #000;
+      width: 50px;
     }
 
     .site-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.6rem;
-        font-weight: 700;
-        margin: 0;
-        letter-spacing: 0.05em;
-        color: #000;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+      font-size: 1.3rem;
     }
 
     .site-tagline {
-        font-family: 'Open Sans', sans-serif;
-        font-size: 0.9rem;
-        font-weight: 400;
-        font-style: italic;
-        margin: 0;
-        color: #333;
-        letter-spacing: 0.03em;
+      font-size: 0.8rem;
     }
 
     .weather-info {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        font-family: 'Open Sans', sans-serif;
-        text-align: right;
-        gap: 0.2rem;
+      align-items: flex-start;
+      text-align: left;
     }
-
-    #weather {
-        font-size: 1.1rem;
-        color: #333;
-    }
-
-    #location {
-        font-size: 0.95rem;
-        color: #666;
-    }
-
-    #currentDate {
-        font-size: 0.85rem;
-        color: #888;
-    }
-
-    @media (max-width: 768px) {
-        .header-container {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 0.8rem;
-        }
-
-        .logo {
-            width: 50px;
-        }
-
-        .site-title {
-            font-size: 1.3rem;
-        }
-
-        .site-tagline {
-            font-size: 0.8rem;
-        }
-
-        .weather-info {
-            align-items: flex-start;
-            text-align: left;
-        }
-    }
+  }
 </style>
