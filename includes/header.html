@@ -5,6 +5,65 @@
             <div class="logo-text">
                 <h1 class="site-title">Think</h1>
                 <p class="site-tagline">Beyond The Headlines</p>
+                <!-- Display Elements -->
+<strong id="weather" class="fs-4 text-secondary">Loading...</strong>
+<span id="location" class="text-body">Detecting location...</span>
+<small id="currentDate">Loading date...</small>
+
+<script>
+  const apiKey = "905531ee3dd45fb93242bdeaced55660";
+
+  // Show current date
+  function updateDate() {
+    const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
+    const today = new Date().toLocaleDateString('en-US', options);
+    document.getElementById("currentDate").textContent = today;
+  }
+
+  // Get location and weather using Weatherstack
+  function updateLocationAndWeather() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async position => {
+        const { latitude, longitude } = position.coords;
+
+        try {
+          // Call Weatherstack API using lat/lon
+          const url = `https://api.weatherstack.com/current?access_key=${apiKey}&query=${latitude},${longitude}`;
+          const res = await fetch(url);
+          const data = await res.json();
+
+          if (data.success === false) {
+            throw new Error(data.error.info);
+          }
+
+          // Update location and temperature
+          const city = data.location.name;
+          const country = data.location.country;
+          const temperature = data.current.temperature;
+
+          document.getElementById("location").textContent = `${city}, ${country}`;
+          document.getElementById("weather").textContent = `${temperature}°C`;
+
+        } catch (error) {
+          console.error(error);
+          document.getElementById("weather").textContent = "Weather unavailable";
+          document.getElementById("location").textContent = "Location unavailable";
+        }
+      }, () => {
+        document.getElementById("weather").textContent = "Permission denied";
+        document.getElementById("location").textContent = "Location blocked";
+      });
+    } else {
+      document.getElementById("weather").textContent = "No GPS";
+      document.getElementById("location").textContent = "Unsupported browser";
+    }
+  }
+
+  // Run both on load
+  updateDate();
+  updateLocationAndWeather();
+</script>
+
             </div>
         </div>
     </header>
