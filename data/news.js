@@ -38,7 +38,7 @@ window.newsData = [
         "category": "Kuwait",
         "date": "2025-04-21",
         "time": "11:16 AM",
-        "image": "/images/news3.jpg",
+        "image": "/images/news4.jpg",
         "alt": "News",
         "excerpt": "Welcome Mr. Sunil Kumar Malluri....",
         "fullText": "All the best for new project."
