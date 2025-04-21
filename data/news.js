@@ -1,5 +1,17 @@
 window.newsData = [
     {
+        "id": "ind1",
+        "title": "Welcome to India news",
+        "category": "India",
+        "date": "2025-04-21",
+        "time": "10:47 AP",
+        "image": "/images/news1.jpg",
+        "alt": "News",
+        "excerpt": "All the best...",
+        "fullText": "Good luck."
+    },
+    
+    {
         "id": "ap1",
         "title": "AP GOVT: గుడ్‌న్యూస్.. ఆ జిల్లా ప్రజల కోరిక నెరవేర్చనున్న కూటమి సర్కార్",
         "category": "Andhra Pradesh",
