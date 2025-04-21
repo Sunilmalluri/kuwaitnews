@@ -38,7 +38,7 @@ window.newsData = [
         "category": "Kuwait",
         "date": "2025-04-21",
         "time": "01:46 PM",
-        "image": "/images/news5.jpg",
+        "image": "/images/news4.jpg",
         "alt": "News",
         "excerpt": "The Public Authority for Manpower is continuing its efforts to nationalize supervisory roles in hospitals....",
         "fullText": "The Public Authority for Manpower is continuing its efforts to nationalize supervisory roles in hospitals through the Ministry of Health's Kuwaitization Program. As part of this initiative, the authority is now accepting applications for positions in the "Hospital Nutrition Contracts," which focus on overseeing hospital cleaning staff."
