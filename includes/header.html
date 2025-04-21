@@ -8,15 +8,7 @@
       </div>
     </div>
 
-    <!-- Weather, Location, and Date -->
-    <div class="weather-info">
-      <strong id="weather" class="fs-4 text-secondary">Loading...</strong>
-      <span id="location" class="text-body">Detecting location...</span>
-      <small id="currentDate">Loading date...</small>
-    </div>
-  </header>
-</div>
-
+    
 <!-- JavaScript for live weather and date -->
 <script>
   function updateDate() {
@@ -121,30 +113,7 @@
     letter-spacing: 0.03em;
   }
 
-  .weather-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    font-family: 'Open Sans', sans-serif;
-    text-align: right;
-    gap: 0.2rem;
-  }
-
-  #weather {
-    font-size: 1.1rem;
-    color: #333;
-  }
-
-  #location {
-    font-size: 0.95rem;
-    color: #666;
-  }
-
-  #currentDate {
-    font-size: 0.85rem;
-    color: #888;
-  }
-
+  
   @media (max-width: 768px) {
     .header-container {
       flex-direction: column;
@@ -164,9 +133,4 @@
       font-size: 0.8rem;
     }
 
-    .weather-info {
-      align-items: flex-start;
-      text-align: left;
-    }
-  }
-</style>
+  
