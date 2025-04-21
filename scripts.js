@@ -1,5 +1,3 @@
-scripts.js
-
 async function loadComponent(url, targetElement, position = 'beforeend') {
     try {
         const response = await fetch(url);
