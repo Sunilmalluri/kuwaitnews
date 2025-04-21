@@ -49,18 +49,20 @@ async function renderNews(category = null) {
 
     newsContainer.innerHTML = articles.map(article => `
         <article class="news-card" id="${article.id}">
-            <img src="${article.image}" alt="${article.alt}" class="news-image">
-            <div class="news-body">
-                <h3 class="news-title">${article.title}</h3>
-                <div class="news-meta">
-                    <span><i class="far fa-calendar-alt"></i> ${article.date}</span>
-                    <span><i class="far fa-clock"></i> ${article.time}</span>
+            <div class="news-preview">
+                <img src="${article.image}" alt="${article.alt}" class="news-image">
+                <div class="news-body">
+                    <h3 class="news-title">${article.title}</h3>
+                    <div class="news-meta">
+                        <span><i class="far fa-calendar-alt"></i> ${article.date}</span>
+                        <span><i class="far fa-clock"></i> ${article.time}</span>
+                    </div>
+                    <p class="news-excerpt">${article.excerpt}</p>
+                    <div class="full-text">
+                        <p>${article.fullText}</p>
+                    </div>
+                    <a href="#" class="read-more" onclick="toggleReadMore('${article.id}')">మరిన్ని చదవండి <i class="fas fa-arrow-right"></i></a>
                 </div>
-                <p class="news-excerpt">${article.excerpt}</p>
-                <div class="full-text">
-                    <p>${article.fullText}</p>
-                </div>
-                <a href="#" class="read-more" onclick="toggleReadMore('${article.id}')">మరిన్ని చదవండి <i class="fas fa-arrow-right"></i></a>
             </div>
         </article>
     `).join('');
@@ -73,10 +75,10 @@ async function loadCommonComponents() {
 
         document.body.insertAdjacentHTML('afterbegin', `<div class="top-wrapper"></div>`);
 
-        const headerLoaded = await loadComponent('/includes/header.html', '.top-wrapper');
+        const headerLoaded = await loadComponent('/kuwaitnews/includes/header.html', '.top-wrapper');
         if (!headerLoaded) throw new Error('Header failed to load');
 
-        const navLoaded = await loadComponent('/includes/navigation.html', '.top-wrapper');
+        const navLoaded = await loadComponent('/kuwaitnews/includes/navigation.html', '.top-wrapper');
         if (!navLoaded) throw new Error('Navigation failed to load');
 
         const menuBtn = document.querySelector('.menu-btn');
