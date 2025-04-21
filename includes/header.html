@@ -9,53 +9,6 @@
     </div>
 
     
-<!-- JavaScript for live weather and date -->
-<script>
-  function updateDate() {
-    const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
-    const today = new Date().toLocaleDateString('en-US', options);
-    document.getElementById("currentDate").textContent = today;
-  }
-
-  function updateLocationAndWeather() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async position => {
-        const { latitude, longitude } = position.coords;
-
-        try {
-          // Reverse Geocoding to get city name
-          const geoRes = await fetch(`https://geocode.maps.co/reverse?lat=${latitude}&lon=${longitude}`);
-          const geoData = await geoRes.json();
-          const city = geoData.address.city || geoData.address.town || geoData.address.state || "Unknown";
-          const country = geoData.address.country || "";
-
-          // Get weather from Open-Meteo
-          const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
-          const weatherData = await weatherRes.json();
-          const temperature = weatherData.current_weather.temperature;
-
-          document.getElementById("location").textContent = `${city}, ${country}`;
-          document.getElementById("weather").textContent = `${temperature}°C`;
-
-        } catch (error) {
-          console.error("Error:", error);
-          document.getElementById("weather").textContent = "Weather unavailable";
-          document.getElementById("location").textContent = "Location unavailable";
-        }
-
-      }, () => {
-        document.getElementById("weather").textContent = "Permission denied";
-        document.getElementById("location").textContent = "Location blocked";
-      });
-    } else {
-      document.getElementById("weather").textContent = "No GPS";
-      document.getElementById("location").textContent = "Unsupported browser";
-    }
-  }
-
-  updateDate();
-  updateLocationAndWeather();
-</script>
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:ital,wght@0,400;1,400&display=swap');
