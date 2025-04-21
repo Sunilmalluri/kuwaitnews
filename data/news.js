@@ -34,13 +34,13 @@ window.newsData = [
     },
     {
         "id": "ku1",
-        "title": "పుట్టింటి నుంచి ఆలస్యంగా వచ్చిందని.....",
+        "title": "Kuwaitis Aged 18-35 Invited To Apply For Health Ministry Supervisory Jobs.....",
         "category": "Kuwait",
         "date": "2025-04-21",
-        "time": "11:30 AM",
-        "image": "/images/news4.jpg",
+        "time": "01:46 PM",
+        "image": "/images/news5.jpg",
         "alt": "News",
-        "excerpt": "అనుమానం పెనుభూతంగా మారింది. భార్య ఒక్కరోజు పుట్టింటి నుంచి ఆలస్యంగా వచ్చినందుకు మరింత అనుమానం పెంచుకున్నాడు భర్త. భార్యను అత్యంత దారుణంగా....",
-        "fullText": "అనుమానం పెనుభూతంగా మారింది. భార్య ఒక్కరోజు పుట్టింటి నుంచి ఆలస్యంగా వచ్చినందుకు మరింత అనుమానం పెంచుకున్నాడు భర్త. భార్యను అత్యంత దారుణంగా గొంతుమీద కాలుపెట్టి నులిమి హత్యచేశాడు. ఈ ఘటన ఆదివారం రాత్రి 2 గంటల సమయంలో ఒంగోలు కార్పొరేషన్‌ పరిధిలోని పేర్నమిట్టలో జరిగింది. వివరాలలోకి వెళితే పేర్నమిట్ట చెందిన దారా నవీన్‌ టంగుటూరు మండలం జమ్ములపాలెంనకు చెందిన శ్రావణిని పదేళ్ల క్రితం వివాహం చేసుకున్నాడు."
+        "excerpt": "The Public Authority for Manpower is continuing its efforts to nationalize supervisory roles in hospitals....",
+        "fullText": "The Public Authority for Manpower is continuing its efforts to nationalize supervisory roles in hospitals through the Ministry of Health's Kuwaitization Program. As part of this initiative, the authority is now accepting applications for positions in the "Hospital Nutrition Contracts," which focus on overseeing hospital cleaning staff."
     }
 ];
