@@ -5,7 +5,7 @@ window.newsData = [
         "category": "India",
         "date": "2025-04-21",
         "time": "10:47 AM",
-        "image": "/images/news1.jpg",
+        "image": "/images/news10.jpg",
         "alt": "News",
         "excerpt": "All the best...",
         "fullText": "Good luck."
