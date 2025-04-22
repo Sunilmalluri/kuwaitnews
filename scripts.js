@@ -161,25 +161,3 @@ async function loadCommonComponents() {
                 });
             }
         });
-
-        // Render news based on page
-        const pageCategory = document.body.dataset.category || null;
-        renderNews(pageCategory);
-    } catch (error) {
-        console.error('Error in loadCommonComponents:', error);
-    }
-}
-
-const style = document.createElement('style');
-style.textContent = `
-    .top-wrapper {
-        width: 100%;
-        position: relative;
-        z-index: 1000;
-    }
-`;
-document.head.appendChild(style);
-
-document.addEventListener('DOMContentLoaded', () => {
-    loadCommonComponents();
-});
