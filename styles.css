@@ -2,7 +2,7 @@
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem; /* Increased padding for left/right space */
+    padding: 0 2rem; /* Left/right padding only */
 }
 
 /* News Grid and Card Styles */
@@ -11,20 +11,20 @@
     flex-direction: column;
     gap: 1.5rem;
     margin: 0 auto;
-    max-width: 1200px; /* Center content with space on sides */
-    padding: 1rem;
+    max-width: 1200px;
+    padding: 0.5rem 0; /* Minimal top/bottom padding */
 }
 
 .news-card {
     display: flex;
     flex-direction: row;
+    align-items: flex-start; /* Align image and content tops */
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.2s ease;
-    --content-height: 150px; /* Default min height for short articles */
 }
 
 .news-card:hover {
@@ -37,7 +37,7 @@
 
 .news-image-wrapper {
     flex: 0 0 100px;
-    min-height: var(--content-height); /* Scale with content height */
+    padding-top: 1rem; /* Match news-content padding for headline alignment */
     transition: flex 0.3s ease, max-height 0.3s ease;
 }
 
@@ -45,19 +45,18 @@
     flex: 0 0 auto;
     max-width: 600px; /* Larger images when expanded */
     max-height: 400px; /* Prevent overly tall images */
-    min-height: var(--content-height);
+    padding-top: 1rem;
 }
 
 .news-image {
     width: 100%;
-    height: auto;
+    height: 100%; /* Fill wrapper in preview */
     object-fit: contain; /* Show full image without cropping */
 }
 
 .news-content {
     flex: 1;
     padding: 1rem;
-    min-height: var(--content-height); /* Ensure content height drives image */
 }
 
 .news-title {
@@ -76,7 +75,7 @@
 }
 
 .news-card.preview .news-meta {
-    display: none; /* Hide date/time in preview mode */
+    display: none; /* Hide date/time in preview */
 }
 
 .news-card.expanded .news-meta {
@@ -133,27 +132,28 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
-        padding: 1rem; /* Slightly less padding on mobile */
+        padding: 0 1rem; /* Left/right padding on mobile */
     }
 
     .news-grid {
-        padding: 0.5rem;
+        padding: 0.5rem 0;
     }
 
     .news-card {
         flex-direction: column;
+        align-items: stretch; /* Reset alignment for mobile */
     }
 
     .news-image-wrapper {
         flex: 0 0 auto;
         height: 150px;
-        min-height: 0; /* Override content-based height */
+        padding-top: 0; /* No padding needed above image */
     }
 
     .news-image-wrapper.expanded {
         height: auto;
-        max-width: 100%; /* Full width on mobile */
-        max-height: 300px; /* Limit height on mobile */
+        max-width: 100%;
+        max-height: 300px;
     }
 
     .news-image {
@@ -163,7 +163,6 @@
 
     .news-content {
         padding: 0.5rem;
-        min-height: 0; /* Reset for mobile */
     }
 
     .news-title {
