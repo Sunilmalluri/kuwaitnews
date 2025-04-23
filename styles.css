@@ -1,1 +1,131 @@
+/* News Grid and Card Styles */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
 
+.news-card {
+    display: flex;
+    flex-direction: row;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.news-card:hover {
+    transform: translateY(-2px);
+}
+
+.news-card:focus {
+    outline: 2px solid #007bff;
+}
+
+.news-image-wrapper {
+    flex: 0 0 100px;
+    transition: flex 0.3s ease;
+}
+
+.news-image-wrapper.expanded {
+    flex: 0 0 200px;
+}
+
+.news-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.news-content {
+    flex: 1;
+    padding: 1rem;
+}
+
+.news-title {
+    font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem;
+    color: #333;
+}
+
+.news-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.news-meta i {
+    margin-right: 0.3rem;
+}
+
+.news-excerpt {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 1rem;
+    color: #444;
+    margin: 0 0 0.5rem;
+}
+
+.full-text {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.6;
+}
+
+.full-text p {
+    margin: 0 0 0.5rem;
+}
+
+.full-text ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+}
+
+.full-text li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.full-text li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #007bff;
+    font-size: 1.2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .news-card {
+        flex-direction: column;
+    }
+
+    .news-image-wrapper {
+        flex: 0 0 auto;
+        height: 150px;
+    }
+
+    .news-image-wrapper.expanded {
+        height: 250px;
+    }
+
+    .news-content {
+        padding: 0.5rem;
+    }
+
+    .news-title {
+        font-size: 1.1rem;
+    }
+
+    .news-excerpt, .full-text {
+        font-size: 0.95rem;
+    }
+}
