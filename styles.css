@@ -2,7 +2,7 @@
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 10rem; /* Left/right padding only */
+    padding: 0 2rem; /* Left/right padding only */
 }
 
 /* News Grid and Card Styles */
@@ -129,6 +129,67 @@
     font-size: 1.2rem;
 }
 
+/* Social Share Buttons */
+.social-share {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    justify-content: flex-start;
+}
+
+.social-share.full-view {
+    display: none; /* Hide duplicate in preview mode */
+}
+
+.news-card.expanded .social-share.full-view {
+    display: flex; /* Show in expanded mode */
+}
+
+.share-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: #f0f0f0;
+    color: #333;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.share-btn:hover {
+    transform: scale(1.1);
+}
+
+.share-btn:focus {
+    outline: 2px solid #007bff;
+}
+
+.share-btn i {
+    font-size: 1.5rem;
+}
+
+.share-btn.whatsapp {
+    background: #25D366;
+    color: #fff;
+}
+
+.share-btn.facebook {
+    background: #4267B2;
+    color: #fff;
+}
+
+.share-btn.twitter {
+    background: #000000;
+    color: #fff;
+}
+
+.share-btn.telegram {
+    background: #0088cc;
+    color: #fff;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
@@ -171,5 +232,19 @@
 
     .news-excerpt, .full-text {
         font-size: 0.95rem;
+    }
+
+    .social-share {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .share-btn {
+        width: 1.8rem;
+        height: 1.8rem;
+    }
+
+    .share-btn i {
+        font-size: 1.2rem;
     }
 }
