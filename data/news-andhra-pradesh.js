@@ -1,7 +1,7 @@
 window.newsData = [
         {
         "id": "ap3",
-        "title": "Pawan Kalyan: ఉగ్రవాద దాడికి నిరసనగా జనసేన సంతాప దినాలుు",
+        "title": "Pawan Kalyan: ఉగ్రవాద దాడికి నిరసనగా జనసేన సంతాప దినాలు",
         "category": "Andhra Pradesh",
         "date": "2025-04-23",
         "time": "09:50 AM",
