@@ -18,7 +18,7 @@ async function fetchNews(category = null, retries = 3, delay = 100) {
         try {
             if (typeof window.newsData === 'undefined' || !Array.isArray(window.newsData)) {
                 if (i === retries - 1) {
-                    throw new Error('newsData is not defined or not an array after retries. Ensure news-telangana.js is loaded.');
+                    throw new Error('newsData is not defined or not an array after retries. Ensure the news data file is loaded.');
                 }
                 await new Promise(resolve => setTimeout(resolve, delay));
                 continue;
@@ -47,35 +47,50 @@ async function renderNews(category = null) {
         return;
     }
 
-    newsContainer.innerHTML = articles.map(article => `
-        <article class="news-card" id="${article.id}">
-            <img src="${article.image}" alt="${article.alt}" class="news-image">
-            <div class="news-body">
-                <h3 class="news-title">${article.title}</h3>
-                <div class="news-meta">
-                    <span><i class="far fa-calendar-alt"></i> ${article.date}</span>
-                    <span><i class="far fa-clock"></i> ${article.time}</span>
+    newsContainer.innerHTML = articles.map(article => {
+        // Convert markdown bullets to HTML list
+        const fullText = article.fullText
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/\n- /g, '</li><li>')
+            .replace(/\n/g, ' ')
+            .replace(/<li>/, '<ul><li>')
+            .replace(/<\/li>$/, '</li></ul>')
+            .replace(/^/, '<p>')
+            .replace(/$/, '</p>');
+        return `
+            <article class="news-card" id="${article.id}" tabindex="0" aria-expanded="false">
+                <div class="news-image-wrapper">
+                    <img src="${article.image}" alt="${article.alt}" class="news-image">
                 </div>
-                <p class="news-excerpt">${article.excerpt}</p>
-                <div class="full-text">
-                    <p>${article.fullText}</p>
+                <div class="news-content">
+                    <h3 class="news-title">${article.title}</h3>
+                    <div class="news-meta">
+                        <span><i class="far fa-calendar-alt"></i> ${article.date}</span>
+                        <span><i class="far fa-clock"></i> ${article.time}</span>
+                    </div>
+                    <p class="news-excerpt">${article.excerpt}</p>
+                    <div class="full-text">${fullText}</div>
                 </div>
-                <a href="#" class="read-more" onclick="toggleReadMore('${article.id}')">మరిన్ని చదవండి <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </article>
-    `).join('');
-}
+            </article>
+        `;
+    }).join('');
 
-function toggleReadMore(articleId) {
-    const article = document.getElementById(articleId);
-    const fullText = article.querySelector('.full-text');
-    const readMoreLink = article.querySelector('.read-more');
-    const isExpanded = fullText.style.display === 'block';
-
-    fullText.style.display = isExpanded ? 'none' : 'block';
-    readMoreLink.innerHTML = isExpanded
-        ? `మరిన్ని చదవండి <i class="fas fa-arrow-right"></i>`
-        : `తక్కువ చూడండి <i class="fas fa-arrow-up"></i>`;
+    // Add click event to toggle full text
+    document.querySelectorAll('.news-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const fullText = card.querySelector('.full-text');
+            const isExpanded = card.getAttribute('aria-expanded') === 'true';
+            fullText.style.display = isExpanded ? 'none' : 'block';
+            card.setAttribute('aria-expanded', !isExpanded);
+            // Toggle image size class
+            const imageWrapper = card.querySelector('.news-image-wrapper');
+            if (isExpanded) {
+                imageWrapper.classList.remove('expanded');
+            } else {
+                imageWrapper.classList.add('expanded');
+            }
+        });
+    });
 }
 
 async function loadCommonComponents() {
