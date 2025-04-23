@@ -2,7 +2,7 @@
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 3rem; /* Increased padding for left/right space */
+    padding: 6rem; /* Increased padding for left/right space */
 }
 
 /* News Grid and Card Styles */
