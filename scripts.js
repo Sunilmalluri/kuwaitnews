@@ -82,9 +82,6 @@ async function renderNews(category = null) {
             card.classList.toggle('preview', isExpanded);
             card.classList.toggle('expanded', !isExpanded);
             imageWrapper.classList.toggle('expanded', !isExpanded);
-            // Dynamically set --content-height based on news-content height
-            const contentHeight = card.querySelector('.news-content').offsetHeight;
-            card.style.setProperty('--content-height', `${contentHeight}px`);
         });
     });
 }
