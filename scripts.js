@@ -54,6 +54,25 @@ async function renderNews(category = null) {
             .replace(/<\/li>$/, '</li></ul>')
             .replace(/^/, '<p>')
             .replace(/$/, '</p>');
+        const articleUrl = `${window.location.origin}/news/andhra-pradesh.html#${article.id}`;
+        const encodedTitle = encodeURIComponent(article.title);
+        const encodedUrl = encodeURIComponent(articleUrl);
+        const socialShare = `
+            <div class="social-share">
+                <a href="https://wa.me/?text=${encodedTitle}%20${encodedUrl}" class="share-btn whatsapp" target="_blank" aria-label="Share on WhatsApp" tabindex="0">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" class="share-btn facebook" target="_blank" aria-label="Share on Facebook" tabindex="0">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}" class="share-btn twitter" target="_blank" aria-label="Share on Twitter" tabindex="0">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
+                <a href="https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}" class="share-btn telegram" target="_blank" aria-label="Share on Telegram" tabindex="0">
+                    <i class="fab fa-telegram-plane"></i>
+                </a>
+            </div>
+        `;
         return `
             <article class="news-card preview" id="${article.id}" tabindex="0" aria-expanded="false">
                 <div class="news-image-wrapper">
@@ -66,7 +85,9 @@ async function renderNews(category = null) {
                         <span><i class="far fa-clock"></i> ${article.time}</span>
                     </div>
                     <p class="news-excerpt">${article.excerpt}</p>
+                    ${socialShare}
                     <div class="full-text">${fullText}</div>
+                    <div class="social-share full-view">${socialShare}</div>
                 </div>
             </article>
         `;
