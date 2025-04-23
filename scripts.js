@@ -18,12 +18,11 @@ async function fetchNews(category = null, retries = 3, delay = 100) {
         try {
             if (typeof window.newsData === 'undefined' || !Array.isArray(window.newsData)) {
                 if (i === retries - 1) {
-                    throw new Error('newsData is not defined or not an array after retries. Ensure the news data file is loaded.');
+                    throw new Error('newsData is not defined or not an array after retries.');
                 }
                 await new Promise(resolve => setTimeout(resolve, delay));
                 continue;
             }
-            console.log('Fetched news data:', window.newsData);
             return category ? window.newsData.filter(article => article.category === category) : window.newsData;
         } catch (error) {
             console.error('Error fetching news:', error.message);
@@ -41,14 +40,12 @@ async function renderNews(category = null) {
     }
 
     const articles = await fetchNews(category);
-    console.log('Articles to render:', articles);
     if (articles.length === 0) {
         newsContainer.innerHTML = '<p>వార్తలు అందుబాటులో లేవు.</p>';
         return;
     }
 
     newsContainer.innerHTML = articles.map(article => {
-        // Convert markdown bullets to HTML list
         const fullText = article.fullText
             .replace(/\n\n/g, '</p><p>')
             .replace(/\n- /g, '</li><li>')
@@ -58,9 +55,9 @@ async function renderNews(category = null) {
             .replace(/^/, '<p>')
             .replace(/$/, '</p>');
         return `
-            <article class="news-card" id="${article.id}" tabindex="0" aria-expanded="false">
+            <article class="news-card preview" id="${article.id}" tabindex="0" aria-expanded="false">
                 <div class="news-image-wrapper">
-                    <img src="${article.image}" alt="${article.alt}" class="news-image">
+                    <img src="${article.image}" alt="${article.alt}" class="news-image" loading="lazy">
                 </div>
                 <div class="news-content">
                     <h3 class="news-title">${article.title}</h3>
@@ -75,20 +72,19 @@ async function renderNews(category = null) {
         `;
     }).join('');
 
-    // Add click event to toggle full text
     document.querySelectorAll('.news-card').forEach(card => {
         card.addEventListener('click', () => {
             const fullText = card.querySelector('.full-text');
+            const imageWrapper = card.querySelector('.news-image-wrapper');
             const isExpanded = card.getAttribute('aria-expanded') === 'true';
             fullText.style.display = isExpanded ? 'none' : 'block';
             card.setAttribute('aria-expanded', !isExpanded);
-            // Toggle image size class
-            const imageWrapper = card.querySelector('.news-image-wrapper');
-            if (isExpanded) {
-                imageWrapper.classList.remove('expanded');
-            } else {
-                imageWrapper.classList.add('expanded');
-            }
+            card.classList.toggle('preview', isExpanded);
+            card.classList.toggle('expanded', !isExpanded);
+            imageWrapper.classList.toggle('expanded', !isExpanded);
+            // Dynamically set --content-height based on news-content height
+            const contentHeight = card.querySelector('.news-content').offsetHeight;
+            card.style.setProperty('--content-height', `${contentHeight}px`);
         });
     });
 }
@@ -189,7 +185,6 @@ async function loadCommonComponents() {
             }
         });
 
-        // Render news based on page
         const pageCategory = document.body.dataset.category || null;
         renderNews(pageCategory);
     } catch (error) {
@@ -203,9 +198,6 @@ style.textContent = `
         width: 100%;
         position: relative;
         z-index: 1000;
-    }
-    .full-text {
-        display: none;
     }
 `;
 document.head.appendChild(style);
