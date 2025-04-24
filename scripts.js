@@ -85,9 +85,8 @@ async function renderNews(category = null) {
                         <span><i class="far fa-clock"></i> ${article.time}</span>
                     </div>
                     <p class="news-excerpt">${article.excerpt}</p>
-                    ${socialShare}
                     <div class="full-text">${fullText}</div>
-                    <div class="social-share full-view">${socialShare}</div>
+                    ${socialShare}
                 </div>
             </article>
         `;
