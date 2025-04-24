@@ -179,10 +179,14 @@ async function loadCommonComponents() {
             };
 
             const updateStickyNav = () => {
-                const headerHeight = header.getBoundingClientRect().height;
-                const navHeight = navContainer.getBoundingClientRect().height;
+                const headerStyle = getComputedStyle(header);
+                const navStyle = getComputedStyle(navContainer);
+                const headerHeight = header.offsetHeight - parseFloat(headerStyle.marginTop) - parseFloat(headerStyle.marginBottom);
+                const navHeight = navContainer.offsetHeight - parseFloat(navStyle.marginTop) - parseFloat(navStyle.marginBottom);
                 navPlaceholder.style.height = `${headerHeight + navHeight}px`;
                 console.log('Header height:', headerHeight, 'Nav height:', navHeight, 'Placeholder height:', headerHeight + navHeight);
+                console.log('Header margin:', headerStyle.marginTop, headerStyle.marginBottom);
+                console.log('Nav margin:', navStyle.marginTop, navStyle.marginBottom);
                 if (window.scrollY >= headerHeight) {
                     navContainer.classList.add('sticky');
                 } else {
