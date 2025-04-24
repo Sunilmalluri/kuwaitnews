@@ -13,7 +13,7 @@ async function loadComponent(url, targetElement, position = 'beforeend') {
     }
 }
 
-async function fetchNews(category = null, retries = 3, delay = 100) {
+async function fetchNews(category = null, subCategory = null, retries = 3, delay = 100) {
     for (let i = 0; i < retries; i++) {
         try {
             if (typeof window.newsData === 'undefined' || !Array.isArray(window.newsData)) {
@@ -23,7 +23,14 @@ async function fetchNews(category = null, retries = 3, delay = 100) {
                 await new Promise(resolve => setTimeout(resolve, delay));
                 continue;
             }
-            return category ? window.newsData.filter(article => article.category === category) : window.newsData;
+            let filteredData = window.newsData;
+            if (category) {
+                filteredData = filteredData.filter(article => article.category === category);
+            }
+            if (subCategory && subCategory !== 'All') {
+                filteredData = filteredData.filter(article => article.subCategory === subCategory);
+            }
+            return filteredData;
         } catch (error) {
             console.error('Error fetching news:', error.message);
             return [];
@@ -32,14 +39,14 @@ async function fetchNews(category = null, retries = 3, delay = 100) {
     return [];
 }
 
-async function renderNews(category = null) {
+async function renderNews(category = null, subCategory = null) {
     const newsContainer = document.querySelector('.news-grid');
     if (!newsContainer) {
         console.error('News container (.news-grid) not found');
         return;
     }
 
-    const articles = await fetchNews(category);
+    const articles = await fetchNews(category, subCategory);
     if (articles.length === 0) {
         newsContainer.innerHTML = '<p>వార్తలు అందుబాటులో లేవు.</p>';
         return;
@@ -54,7 +61,7 @@ async function renderNews(category = null) {
             .replace(/<\/li>$/, '</li></ul>')
             .replace(/^/, '<p>')
             .replace(/$/, '</p>');
-        const articleUrl = `${window.location.origin}/news/andhra-pradesh.html#${article.id}`;
+        const articleUrl = `${window.location.origin}${window.location.pathname}#${article.id}`;
         const encodedTitle = encodeURIComponent(article.title);
         const encodedUrl = encodeURIComponent(articleUrl);
         const socialShare = `
@@ -66,9 +73,7 @@ async function renderNews(category = null) {
                     <i class="fab fa-facebook-f"></i>
                 </a>
                 <a href="https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}" class="share-btn twitter" target="_blank" aria-label="Share on Twitter" tabindex="0">
-                    <svg class="x-icon" viewBox="0 0 24 24" width="1rem" height="1rem" fill="currentColor">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-</svg>
+                    <i class="fab fa-x-twitter"></i>
                 </a>
                 <a href="https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}" class="share-btn telegram" target="_blank" aria-label="Share on Telegram" tabindex="0">
                     <i class="fab fa-telegram-plane"></i>
@@ -123,7 +128,7 @@ async function loadCommonComponents() {
 
         const menuBtn = document.querySelector('.menu-btn');
         const navMenuToggle = document.querySelector('.nav-menu-toggle');
-        if (menuBtn && navMenuToggle) {
+        if (menuBtn && navMenuToggle && window.innerWidth < 769) {
             menuBtn.addEventListener('click', () => {
                 const isActive = navMenuToggle.classList.toggle('active');
                 menuBtn.setAttribute('aria-expanded', isActive);
@@ -134,36 +139,6 @@ async function loadCommonComponents() {
                     });
                 }
             });
-
-            if (window.innerWidth >= 769) {
-                menuBtn.addEventListener('mouseenter', () => {
-                    navMenuToggle.classList.add('active');
-                    menuBtn.setAttribute('aria-expanded', 'true');
-                    menuBtn.innerHTML = '<i class="fas fa-times"></i>';
-                    document.querySelectorAll('.nav-menu-horizontal .dropdown').forEach(dropdown => {
-                        dropdown.classList.remove('open');
-                    });
-                });
-
-                menuBtn.addEventListener('mouseleave', () => {
-                    if (!navMenuToggle.classList.contains('active')) {
-                        navMenuToggle.classList.remove('active');
-                        menuBtn.setAttribute('aria-expanded', 'false');
-                        menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                    }
-                });
-
-                navMenuToggle.addEventListener('mouseleave', () => {
-                    if (!menuBtn.matches(':hover')) {
-                        navMenuToggle.classList.remove('active');
-                        menuBtn.setAttribute('aria-expanded', 'false');
-                        menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                        document.querySelectorAll('.nav-menu-toggle .dropdown').forEach(dropdown => {
-                            dropdown.classList.remove('open');
-                        });
-                    }
-                });
-            }
         }
 
         const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
@@ -178,23 +153,9 @@ async function loadCommonComponents() {
                         }
                     });
                     dropdown.classList.toggle('open');
-                    if (dropdown.closest('.nav-menu-horizontal') && dropdown.classList.contains('open')) {
-                        navMenuToggle.classList.remove('active');
-                        menuBtn.setAttribute('aria-expanded', 'false');
-                        menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                    }
                 }
             });
         });
-
-        if (window.innerWidth >= 769) {
-            const horizontalDropdowns = document.querySelectorAll('.nav-menu-horizontal .dropdown');
-            horizontalDropdowns.forEach(dropdown => {
-                dropdown.addEventListener('mouseleave', () => {
-                    dropdown.classList.remove('open');
-                });
-            });
-        }
 
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.dropdown') && !e.target.closest('.menu-btn')) {
@@ -204,8 +165,30 @@ async function loadCommonComponents() {
             }
         });
 
+        // Sticky navigation logic
+        const navContainer = document.querySelector('.nav-container');
+        const navPlaceholder = document.querySelector('.nav-placeholder');
+        const header = document.querySelector('.top-wrapper > :first-child'); // Assumes header is first child
+        if (navContainer && navPlaceholder && header) {
+            const headerHeight = header.offsetHeight;
+            const navHeight = navContainer.offsetHeight;
+            navPlaceholder.style.height = `${headerHeight + navHeight}px`;
+
+            const toggleStickyNav = () => {
+                if (window.scrollY >= headerHeight) {
+                    navContainer.classList.add('sticky');
+                } else {
+                    navContainer.classList.remove('sticky');
+                }
+            };
+
+            window.addEventListener('scroll', toggleStickyNav);
+            toggleStickyNav(); // Initial check
+        }
+
         const pageCategory = document.body.dataset.category || null;
-        renderNews(pageCategory);
+        const pageSubCategory = document.body.dataset.subcategory || null;
+        renderNews(pageCategory, pageSubCategory);
     } catch (error) {
         console.error('Error in loadCommonComponents:', error);
     }
