@@ -50,6 +50,8 @@
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         overflow: visible;
         margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
     .nav-container.sticky {
@@ -61,6 +63,9 @@
     .nav-placeholder {
         width: 100%;
         margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background: rgba(255, 0, 0, 0.1); /* Debug: Remove after testing */
     }
 
     nav {
@@ -68,6 +73,7 @@
         margin: 0 auto;
         padding: 0 1rem;
         position: relative;
+        box-sizing: border-box;
     }
 
     .menu-wrapper {
@@ -75,9 +81,10 @@
         align-items: center;
         background: linear-gradient(to right, hsl(0, 0%, 25%), hsl(210, 10%, 35%));
         padding: 0.3rem 0;
-        min-height: 16px;
+        min-height: 16px; /* Changed per your update */
         width: 100%;
         margin: 0;
+        box-sizing: border-box;
     }
 
     .menu-btn {
@@ -88,6 +95,7 @@
         color: #ffffff;
         padding: 0.4rem;
         margin-right: 0.5rem;
+        box-sizing: border-box;
     }
 
     .nav-menu-horizontal,
@@ -96,6 +104,7 @@
         margin: 0;
         padding: 0;
         background: transparent;
+        box-sizing: border-box;
     }
 
     .nav-link {
@@ -108,6 +117,7 @@
         display: block;
         border-radius: 4px;
         white-space: nowrap;
+        box-sizing: border-box;
     }
 
     .nav-link:hover,
@@ -117,6 +127,7 @@
 
     .dropdown {
         position: relative;
+        box-sizing: border-box;
     }
 
     .dropdown-toggle {
@@ -137,6 +148,7 @@
         opacity: 0;
         transform: translateY(-5px);
         transition: opacity 0.2s ease, transform 0.2s ease;
+        box-sizing: border-box;
     }
 
     .dropdown.open .dropdown-menu {
@@ -214,9 +226,10 @@
             z-index: 1001;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             position: absolute;
-            top: 16px; /* Align below .menu-wrapper */
+            top: 16px; /* Align below .menu-wrapper (changed from 36px) */
             left: 0;
             background: linear-gradient(to right, hsl(0, 0%, 25%), hsl(210, 10%, 35%));
+            box-sizing: border-box;
         }
 
         .nav-menu-toggle.active {
