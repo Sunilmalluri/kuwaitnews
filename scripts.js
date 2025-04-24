@@ -66,7 +66,7 @@ async function renderNews(category = null) {
                     <i class="fab fa-facebook-f"></i>
                 </a>
                 <a href="https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}" class="share-btn twitter" target="_blank" aria-label="Share on Twitter" tabindex="0">
-                    <i class="fab fa-x-twitter"></i>
+                    <i class="fab fa-twitter"></i>
                 </a>
                 <a href="https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}" class="share-btn telegram" target="_blank" aria-label="Share on Telegram" tabindex="0">
                     <i class="fab fa-telegram-plane"></i>
