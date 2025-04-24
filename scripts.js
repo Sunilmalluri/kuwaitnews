@@ -168,13 +168,12 @@ async function loadCommonComponents() {
         // Sticky navigation logic
         const navContainer = document.querySelector('.nav-container');
         const navPlaceholder = document.querySelector('.nav-placeholder');
-        const header = document.querySelector('.top-wrapper > :first-child'); // Assumes header is first child
+        const header = document.querySelector('.header-bg');
         if (navContainer && navPlaceholder && header) {
-            const headerHeight = header.offsetHeight;
-            const navHeight = navContainer.offsetHeight;
-            navPlaceholder.style.height = `${headerHeight + navHeight}px`;
-
-            const toggleStickyNav = () => {
+            const updateStickyNav = () => {
+                const headerHeight = header.offsetHeight;
+                const navHeight = navContainer.offsetHeight;
+                navPlaceholder.style.height = `${headerHeight + navHeight}px`;
                 if (window.scrollY >= headerHeight) {
                     navContainer.classList.add('sticky');
                 } else {
@@ -182,8 +181,9 @@ async function loadCommonComponents() {
                 }
             };
 
-            window.addEventListener('scroll', toggleStickyNav);
-            toggleStickyNav(); // Initial check
+            window.addEventListener('scroll', updateStickyNav);
+            window.addEventListener('resize', updateStickyNav); // Handle resize
+            updateStickyNav(); // Initial check
         }
 
         const pageCategory = document.body.dataset.category || null;
