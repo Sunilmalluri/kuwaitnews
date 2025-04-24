@@ -1,3 +1,4 @@
+<div class="nav-placeholder"></div>
 <div class="nav-container">
     <nav>
         <div class="menu-wrapper">
@@ -27,7 +28,7 @@
                 <a href="#" class="nav-link dropdown-toggle">వార్తలు <i class="fas fa-caret-right"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="/news/kuwait.html" class="nav-link">కువైట్</a></li>
-                    <li><a href="/news/saudi-arabia.html" class="nav-link">సౌదీ అరేబియా</a></li>
+                    <li><a href="/news/saudi-arabia.html" class="nav-link">సౌగ్హీ అరేబియా</a></li>
                     <li><a href="/news/andhra-pradesh.html" class="nav-link">ఆంధ్రప్రదేశ్</a></li>
                     <li><a href="/news/telangana.html" class="nav-link">తెలంగాణ</a></li>
                     <li><a href="/news/india.html" class="nav-link">భారతదేశం</a></li>
@@ -45,10 +46,17 @@
     .nav-container {
         background: linear-gradient(to right, hsl(0, 0%, 25%), hsl(210, 10%, 35%));
         width: 100%;
-        position: relative;
+        position: fixed;
+        top: 0;
+        left: 0;
         z-index: 1000;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         overflow: visible;
+    }
+
+    .nav-placeholder {
+        height: 36px; /* Matches .menu-wrapper min-height */
+        width: 100%;
     }
 
     nav {
@@ -159,6 +167,7 @@
             opacity: 0;
             transform: translateY(-5px);
             transition: opacity 0.2s ease, transform 0.2s ease;
+            z-index: 1002; /* Ensure dropdowns appear above content */
         }
 
         .nav-menu-horizontal .dropdown:hover .dropdown-menu,
@@ -200,7 +209,7 @@
             z-index: 1001;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             position: absolute;
-            top: 36px;
+            top: 36px; /* Align below fixed .menu-wrapper */
             left: 0;
             background: linear-gradient(to right, hsl(0, 0%, 25%), hsl(210, 10%, 35%));
         }
@@ -219,6 +228,7 @@
             min-width: 100%;
             box-shadow: none;
             background: linear-gradient(to bottom, hsl(0, 0%, 35%), hsl(210, 10%, 45%));
+            z-index: 1002; /* Ensure dropdowns appear above content */
         }
 
         .nav-menu-toggle .dropdown.open .dropdown-menu {
