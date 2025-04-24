@@ -1,3 +1,4 @@
+<div class="nav-placeholder"></div>
 <div class="nav-container">
     <nav>
         <div class="menu-wrapper">
@@ -51,8 +52,19 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        position: sticky;
+    }
+
+    .nav-container.sticky {
+        position: fixed;
         top: 0;
+        left: 0;
+    }
+
+    .nav-placeholder {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
     nav {
@@ -239,17 +251,6 @@
         .nav-menu-toggle .dropdown.open .dropdown-menu {
             display: block;
             padding: 0.5rem 0;
-        }
-    }
-
-    /* Prevent content overlap */
-    .content-bg {
-        padding-top: 92px; /* Desktop: ~76px header + 16px nav */
-    }
-
-    @media (max-width: 768px) {
-        .content-bg {
-            padding-top: 115px; /* Mobile: ~99px header + 16px nav */
         }
     }
 </style>
