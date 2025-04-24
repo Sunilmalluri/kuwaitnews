@@ -66,7 +66,9 @@ async function renderNews(category = null) {
                     <i class="fab fa-facebook-f"></i>
                 </a>
                 <a href="https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}" class="share-btn twitter" target="_blank" aria-label="Share on Twitter" tabindex="0">
-                    <i class="fab fa-twitter"></i>
+                    <svg class="x-icon" viewBox="0 0 24 24" width="1rem" height="1rem" fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+</svg>
                 </a>
                 <a href="https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}" class="share-btn telegram" target="_blank" aria-label="Share on Telegram" tabindex="0">
                     <i class="fab fa-telegram-plane"></i>
