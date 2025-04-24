@@ -165,15 +165,24 @@ async function loadCommonComponents() {
             }
         });
 
-        // Sticky navigation logic
+        // Sticky navigation logic with debouncing
         const navContainer = document.querySelector('.nav-container');
         const navPlaceholder = document.querySelector('.nav-placeholder');
         const header = document.querySelector('.header-bg');
         if (navContainer && navPlaceholder && header) {
+            const debounce = (func, wait) => {
+                let timeout;
+                return () => {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(func, wait);
+                };
+            };
+
             const updateStickyNav = () => {
-                const headerHeight = header.offsetHeight;
-                const navHeight = navContainer.offsetHeight;
+                const headerHeight = header.getBoundingClientRect().height;
+                const navHeight = navContainer.getBoundingClientRect().height;
                 navPlaceholder.style.height = `${headerHeight + navHeight}px`;
+                console.log('Header height:', headerHeight, 'Nav height:', navHeight, 'Placeholder height:', headerHeight + navHeight);
                 if (window.scrollY >= headerHeight) {
                     navContainer.classList.add('sticky');
                 } else {
@@ -181,8 +190,8 @@ async function loadCommonComponents() {
                 }
             };
 
-            window.addEventListener('scroll', updateStickyNav);
-            window.addEventListener('resize', updateStickyNav); // Handle resize
+            window.addEventListener('scroll', debounce(updateStickyNav, 10));
+            window.addEventListener('resize', debounce(updateStickyNav, 10));
             updateStickyNav(); // Initial check
         }
 
@@ -200,6 +209,8 @@ style.textContent = `
         width: 100%;
         position: relative;
         z-index: 1000;
+        margin: 0;
+        padding: 0;
     }
 `;
 document.head.appendChild(style);
