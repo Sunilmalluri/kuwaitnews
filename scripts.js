@@ -165,40 +165,6 @@ async function loadCommonComponents() {
             }
         });
 
-        // Sticky navigation logic with debouncing
-        const navContainer = document.querySelector('.nav-container');
-        const navPlaceholder = document.querySelector('.nav-placeholder');
-        const header = document.querySelector('.header-bg');
-        if (navContainer && navPlaceholder && header) {
-            const debounce = (func, wait) => {
-                let timeout;
-                return () => {
-                    clearTimeout(timeout);
-                    timeout = setTimeout(func, wait);
-                };
-            };
-
-            const updateStickyNav = () => {
-                const headerStyle = getComputedStyle(header);
-                const navStyle = getComputedStyle(navContainer);
-                const headerHeight = header.offsetHeight - parseFloat(headerStyle.marginTop) - parseFloat(headerStyle.marginBottom);
-                const navHeight = navContainer.offsetHeight - parseFloat(navStyle.marginTop) - parseFloat(navStyle.marginBottom);
-                navPlaceholder.style.height = `${headerHeight + navHeight}px`;
-                console.log('Header height:', headerHeight, 'Nav height:', navHeight, 'Placeholder height:', headerHeight + navHeight);
-                console.log('Header margin:', headerStyle.marginTop, headerStyle.marginBottom);
-                console.log('Nav margin:', navStyle.marginTop, navStyle.marginBottom);
-                if (window.scrollY >= headerHeight) {
-                    navContainer.classList.add('sticky');
-                } else {
-                    navContainer.classList.remove('sticky');
-                }
-            };
-
-            window.addEventListener('scroll', debounce(updateStickyNav, 10));
-            window.addEventListener('resize', debounce(updateStickyNav, 10));
-            updateStickyNav(); // Initial check
-        }
-
         const pageCategory = document.body.dataset.category || null;
         const pageSubCategory = document.body.dataset.subcategory || null;
         renderNews(pageCategory, pageSubCategory);
