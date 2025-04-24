@@ -28,7 +28,7 @@
                 <a href="#" class="nav-link dropdown-toggle">వార్తలు <i class="fas fa-caret-right"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="/news/kuwait.html" class="nav-link">కువైట్</a></li>
-                    <li><a href="/news/saudi-arabia.html" class="nav-link">సౌగ్హీ అరేబియా</a></li>
+                    <li><a href="/news/saudi-arabia.html" class="nav-link">సౌదీ అరేబియా</a></li>
                     <li><a href="/news/andhra-pradesh.html" class="nav-link">ఆంధ్రప్రదేశ్</a></li>
                     <li><a href="/news/telangana.html" class="nav-link">తెలంగాణ</a></li>
                     <li><a href="/news/india.html" class="nav-link">భారతదేశం</a></li>
@@ -46,16 +46,19 @@
     .nav-container {
         background: linear-gradient(to right, hsl(0, 0%, 25%), hsl(210, 10%, 35%));
         width: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
         z-index: 1000;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         overflow: visible;
     }
 
+    .nav-container.sticky {
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+
     .nav-placeholder {
-        height: 36px; /* Matches .menu-wrapper min-height */
+        height: 96px; /* Header (60px assumed) + navigation (36px) */
         width: 100%;
     }
 
@@ -209,7 +212,7 @@
             z-index: 1001;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             position: absolute;
-            top: 36px; /* Align below fixed .menu-wrapper */
+            top: 36px; /* Align below .menu-wrapper */
             left: 0;
             background: linear-gradient(to right, hsl(0, 0%, 25%), hsl(210, 10%, 35%));
         }
