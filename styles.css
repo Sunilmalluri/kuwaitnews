@@ -132,25 +132,17 @@
 /* Social Share Buttons */
 .social-share {
     display: flex;
-    gap: 1rem;
-    margin-top: 0.5rem;
+    gap: 0.5rem;
+    margin: 0.5rem 0 0;
     justify-content: flex-start;
-}
-
-.social-share.full-view {
-    display: none; /* Hide duplicate in preview mode */
-}
-
-.news-card.expanded .social-share.full-view {
-    display: flex; /* Show in expanded mode */
 }
 
 .share-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2rem;
-    height: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
     border-radius: 50%;
     background: #f0f0f0;
     color: #333;
@@ -167,7 +159,7 @@
 }
 
 .share-btn i {
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 
 .share-btn.whatsapp {
@@ -235,16 +227,15 @@
     }
 
     .social-share {
-        gap: 0.5rem;
-        flex-wrap: wrap;
+        gap: 0.4rem;
     }
 
     .share-btn {
-        width: 1.8rem;
-        height: 1.8rem;
+        width: 1.4rem;
+        height: 1.4rem;
     }
 
     .share-btn i {
-        font-size: 1.2rem;
+        font-size: 0.9rem;
     }
 }
