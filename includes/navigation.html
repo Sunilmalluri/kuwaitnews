@@ -74,6 +74,15 @@
 </footer>
 
 <style>
+    /* Ensure the body has enough height to push the footer to the bottom */
+    body {
+        min-height: 100vh;
+        position: relative;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
     /* Navigation Styles */
     .nav-container {
         background: linear-gradient(to right, hsl(0, 0%, 25%), hsl(210, 10%, 35%));
@@ -84,6 +93,9 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        position: fixed; /* Ensure nav stays at the top */
+        top: 0; /* Will be adjusted by JavaScript if needed */
+        left: 0;
     }
 
     nav {
@@ -280,8 +292,10 @@
         padding: 2rem 1rem;
         color: #ffffff;
         box-sizing: border-box;
-        margin-top: 2rem;
-        z-index: 1; /* Ensure footer is below nav-container */
+        z-index: 1; /* Below nav-container */
+        position: absolute; /* Fallback positioning */
+        bottom: 0;
+        left: 0;
     }
 
     .footer-content {
@@ -405,11 +419,28 @@
     });
 
     // Move the footer to the end of the body
-    document.addEventListener('DOMContentLoaded', () => {
+    const moveFooter = () => {
         const footer = document.querySelector('.footer-container');
         if (footer) {
             document.body.appendChild(footer);
             console.log('Footer moved to the end of the body');
+            // Reset position to relative after moving to ensure it flows naturally
+            footer.style.position = 'relative';
+            footer.style.bottom = 'auto';
+            footer.style.left = 'auto';
+        } else {
+            // Retry after a short delay if footer is not found
+            setTimeout(moveFooter, 500);
         }
+    };
+
+    // Run after the window has fully loaded
+    window.addEventListener('load', () => {
+        moveFooter();
+    });
+
+    // Fallback: Retry on DOMContentLoaded in case 'load' event is delayed
+    document.addEventListener('DOMContentLoaded', () => {
+        moveFooter();
     });
 </script>
