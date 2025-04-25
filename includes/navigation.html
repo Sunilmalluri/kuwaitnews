@@ -1,4 +1,4 @@
-<div class="nav-container">
+<div class="nav-container" id="navContainer">
     <nav>
         <div class="menu-wrapper">
             <button class="menu-btn" aria-label="Toggle menu">
@@ -51,6 +51,15 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        position: sticky;
+        top: 0;
+        transition: all 0.3s ease;
+    }
+
+    /* Add this class when scrolled */
+    .nav-container.scrolled {
+        background: linear-gradient(to right, hsl(0, 0%, 20%), hsl(210, 10%, 30%));
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
     nav {
@@ -242,6 +251,16 @@
 </style>
 
 <script>
+    // Make navbar sticky on scroll
+    window.addEventListener('scroll', function() {
+        const navContainer = document.getElementById('navContainer');
+        if (window.scrollY > 10) {
+            navContainer.classList.add('scrolled');
+        } else {
+            navContainer.classList.remove('scrolled');
+        }
+    });
+
     // Menu toggle for mobile
     const menuBtn = document.querySelector('.menu-btn');
     const navMenuToggle = document.querySelector('.nav-menu-toggle');
