@@ -41,22 +41,23 @@
 </div>
 
 <style>
+    /* Body padding to account for fixed navbar */
+    body {
+        padding-top: 50px;
+    }
+
     /* Navigation Styles */
     .nav-container {
         background: linear-gradient(to right, hsl(0, 0%, 25%), hsl(210, 10%, 35%));
         width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
         z-index: 1000;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        overflow: visible;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        position: sticky;
-        top: 0;
         transition: all 0.3s ease;
     }
 
-    /* Add this class when scrolled */
     .nav-container.scrolled {
         background: linear-gradient(to right, hsl(0, 0%, 20%), hsl(210, 10%, 30%));
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -74,7 +75,7 @@
         display: flex;
         align-items: center;
         background: linear-gradient(to right, hsl(0, 0%, 25%), hsl(210, 10%, 35%));
-        padding: 0.3rem 0;
+        padding: 0.5rem 0;
         min-height: 16px;
         width: 100%;
         margin: 0;
@@ -159,7 +160,7 @@
     @media (min-width: 769px) {
         .menu-btn,
         .nav-menu-toggle {
-            display: none; /* Hide toggle button and vertical menu */
+            display: none;
         }
 
         .nav-menu-horizontal {
@@ -178,7 +179,7 @@
             opacity: 0;
             transform: translateY(-5px);
             transition: opacity 0.2s ease, transform 0.2s ease;
-            z-index: 1002; /* Ensure dropdowns appear above content */
+            z-index: 1002;
         }
 
         .nav-menu-horizontal .dropdown:hover .dropdown-menu,
@@ -191,12 +192,17 @@
 
     /* Mobile Styles */
     @media (max-width: 768px) {
+        body {
+            padding-top: 45px;
+        }
+
         .nav-container {
             background: linear-gradient(to right, hsl(0, 0%, 25%), hsl(210, 10%, 35%));
         }
 
         .menu-wrapper {
             background: linear-gradient(to right, hsl(0, 0%, 25%), hsl(210, 10%, 35%));
+            padding: 0.4rem 0;
         }
 
         .menu-btn {
@@ -205,13 +211,12 @@
         }
 
         .nav-menu-horizontal {
-            display: none; /* Hide horizontal menu */
+            display: none;
         }
 
         .nav-menu-toggle {
             display: block;
-            width: fit-content;
-            max-width: 90%;
+            width: 100%;
             max-height: 0;
             overflow: hidden;
             opacity: 0;
@@ -219,8 +224,8 @@
             transform: translateY(-10px);
             z-index: 1001;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            position: absolute;
-            top: 16px; /* Align below .menu-wrapper */
+            position: fixed;
+            top: 45px;
             left: 0;
             background: linear-gradient(to right, hsl(0, 0%, 25%), hsl(210, 10%, 35%));
             box-sizing: border-box;
@@ -240,7 +245,7 @@
             min-width: 100%;
             box-shadow: none;
             background: linear-gradient(to bottom, hsl(0, 0%, 35%), hsl(210, 10%, 45%));
-            z-index: 1002; /* Ensure dropdowns appear above content */
+            z-index: 1002;
         }
 
         .nav-menu-toggle .dropdown.open .dropdown-menu {
@@ -251,55 +256,66 @@
 </style>
 
 <script>
-    // Make navbar sticky on scroll
-    window.addEventListener('scroll', function() {
+    // Make navbar sticky and add scroll effect
+    document.addEventListener('DOMContentLoaded', function() {
         const navContainer = document.getElementById('navContainer');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 10) {
+                navContainer.classList.add('scrolled');
+            } else {
+                navContainer.classList.remove('scrolled');
+            }
+        });
+
+        // Initialize scroll state
         if (window.scrollY > 10) {
             navContainer.classList.add('scrolled');
-        } else {
-            navContainer.classList.remove('scrolled');
         }
-    });
 
-    // Menu toggle for mobile
-    const menuBtn = document.querySelector('.menu-btn');
-    const navMenuToggle = document.querySelector('.nav-menu-toggle');
-    if (menuBtn && navMenuToggle && window.innerWidth < 769) {
-        menuBtn.addEventListener('click', () => {
-            const isActive = navMenuToggle.classList.toggle('active');
-            menuBtn.setAttribute('aria-expanded', isActive);
-            menuBtn.innerHTML = isActive ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-            if (isActive) {
-                document.querySelectorAll('.nav-menu-horizontal .dropdown').forEach(dropdown => {
+        // Menu toggle for mobile
+        const menuBtn = document.querySelector('.menu-btn');
+        const navMenuToggle = document.querySelector('.nav-menu-toggle');
+        
+        if (menuBtn && navMenuToggle) {
+            menuBtn.addEventListener('click', function() {
+                const isActive = navMenuToggle.classList.toggle('active');
+                menuBtn.setAttribute('aria-expanded', isActive);
+                menuBtn.innerHTML = isActive ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+                
+                if (isActive) {
+                    document.querySelectorAll('.dropdown').forEach(dropdown => {
+                        dropdown.classList.remove('open');
+                    });
+                }
+            });
+        }
+
+        // Dropdown toggle behavior
+        const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                const dropdown = toggle.closest('.dropdown');
+                e.preventDefault();
+                
+                if (dropdown) {
+                    document.querySelectorAll('.dropdown').forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown) {
+                            otherDropdown.classList.remove('open');
+                        }
+                    });
+                    dropdown.classList.toggle('open');
+                }
+            });
+        });
+
+        // Close dropdowns on outside click
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.dropdown') && !e.target.closest('.menu-btn')) {
+                document.querySelectorAll('.dropdown').forEach(dropdown => {
                     dropdown.classList.remove('open');
                 });
             }
         });
-    }
-
-    // Dropdown toggle behavior
-    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-    dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', (e) => {
-            const dropdown = toggle.closest('.dropdown');
-            e.preventDefault();
-            if (dropdown) {
-                document.querySelectorAll('.dropdown').forEach(otherDropdown => {
-                    if (otherDropdown !== dropdown) {
-                        otherDropdown.classList.remove('open');
-                    }
-                });
-                dropdown.classList.toggle('open');
-            }
-        });
-    });
-
-    // Close dropdowns on outside click
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.dropdown') && !e.target.closest('.menu-btn')) {
-            document.querySelectorAll('.dropdown').forEach(dropdown => {
-                dropdown.classList.remove('open');
-            });
-        }
     });
 </script>
