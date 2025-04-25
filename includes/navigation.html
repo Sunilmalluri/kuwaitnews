@@ -45,7 +45,7 @@
     .nav-container {
         background: linear-gradient(to right, hsl(0, 0%, 25%), hsl(210, 10%, 35%));
         width: 100%;
-        z-index: 2000; /* Increased to ensure it stays above content */
+        z-index: 2000; /* Higher than header-bg and content */
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         overflow: visible;
         margin: 0;
@@ -131,7 +131,7 @@
         border-radius: 4px;
         list-style: none;
         padding: 0.5rem 0;
-        z-index: 2001; /* Higher than nav-container to ensure visibility */
+        z-index: 2001; /* Higher than nav-container */
         min-width: 100%;
         opacity: 0;
         transform: translateY(-5px);
@@ -243,9 +243,17 @@
         }
     }
 
-    /* Ensure content stays below the navigation bar */
+    /* Ensure content stays below the navigation bar and title bar */
     .content-bg {
-        z-index: 1; /* Lower than nav-container to ensure content stays below */
+        z-index: 1 !important; /* Lower than header-bg and nav-container */
+    }
+
+    .container {
+        z-index: 1 !important; /* Ensure child containers stay below */
+    }
+
+    .news-grid {
+        z-index: 1 !important; /* Ensure news grid stays below */
     }
 </style>
 
