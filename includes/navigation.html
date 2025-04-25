@@ -1,32 +1,14 @@
-<!-- Navigation Wrapper -->
-<div id="nav-wrapper">
-    <div class="nav-container">
-        <nav>
-            <div class="menu-wrapper">
-                <button class="menu-btn" aria-label="Toggle menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <ul class="nav-menu-horizontal" id="horizontalMenu">
-                    <li><a href="/index.html" class="nav-link"><i class="fas fa-home"></i></a></li>
-                    <li class="dropdown">
-                        <a href="#" class="nav-link dropdown-toggle">వార్తలు <i class="fas fa-caret-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/news/kuwait.html" class="nav-link">కువైట్</a></li>
-                            <li><a href="/news/saudi-arabia.html" class="nav-link">సౌదీ అరేబియా</a></li>
-                            <li><a href="/news/andhra-pradesh.html" class="nav-link">ఆంధ్రప్రదేశ్</a></li>
-                            <li><a href="/news/telangana.html" class="nav-link">తెలంగాణ</a></li>
-                            <li><a href="/news/india.html" class="nav-link">భారతదేశం</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/sports.html" class="nav-link">క్రీడలు</a></li>
-                    <li><a href="/gold-price.html" class="nav-link">గోల్డ్ ధర</a></li>
-                    <li><a href="/money-exchange-rate.html" class="nav-link">మనీ ఎక్స్ఛేంజ్ రేటు</a></li>
-                </ul>
-            </div>
-            <ul class="nav-menu-toggle" id="toggleMenu">
+<!-- Navigation Bar -->
+<div class="nav-container">
+    <nav>
+        <div class="menu-wrapper">
+            <button class="menu-btn" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu-horizontal" id="horizontalMenu">
                 <li><a href="/index.html" class="nav-link"><i class="fas fa-home"></i></a></li>
                 <li class="dropdown">
-                    <a href="#" class="nav-link dropdown-toggle">వార్తలు <i class="fas fa-caret-right"></i></a>
+                    <a href="#" class="nav-link dropdown-toggle">వార్తలు <i class="fas fa-caret-down"></i></a>
                     <ul class="dropdown-menu">
                         <li><a href="/news/kuwait.html" class="nav-link">కువైట్</a></li>
                         <li><a href="/news/saudi-arabia.html" class="nav-link">సౌదీ అరేబియా</a></li>
@@ -39,47 +21,28 @@
                 <li><a href="/gold-price.html" class="nav-link">గోల్డ్ ధర</a></li>
                 <li><a href="/money-exchange-rate.html" class="nav-link">మనీ ఎక్స్ఛేంజ్ రేటు</a></li>
             </ul>
-        </nav>
-    </div>
-</div>
-
-<!-- Footer Wrapper -->
-<div id="footer-wrapper">
-    <footer class="footer-container">
-        <div class="footer-content">
-            <div class="footer-section contact">
-                <h3>Contact Us</h3>
-                <p>
-                    <i class="fas fa-envelope"></i>
-                    <a href="mailto:info@gulfandhra.com" class="footer-link">info@gulfandhra.com</a>
-                </p>
-            </div>
-            <div class="footer-section social-media">
-                <h3>Follow Us</h3>
-                <div class="social-icons">
-                    <a href="https://facebook.com/gulfandhra" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="Facebook">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://twitter.com/gulfandhra" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="Twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="https://instagram.com/gulfandhra" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://youtube.com/@gulfandhra" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="YouTube">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="footer-section copyright">
-                <p>© 2025 Gulf Andhra. All rights reserved.</p>
-            </div>
         </div>
-    </footer>
+        <ul class="nav-menu-toggle" id="toggleMenu">
+            <li><a href="/index.html" class="nav-link"><i class="fas fa-home"></i></a></li>
+            <li class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle">వార్తలు <i class="fas fa-caret-right"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/news/kuwait.html" class="nav-link">కువైట్</a></li>
+                    <li><a href="/news/saudi-arabia.html" class="nav-link">సౌదీ అరేబియా</a></li>
+                    <li><a href="/news/andhra-pradesh.html" class="nav-link">ఆంధ్రప్రదేశ్</a></li>
+                    <li><a href="/news/telangana.html" class="nav-link">తెలంగాణ</a></li>
+                    <li><a href="/news/india.html" class="nav-link">భారతదేశం</a></li>
+                    </ul>
+            </li>
+            <li><a href="/sports.html" class="nav-link">క్రీడలు</a></li>
+            <li><a href="/gold-price.html" class="nav-link">గోల్డ్ ధర</a></li>
+            <li><a href="/money-exchange-rate.html" class="nav-link">మనీ ఎక్స్ఛేంజ్ రేటు</a></li>
+        </ul>
+    </nav>
 </div>
 
 <style>
-    /* Body styles to ensure footer sticks to bottom */
+    /* Body styles to ensure proper layout */
     body {
         min-height: 100vh;
         display: flex;
@@ -308,98 +271,6 @@
             padding-top: 110px; /* Adjust for smaller title bar on mobile */
         }
     }
-
-    /* Footer Styles */
-    .footer-container {
-        background: linear-gradient(to right, hsl(0, 0%, 25%), hsl(210, 10%, 35%));
-        width: 100%;
-        padding: 2rem 1rem;
-        color: #ffffff;
-        box-sizing: border-box;
-        z-index: 1; /* Below nav-container */
-        position: relative;
-        flex-shrink: 0; /* Prevent footer from shrinking */
-    }
-
-    .footer-content {
-        max-width: 1400px;
-        margin: 0 auto;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
-        justify-content: space-between;
-        box-sizing: border-box;
-    }
-
-    .footer-section {
-        flex: 1;
-        min-width: 200px;
-        box-sizing: border-box;
-    }
-
-    .footer-section h3 {
-        font-family: 'Noto Sans Telugu', 'Open Sans', sans-serif;
-        font-size: 1.2rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-        color: #ffffff;
-    }
-
-    .footer-section p {
-        font-family: 'Noto Sans Telugu', 'Open Sans', sans-serif;
-        font-size: 0.9rem;
-        margin: 0;
-        color: #ffffff;
-    }
-
-    .footer-link {
-        color: #ffffff;
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
-
-    .footer-link:hover {
-        color: #cccccc;
-    }
-
-    .contact i {
-        margin-right: 0.5rem;
-    }
-
-    .social-icons {
-        display: flex;
-        gap: 1rem;
-    }
-
-    .social-icons a {
-        font-size: 1.5rem;
-        color: #ffffff;
-        transition: color 0.3s ease;
-    }
-
-    .social-icons a:hover {
-        color: #cccccc;
-    }
-
-    .copyright {
-        text-align: center;
-    }
-
-    @media (max-width: 768px) {
-        .footer-content {
-            flex-direction: column;
-            gap: 1.5rem;
-            text-align: center;
-        }
-
-        .social-icons {
-            justify-content: center;
-        }
-
-        .content-bg {
-            padding-bottom: 200px; /* Extra padding for mobile */
-        }
-    }
 </style>
 
 <script>
@@ -443,71 +314,6 @@
                 dropdown.classList.remove('open');
             });
         }
-    });
-
-    // Move the footer to the end of the body
-    const moveFooter = () => {
-        let footerWrapper = document.querySelector('#footer-wrapper');
-        let footer = document.querySelector('.footer-container');
-
-        // If footer-wrapper exists but footer is missing, recreate the footer
-        if (footerWrapper && !footer) {
-            footerWrapper.innerHTML = `
-                <footer class="footer-container">
-                    <div class="footer-content">
-                        <div class="footer-section contact">
-                            <h3>Contact Us</h3>
-                            <p>
-                                <i class="fas fa-envelope"></i>
-                                <a href="mailto:info@gulfandhra.com" class="footer-link">info@gulfandhra.com</a>
-                            </p>
-                        </div>
-                        <div class="footer-section social-media">
-                            <h3>Follow Us</h3>
-                            <div class="social-icons">
-                                <a href="https://facebook.com/gulfandhra" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="Facebook">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                                <a href="https://twitter.com/gulfandhra" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="Twitter">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                                <a href="https://instagram.com/gulfandhra" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="Instagram">
-                                    <i class="fab fa-instagram"></i>
-                                </a>
-                                <a href="https://youtube.com/@gulfandhra" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="YouTube">
-                                    <i class="fab fa-youtube"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="footer-section copyright">
-                            <p>© 2025 Gulf Andhra. All rights reserved.</p>
-                        </div>
-                    </div>
-                </footer>
-            `;
-            footer = document.querySelector('.footer-container');
-            console.log('Footer recreated');
-        }
-
-        // If footer exists, move it to the end of the body
-        if (footer) {
-            document.body.appendChild(footer);
-            console.log('Footer moved to the end of the body');
-            footer.style.position = 'relative';
-        } else {
-            console.log('Footer not found in DOM, retrying...');
-            setTimeout(moveFooter, 500); // Retry after 500ms
-        }
-    };
-
-    // Run after the window has fully loaded
-    window.addEventListener('load', () => {
-        moveFooter();
-    });
-
-    // Fallback: Run on DOMContentLoaded
-    document.addEventListener('DOMContentLoaded', () => {
-        moveFooter();
     });
 
     // Dynamically adjust nav bar position based on title bar height
