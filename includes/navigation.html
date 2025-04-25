@@ -51,9 +51,9 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        position: fixed; /* Always fixed at the top */
-        top: 0;
+        position: fixed; /* Always fixed */
         left: 0;
+        /* top will be set dynamically via JavaScript */
     }
 
     nav {
@@ -242,11 +242,6 @@
             padding: 0.5rem 0;
         }
     }
-
-    /* Ensure content below the fixed navigation is not overlapped */
-    .content-bg {
-        margin-top: 46px; /* Height of the navigation bar */
-    }
 </style>
 
 <script>
@@ -291,4 +286,27 @@
             });
         }
     });
+
+    // Position the navigation bar below the title bar and adjust content margin
+    const navContainer = document.querySelector('.nav-container');
+    const header = document.querySelector('.header-bg');
+    const contentBg = document.querySelector('.content-bg');
+    if (navContainer && header && contentBg) {
+        const updateNavPosition = () => {
+            const headerHeight = header.offsetHeight;
+            const navHeight = navContainer.offsetHeight;
+
+            // Set the top position of the navigation bar to the height of the title bar
+            navContainer.style.top = `${headerHeight}px`;
+
+            // Adjust the content margin to account for both the title bar and navigation bar
+            contentBg.style.marginTop = `${headerHeight + navHeight}px`;
+
+            console.log('Header height:', headerHeight, 'Nav height:', navHeight, 'Content margin-top:', contentBg.style.marginTop);
+        };
+
+        // Run on load and on resize to handle changes in header height (e.g., mobile vs desktop)
+        window.addEventListener('resize', updateNavPosition);
+        updateNavPosition(); // Initial call
+    }
 </script>
