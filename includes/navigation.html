@@ -51,6 +51,9 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        position: fixed; /* Always fixed at the top */
+        top: 0;
+        left: 0;
     }
 
     nav {
@@ -238,6 +241,11 @@
             display: block;
             padding: 0.5rem 0;
         }
+    }
+
+    /* Ensure content below the fixed navigation is not overlapped */
+    .content-bg {
+        margin-top: 46px; /* Height of the navigation bar */
     }
 </style>
 
