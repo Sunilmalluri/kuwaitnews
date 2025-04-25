@@ -74,7 +74,7 @@
 </footer>
 
 <style>
-    /* Ensure the body has enough height to push the footer to the bottom */
+    /* Ensure the body has enough height to accommodate the footer */
     body {
         min-height: 100vh;
         position: relative;
@@ -93,8 +93,8 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        position: fixed; /* Ensure nav stays at the top */
-        top: 0; /* Will be adjusted by JavaScript if needed */
+        position: fixed;
+        top: 80px; /* Adjust this value to match the height of the title bar */
         left: 0;
     }
 
@@ -229,6 +229,7 @@
     @media (max-width: 768px) {
         .nav-container {
             background: linear-gradient(to right, hsl(0, 0%, 25%), hsl(210, 10%, 35%));
+            top: 60px; /* Adjust for smaller title bar on mobile */
         }
 
         .menu-wrapper {
@@ -285,6 +286,22 @@
         }
     }
 
+    /* Push content below the fixed nav bar */
+    body {
+        padding-top: 130px; /* Adjust based on title bar (80px) + nav bar height (50px) */
+    }
+
+    @media (max-width: 768px) {
+        body {
+            padding-top: 110px; /* Adjust for smaller title bar on mobile */
+        }
+    }
+
+    /* Main content padding to avoid footer overlap */
+    .content-bg {
+        padding-bottom: 150px; /* Adjust based on footer height */
+    }
+
     /* Footer Styles */
     .footer-container {
         background: linear-gradient(to right, hsl(0, 0%, 25%), hsl(210, 10%, 35%));
@@ -293,9 +310,7 @@
         color: #ffffff;
         box-sizing: border-box;
         z-index: 1; /* Below nav-container */
-        position: absolute; /* Fallback positioning */
-        bottom: 0;
-        left: 0;
+        position: relative; /* Ensure it flows naturally after being moved */
     }
 
     .footer-content {
@@ -372,6 +387,10 @@
         .social-icons {
             justify-content: center;
         }
+
+        .content-bg {
+            padding-bottom: 200px; /* Extra padding for mobile */
+        }
     }
 </style>
 
@@ -418,29 +437,58 @@
         }
     });
 
-    // Move the footer to the end of the body
+    // Move the footer to the end of the body using MutationObserver
     const moveFooter = () => {
         const footer = document.querySelector('.footer-container');
         if (footer) {
             document.body.appendChild(footer);
             console.log('Footer moved to the end of the body');
-            // Reset position to relative after moving to ensure it flows naturally
             footer.style.position = 'relative';
-            footer.style.bottom = 'auto';
-            footer.style.left = 'auto';
         } else {
-            // Retry after a short delay if footer is not found
-            setTimeout(moveFooter, 500);
+            console.log('Footer not found in DOM');
         }
     };
 
-    // Run after the window has fully loaded
+    // Observe changes to the DOM to detect when the footer is added
+    const observer = new MutationObserver((mutations, obs) => {
+        const footer = document.querySelector('.footer-container');
+        if (footer) {
+            moveFooter();
+            obs.disconnect(); // Stop observing once footer is found and moved
+        }
+    });
+
+    // Start observing the body for child additions
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+
+    // Fallback: Try moving the footer on window load
     window.addEventListener('load', () => {
         moveFooter();
     });
 
-    // Fallback: Retry on DOMContentLoaded in case 'load' event is delayed
-    document.addEventListener('DOMContentLoaded', () => {
-        moveFooter();
+    // Dynamically adjust nav bar position based on title bar height
+    window.addEventListener('load', () => {
+        const titleBar = document.querySelector('.title-bar'); // Adjust selector to match your title bar
+        const navContainer = document.querySelector('.nav-container');
+        if (titleBar && navContainer) {
+            const titleBarHeight = titleBar.offsetHeight;
+            navContainer.style.top = `${titleBarHeight}px`;
+            console.log(`Nav bar positioned below title bar at ${titleBarHeight}px`);
+        } else {
+            console.log('Title bar or nav container not found');
+        }
+    });
+
+    // Adjust on resize for responsiveness
+    window.addEventListener('resize', () => {
+        const titleBar = document.querySelector('.title-bar'); // Adjust selector to match your title bar
+        const navContainer = document.querySelector('.nav-container');
+        if (titleBar && navContainer) {
+            const titleBarHeight = titleBar.offsetHeight;
+            navContainer.style.top = `${titleBarHeight}px`;
+        }
     });
 </script>
