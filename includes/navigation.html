@@ -41,13 +41,14 @@
 </div>
 
 <style>
- .nav-container {
-  position: sticky;
-  top: 80px; /* Adjust this if your header is taller or shorter */
-  z-index: 1000;
-  background: linear-gradient(to right, hsl(0, 0%, 25%), hsl(210, 10%, 35%));
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
+  .nav-container {
+    background: linear-gradient(to right, hsl(0, 0%, 25%), hsl(210, 10%, 35%));
+    width: 100%;
+    position: sticky;
+    top: 80px; /* height of the header */
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
 
   nav {
     max-width: 1400px;
@@ -60,7 +61,7 @@
   .menu-wrapper {
     display: flex;
     align-items: center;
-    background: linear-gradient(to right, hsl(0, 0%, 25%), hsl(210, 10%, 35%));
+    background: inherit;
     padding: 0.5rem 0;
     width: 100%;
     box-sizing: border-box;
@@ -209,8 +210,6 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const navContainer = document.getElementById('navContainer');
-
     const menuBtn = document.querySelector('.menu-btn');
     const navMenuToggle = document.querySelector('.nav-menu-toggle');
 
