@@ -186,8 +186,8 @@ async function loadCommonComponents() {
                 const headerHeight = header.offsetHeight;
                 const navHeight = navContainer.offsetHeight;
                 navPlaceholder.style.height = `${navHeight}px`; // Only nav height
-                contentBg.style.paddingTop = `12px`; // Fixed padding as requested
-                console.log('Header height:', headerHeight, 'Nav height:', navHeight, 'Placeholder height:', navHeight, 'Content padding-top:', '12px');
+                contentBg.style.paddingTop = `1px`; // Fixed padding as requested
+                console.log('Header height:', headerHeight, 'Nav height:', navHeight, 'Placeholder height:', navHeight, 'Content padding-top:', '1px');
                 if (window.scrollY >= headerHeight) {
                     navContainer.classList.add('sticky');
                 } else {
