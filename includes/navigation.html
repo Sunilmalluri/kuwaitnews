@@ -53,12 +53,6 @@
         box-sizing: border-box;
     }
 
-    .nav-container.sticky {
-        position: fixed;
-        top: 0;
-        left: 0;
-    }
-
     nav {
         max-width: 1400px;
         margin: 0 auto;
@@ -289,39 +283,4 @@
             });
         }
     });
-
-    // Sticky navigation logic
-    const navContainer = document.querySelector('.nav-container');
-    const header = document.querySelector('.header-bg');
-    const contentBg = document.querySelector('.content-bg');
-    if (navContainer && header && contentBg) {
-        const debounce = (func, wait) => {
-            let timeout;
-            return () => {
-                clearTimeout(timeout);
-                timeout = setTimeout(func, wait);
-            };
-        };
-
-        const updateStickyNav = () => {
-            const headerHeight = header.offsetHeight;
-            const navHeight = navContainer.offsetHeight;
-            const isSticky = window.scrollY >= headerHeight;
-
-            // Dynamically adjust padding-top of content-bg to prevent content jump
-            contentBg.style.paddingTop = isSticky ? `${navHeight}px` : '1px';
-
-            console.log('Header height:', headerHeight, 'Nav height:', navHeight, 'Content padding-top:', contentBg.style.paddingTop);
-
-            if (isSticky) {
-                navContainer.classList.add('sticky');
-            } else {
-                navContainer.classList.remove('sticky');
-            }
-        };
-
-        window.addEventListener('scroll', debounce(updateStickyNav, 10));
-        window.addEventListener('resize', debounce(updateStickyNav, 10));
-        updateStickyNav(); // Initial check
-    }
 </script>
