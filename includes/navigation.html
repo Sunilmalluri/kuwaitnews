@@ -45,7 +45,7 @@
     .nav-container {
         background: linear-gradient(to right, hsl(0, 0%, 25%), hsl(210, 10%, 35%));
         width: 100%;
-        z-index: 1000;
+        z-index: 2000; /* Increased to ensure it stays above content */
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         overflow: visible;
         margin: 0;
@@ -131,7 +131,7 @@
         border-radius: 4px;
         list-style: none;
         padding: 0.5rem 0;
-        z-index: 1001;
+        z-index: 2001; /* Higher than nav-container to ensure visibility */
         min-width: 100%;
         opacity: 0;
         transform: translateY(-5px);
@@ -172,7 +172,7 @@
             opacity: 0;
             transform: translateY(-5px);
             transition: opacity 0.2s ease, transform 0.2s ease;
-            z-index: 1002; /* Ensure dropdowns appear above content */
+            z-index: 2001; /* Higher than nav-container */
         }
 
         .nav-menu-horizontal .dropdown:hover .dropdown-menu,
@@ -211,7 +211,7 @@
             opacity: 0;
             transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
             transform: translateY(-10px);
-            z-index: 1001;
+            z-index: 2001; /* Higher than nav-container */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             position: absolute;
             top: 16px; /* Align below .menu-wrapper */
@@ -234,13 +234,18 @@
             min-width: 100%;
             box-shadow: none;
             background: linear-gradient(to bottom, hsl(0, 0%, 35%), hsl(210, 10%, 45%));
-            z-index: 1002; /* Ensure dropdowns appear above content */
+            z-index: 2002; /* Higher than nav-menu-toggle */
         }
 
         .nav-menu-toggle .dropdown.open .dropdown-menu {
             display: block;
             padding: 0.5rem 0;
         }
+    }
+
+    /* Ensure content stays below the navigation bar */
+    .content-bg {
+        z-index: 1; /* Lower than nav-container to ensure content stays below */
     }
 </style>
 
