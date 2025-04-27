@@ -21,23 +21,32 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 12rem; /* Left/right padding only */
+    padding: 0 1rem;
 }
 
-/* News Grid and Card Styles */
-.news-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    margin: 0 auto;
-    max-width: 1200px;
-    padding: 0.5rem 0; /* Minimal top/bottom padding */
+/* Main content */
+.main-content {
+    width: 100%;
 }
 
-.news-card {
+/* Section Title */
+.section-title {
+    font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
+    font-size: 1.8rem;
+    color: #333;
+    margin: 1rem 0;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 0.5rem;
+}
+
+/* Featured News Section */
+.featured-news {
+    margin-bottom: 2rem;
+}
+
+.featured-card {
     display: flex;
     flex-direction: row;
-    align-items: flex-start; /* Align image and content tops */
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -46,101 +55,205 @@ body {
     transition: transform 0.2s ease;
 }
 
-.news-card:hover {
+.featured-card:hover {
     transform: translateY(-2px);
 }
 
-.news-card:focus {
+.featured-card:focus {
     outline: 2px solid #007bff;
 }
 
-.news-image-wrapper {
-    flex: 0 0 100px;
-    padding-top: 1rem; /* Match news-content padding for headline alignment */
+.featured-image-wrapper {
+    flex: 0 0 40%;
+    max-height: 300px;
     transition: flex 0.3s ease, max-height 0.3s ease;
 }
 
-.news-image-wrapper.expanded {
-    flex: 0 0 auto;
-    max-width: 600px; /* Larger images when expanded */
-    max-height: 400px; /* Prevent overly tall images */
-    padding-top: 1rem;
+.featured-image-wrapper.expanded {
+    flex: 0 0 50%;
+    max-height: 400px;
 }
 
-.news-image {
+.featured-image {
     width: 100%;
-    height: 100%; /* Fill wrapper in preview */
-    object-fit: contain; /* Show full image without cropping */
+    height: 100%;
+    object-fit: cover;
 }
 
-.news-content {
+.featured-content {
     flex: 1;
-    padding: 1rem;
+    padding: 1.5rem;
 }
 
-.news-title {
+.featured-title {
     font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1.2rem;
-    margin: 0 0 0.5rem;
+    font-size: 1.8rem;
     color: #333;
+    margin: 0 0 0.5rem;
 }
 
-.news-meta {
+.featured-meta {
     display: flex;
     gap: 1rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #666;
     margin-bottom: 0.5rem;
 }
 
-.news-card.preview .news-meta {
-    display: none; /* Hide date/time in preview */
-}
-
-.news-card.expanded .news-meta {
-    display: flex; /* Show date/time when expanded */
-}
-
-.news-meta i {
+.featured-meta i {
     margin-right: 0.3rem;
 }
 
-.news-excerpt {
+.featured-excerpt {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: #444;
     margin: 0 0 0.5rem;
 }
 
-.full-text {
+.featured-full-text {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: #444;
     line-height: 1.6;
-    display: none; /* Hidden by default */
+    display: none;
 }
 
-.news-card.expanded .full-text {
-    display: block; /* Show when expanded */
+.featured-card.expanded .featured-full-text {
+    display: block;
 }
 
-.full-text p {
+.featured-full-text p {
     margin: 0 0 0.5rem;
 }
 
-.full-text ul {
+.featured-full-text ul {
     list-style: none;
     padding: 0;
     margin: 0.5rem 0;
 }
 
-.full-text li {
+.featured-full-text li {
     position: relative;
     padding-left: 1.5rem;
     margin-bottom: 0.3rem;
 }
 
-.full-text li::before {
+.featured-full-text li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #007bff;
+    font-size: 1.2rem;
+}
+
+/* Latest News Section */
+.latest-news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+.latest-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.latest-card:hover {
+    transform: translateY(-2px);
+}
+
+.latest-card:focus {
+    outline: 2px solid #007bff;
+}
+
+.latest-image-wrapper {
+    flex: 0 0 auto;
+    height: 150px;
+    transition: height 0.3s ease;
+}
+
+.latest-image-wrapper.expanded {
+    height: 200px;
+}
+
+.latest-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.latest-content {
+    padding: 1rem;
+}
+
+.latest-title {
+    font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
+    font-size: 1.2rem;
+    color: #333;
+    margin: 0 0 0.5rem;
+}
+
+.latest-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    display: none;
+}
+
+.latest-card.expanded .latest-meta {
+    display: flex;
+}
+
+.latest-meta i {
+    margin-right: 0.3rem;
+}
+
+.latest-excerpt {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 1rem;
+    color: #444;
+    margin: 0 0 0.5rem;
+}
+
+.latest-full-text {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.6;
+    display: none;
+}
+
+.latest-card.expanded .latest-full-text {
+    display: block;
+}
+
+.latest-full-text p {
+    margin: 0 0 0.5rem;
+}
+
+.latest-full-text ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+}
+
+.latest-full-text li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.latest-full-text li::before {
     content: '•';
     position: absolute;
     left: 0;
@@ -201,25 +314,205 @@ body {
     color: #fff;
 }
 
+/* News Grid and Card Styles (for other pages) */
+.news-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0.5rem 0;
+}
+
+.news-card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.news-card:hover {
+    transform: translateY(-2px);
+}
+
+.news-card:focus {
+    outline: 2px solid #007bff;
+}
+
+.news-image-wrapper {
+    flex: 0 0 100px;
+    padding-top: 1rem;
+    transition: flex 0.3s ease, max-height 0.3s ease;
+}
+
+.news-image-wrapper.expanded {
+    flex: 0 0 auto;
+    max-width: 600px;
+    max-height: 400px;
+    padding-top: 1rem;
+}
+
+.news-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.news-content {
+    flex: 1;
+    padding: 1rem;
+}
+
+.news-title {
+    font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem;
+    color: #333;
+}
+
+.news-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.news-card.preview .news-meta {
+    display: none;
+}
+
+.news-card.expanded .news-meta {
+    display: flex;
+}
+
+.news-meta i {
+    margin-right: 0.3rem;
+}
+
+.news-excerpt {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 1rem;
+    color: #444;
+    margin: 0 0 0.5rem;
+}
+
+.full-text {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.6;
+    display: none;
+}
+
+.news-card.expanded .full-text {
+    display: block;
+}
+
+.full-text p {
+    margin: 0 0 0.5rem;
+}
+
+.full-text ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+}
+
+.full-text li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.full-text li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #007bff;
+    font-size: 1.2rem;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
-        padding: 0 1rem; /* Left/right padding on mobile */
+        padding: 0 1rem;
     }
 
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    /* Featured News */
+    .featured-card {
+        flex-direction: column;
+    }
+
+    .featured-image-wrapper {
+        flex: 0 0 auto;
+        height: 200px;
+    }
+
+    .featured-image-wrapper.expanded {
+        height: 300px;
+    }
+
+    .featured-title {
+        font-size: 1.5rem;
+    }
+
+    .featured-excerpt {
+        font-size: 1rem;
+    }
+
+    .featured-full-text {
+        font-size: 1rem;
+    }
+
+    /* Latest News */
+    .latest-news-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .latest-image-wrapper {
+        height: 120px;
+    }
+
+    .latest-image-wrapper.expanded {
+        height: 180px;
+    }
+
+    .latest-title {
+        font-size: 1.1rem;
+    }
+
+    .latest-excerpt {
+        font-size: 0.9rem;
+    }
+
+    .latest-full-text {
+        font-size: 0.9rem;
+    }
+
+    /* News Grid (for other pages) */
     .news-grid {
         padding: 0.5rem 0;
     }
 
     .news-card {
         flex-direction: column;
-        align-items: stretch; /* Reset alignment for mobile */
+        align-items: stretch;
     }
 
     .news-image-wrapper {
         flex: 0 0 auto;
         height: 150px;
-        padding-top: 0; /* No padding needed above image */
+        padding-top: 0;
     }
 
     .news-image-wrapper.expanded {
@@ -230,7 +523,7 @@ body {
 
     .news-image {
         height: 100%;
-        object-fit: cover; /* Better scaling on mobile */
+        object-fit: cover;
     }
 
     .news-content {
