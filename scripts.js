@@ -45,6 +45,34 @@ async function fetchNews(category = null, subCategory = null, retries = 3, delay
     return [];
 }
 
+// Helper function to generate social share buttons
+function generateSocialShare(articleId) {
+    const article = window.newsData.find(a => a.id === articleId);
+    if (!article) return '';
+
+    const articleUrl = `${window.location.origin}${window.location.pathname}#${article.id}`;
+    const encodedTitle = encodeURIComponent(article.title);
+    const encodedUrl = encodeURIComponent(articleUrl);
+    return `
+        <div class="social-share">
+            <a href="https://wa.me/?text=${encodedTitle}%20${encodedUrl}" class="share-btn whatsapp" target="_blank" aria-label="Share on WhatsApp" tabindex="0">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" class="share-btn facebook" target="_blank" aria-label="Share on Facebook" tabindex="0">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}" class="share-btn twitter" target="_blank" aria-label="Share on Twitter" tabindex="0">
+                <svg class="x-icon" viewBox="0 0 24 24" width="1rem" height="1rem" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+            </a>
+            <a href="https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}" class="share-btn telegram" target="_blank" aria-label="Share on Telegram" tabindex="0">
+                <i class="fab fa-telegram-plane"></i>
+            </a>
+        </div>
+    `;
+}
+
 async function renderNews(category = null, subCategory = null) {
     const newsContainer = document.querySelector('.news-grid');
     if (!newsContainer) {
@@ -67,27 +95,6 @@ async function renderNews(category = null, subCategory = null) {
             .replace(/<\/li>$/, '</li></ul>')
             .replace(/^/, '<p>')
             .replace(/$/, '</p>');
-        const articleUrl = `${window.location.origin}${window.location.pathname}#${article.id}`;
-        const encodedTitle = encodeURIComponent(article.title);
-        const encodedUrl = encodeURIComponent(articleUrl);
-        const socialShare = `
-            <div class="social-share">
-                <a href="https://wa.me/?text=${encodedTitle}%20${encodedUrl}" class="share-btn whatsapp" target="_blank" aria-label="Share on WhatsApp" tabindex="0">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" class="share-btn facebook" target="_blank" aria-label="Share on Facebook" tabindex="0">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}" class="share-btn twitter" target="_blank" aria-label="Share on Twitter" tabindex="0">
-                    <svg class="x-icon" viewBox="0 0 24 24" width="1rem" height="1rem" fill="currentColor">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                    </svg>
-                </a>
-                <a href="https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}" class="share-btn telegram" target="_blank" aria-label="Share on Telegram" tabindex="0">
-                    <i class="fab fa-telegram-plane"></i>
-                </a>
-            </div>
-        `;
         return `
             <article class="news-card preview" id="${article.id}" tabindex="0" aria-expanded="false">
                 <div class="news-image-wrapper">
@@ -101,7 +108,6 @@ async function renderNews(category = null, subCategory = null) {
                     </div>
                     <p class="news-excerpt">${article.excerpt}</p>
                     <div class="full-text">${fullText}</div>
-                    ${socialShare}
                 </div>
             </article>
         `;
@@ -117,6 +123,21 @@ async function renderNews(category = null, subCategory = null) {
             card.classList.toggle('preview', isExpanded);
             card.classList.toggle('expanded', !isExpanded);
             imageWrapper.classList.toggle('expanded', !isExpanded);
+
+            // Add or remove social share buttons
+            let socialShare = card.querySelector('.social-share');
+            if (!isExpanded) {
+                // Expanding: Add social share buttons
+                if (!socialShare) {
+                    const socialShareHTML = generateSocialShare(card.id);
+                    card.querySelector('.news-content').insertAdjacentHTML('beforeend', socialShareHTML);
+                }
+            } else {
+                // Collapsing: Remove social share buttons
+                if (socialShare) {
+                    socialShare.remove();
+                }
+            }
         });
     });
 }
@@ -146,27 +167,6 @@ async function renderHomeNews() {
         .replace(/<\/li>$/, '</li></ul>')
         .replace(/^/, '<p>')
         .replace(/$/, '</p>');
-    const featuredArticleUrl = `${window.location.origin}${window.location.pathname}#${featuredArticle.id}`;
-    const featuredEncodedTitle = encodeURIComponent(featuredArticle.title);
-    const featuredEncodedUrl = encodeURIComponent(featuredArticleUrl);
-    const featuredSocialShare = `
-        <div class="social-share">
-            <a href="https://wa.me/?text=${featuredEncodedTitle}%20${featuredEncodedUrl}" class="share-btn whatsapp" target="_blank" aria-label="Share on WhatsApp" tabindex="0">
-                <i class="fab fa-whatsapp"></i>
-            </a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=${featuredEncodedUrl}" class="share-btn facebook" target="_blank" aria-label="Share on Facebook" tabindex="0">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://twitter.com/intent/tweet?text=${featuredEncodedTitle}&url=${featuredEncodedUrl}" class="share-btn twitter" target="_blank" aria-label="Share on Twitter" tabindex="0">
-                <svg class="x-icon" viewBox="0 0 24 24" width="1rem" height="1rem" fill="currentColor">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                </svg>
-            </a>
-            <a href="https://t.me/share/url?url=${featuredEncodedUrl}&text=${featuredEncodedTitle}" class="share-btn telegram" target="_blank" aria-label="Share on Telegram" tabindex="0">
-                <i class="fab fa-telegram-plane"></i>
-            </a>
-        </div>
-    `;
     featuredContainer.innerHTML = `
         <article class="featured-card" id="${featuredArticle.id}" tabindex="0" aria-expanded="false">
             <div class="featured-image-wrapper">
@@ -180,7 +180,6 @@ async function renderHomeNews() {
                 </div>
                 <p class="featured-excerpt">${featuredArticle.excerpt}</p>
                 <div class="featured-full-text">${featuredFullText}</div>
-                ${featuredSocialShare}
             </div>
         </article>
     `;
@@ -196,27 +195,6 @@ async function renderHomeNews() {
             .replace(/<\/li>$/, '</li></ul>')
             .replace(/^/, '<p>')
             .replace(/$/, '</p>');
-        const articleUrl = `${window.location.origin}${window.location.pathname}#${article.id}`;
-        const encodedTitle = encodeURIComponent(article.title);
-        const encodedUrl = encodeURIComponent(articleUrl);
-        const socialShare = `
-            <div class="social-share">
-                <a href="https://wa.me/?text=${encodedTitle}%20${encodedUrl}" class="share-btn whatsapp" target="_blank" aria-label="Share on WhatsApp" tabindex="0">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" class="share-btn facebook" target="_blank" aria-label="Share on Facebook" tabindex="0">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}" class="share-btn twitter" target="_blank" aria-label="Share on Twitter" tabindex="0">
-                    <svg class="x-icon" viewBox="0 0 24 24" width="1rem" height="1rem" fill="currentColor">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                    </svg>
-                </a>
-                <a href="https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}" class="share-btn telegram" target="_blank" aria-label="Share on Telegram" tabindex="0">
-                    <i class="fab fa-telegram-plane"></i>
-                </a>
-            </div>
-        `;
         return `
             <article class="latest-card preview" id="${article.id}" tabindex="0" aria-expanded="false">
                 <div class="latest-image-wrapper">
@@ -230,7 +208,6 @@ async function renderHomeNews() {
                     </div>
                     <p class="latest-excerpt">${article.excerpt}</p>
                     <div class="latest-full-text">${fullText}</div>
-                    ${socialShare}
                 </div>
             </article>
         `;
@@ -241,12 +218,28 @@ async function renderHomeNews() {
         card.addEventListener('click', () => {
             const fullText = card.querySelector('.featured-full-text, .latest-full-text');
             const imageWrapper = card.querySelector('.featured-image-wrapper, .latest-image-wrapper');
+            const content = card.querySelector('.featured-content, .latest-content');
             const isExpanded = card.getAttribute('aria-expanded') === 'true';
             fullText.style.display = isExpanded ? 'none' : 'block';
             card.setAttribute('aria-expanded', !isExpanded);
             card.classList.toggle('preview', isExpanded);
             card.classList.toggle('expanded', !isExpanded);
             imageWrapper.classList.toggle('expanded', !isExpanded);
+
+            // Add or remove social share buttons
+            let socialShare = card.querySelector('.social-share');
+            if (!isExpanded) {
+                // Expanding: Add social share buttons
+                if (!socialShare) {
+                    const socialShareHTML = generateSocialShare(card.id);
+                    content.insertAdjacentHTML('beforeend', socialShareHTML);
+                }
+            } else {
+                // Collapsing: Remove social share buttons
+                if (socialShare) {
+                    socialShare.remove();
+                }
+            }
         });
     });
 }
