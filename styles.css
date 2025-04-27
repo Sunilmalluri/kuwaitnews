@@ -44,6 +44,13 @@ body {
     margin-bottom: 2rem;
 }
 
+.featured-news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
 .featured-card {
     display: flex;
     flex-direction: row;
@@ -65,13 +72,13 @@ body {
 
 .featured-image-wrapper {
     flex: 0 0 40%;
-    max-height: 300px;
+    max-height: 200px; /* Adjusted for multiple cards */
     transition: flex 0.3s ease, max-height 0.3s ease;
 }
 
 .featured-image-wrapper.expanded {
     flex: 0 0 50%;
-    max-height: 400px;
+    max-height: 300px;
 }
 
 .featured-image {
@@ -82,12 +89,12 @@ body {
 
 .featured-content {
     flex: 1;
-    padding: 1.5rem;
+    padding: 1rem;
 }
 
 .featured-title {
     font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1.8rem;
+    font-size: 1.5rem; /* Slightly smaller for multiple cards */
     color: #333;
     margin: 0 0 0.5rem;
 }
@@ -95,7 +102,7 @@ body {
 .featured-meta {
     display: flex;
     gap: 1rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #666;
     margin-bottom: 0.5rem;
 }
@@ -106,14 +113,14 @@ body {
 
 .featured-excerpt {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #444;
     margin: 0 0 0.5rem;
 }
 
 .featured-full-text {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #444;
     line-height: 1.6;
     display: none;
@@ -449,6 +456,10 @@ body {
     }
 
     /* Featured News */
+    .featured-news-grid {
+        grid-template-columns: 1fr;
+    }
+
     .featured-card {
         flex-direction: column;
     }
@@ -463,15 +474,15 @@ body {
     }
 
     .featured-title {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
 
     .featured-excerpt {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     .featured-full-text {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     /* Latest News */
