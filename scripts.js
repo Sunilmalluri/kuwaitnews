@@ -129,6 +129,16 @@ async function loadCommonComponents() {
         const navLoaded = await loadComponent('/includes/navigation.html', '.top-wrapper');
         if (!navLoaded) throw new Error('Navigation failed to load');
 
+        // Load Footer
+        const footerWrapper = document.querySelector('.footer-wrapper');
+        if (footerWrapper) {
+            const footerLoaded = await loadComponent('/includes/footer.html', '.footer-wrapper');
+            if (!footerLoaded) throw new Error('Footer failed to load');
+            console.log('Footer loaded successfully');
+        } else {
+            console.warn('Footer wrapper (.footer-wrapper) not found; skipping footer load');
+        }
+
         const menuBtn = document.querySelector('.menu-btn');
         const navMenuToggle = document.querySelector('.nav-menu-toggle');
         if (menuBtn && navMenuToggle && window.innerWidth < 769) {
