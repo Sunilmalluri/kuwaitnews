@@ -157,8 +157,11 @@ async function renderHomeNews() {
         return;
     }
 
-    // Render featured news (first article)
-    const featuredArticle = articles[0];
+    // Find the featured article (first article with "featured": true, otherwise first article)
+    let featuredArticle = articles.find(article => article.featured === true) || articles[0];
+    let latestArticles = articles.filter(article => article.id !== featuredArticle.id);
+
+    // Render featured news
     const featuredFullText = featuredArticle.fullText
         .replace(/\n\n/g, '</p><p>')
         .replace(/\n- /g, '</li><li>')
@@ -184,8 +187,7 @@ async function renderHomeNews() {
         </article>
     `;
 
-    // Render latest news (remaining articles)
-    const latestArticles = articles.slice(1);
+    // Render latest news
     latestContainer.innerHTML = latestArticles.map(article => {
         const fullText = article.fullText
             .replace(/\n\n/g, '</p><p>')
