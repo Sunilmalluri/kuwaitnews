@@ -143,7 +143,7 @@ async function renderNews(category = null, subCategory = null) {
 }
 
 async function renderHomeNews() {
-    const featuredContainer = document.querySelector('.featured-news-card');
+    const featuredContainer = document.querySelector('.featured-news-grid');
     const latestContainer = document.querySelector('.latest-news-grid');
     if (!featuredContainer || !latestContainer) {
         console.error('Featured or latest news container not found');
@@ -157,35 +157,43 @@ async function renderHomeNews() {
         return;
     }
 
-    // Find the featured article (first article with "featured": true, otherwise first article)
-    let featuredArticle = articles.find(article => article.featured === true) || articles[0];
-    let latestArticles = articles.filter(article => article.id !== featuredArticle.id);
+    // Find all featured articles
+    let featuredArticles = articles.filter(article => article.featured === true);
+    let latestArticles = articles.filter(article => !article.featured);
+
+    // If no articles are featured, use the first article as a fallback
+    if (featuredArticles.length === 0) {
+        featuredArticles = [articles[0]];
+        latestArticles = articles.slice(1);
+    }
 
     // Render featured news
-    const featuredFullText = featuredArticle.fullText
-        .replace(/\n\n/g, '</p><p>')
-        .replace(/\n- /g, '</li><li>')
-        .replace(/\n/g, ' ')
-        .replace(/<li>/, '<ul><li>')
-        .replace(/<\/li>$/, '</li></ul>')
-        .replace(/^/, '<p>')
-        .replace(/$/, '</p>');
-    featuredContainer.innerHTML = `
-        <article class="featured-card" id="${featuredArticle.id}" tabindex="0" aria-expanded="false">
-            <div class="featured-image-wrapper">
-                <img src="${featuredArticle.image}" alt="${featuredArticle.alt}" class="featured-image" loading="lazy">
-            </div>
-            <div class="featured-content">
-                <h3 class="featured-title">${featuredArticle.title}</h3>
-                <div class="featured-meta">
-                    <span><i class="far fa-calendar-alt"></i> ${featuredArticle.date}</span>
-                    <span><i class="far fa-clock"></i> ${featuredArticle.time}</span>
+    featuredContainer.innerHTML = featuredArticles.map(article => {
+        const fullText = article.fullText
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/\n- /g, '</li><li>')
+            .replace(/\n/g, ' ')
+            .replace(/<li>/, '<ul><li>')
+            .replace(/<\/li>$/, '</li></ul>')
+            .replace(/^/, '<p>')
+            .replace(/$/, '</p>');
+        return `
+            <article class="featured-card" id="${article.id}" tabindex="0" aria-expanded="false">
+                <div class="featured-image-wrapper">
+                    <img src="${article.image}" alt="${article.alt}" class="featured-image" loading="lazy">
                 </div>
-                <p class="featured-excerpt">${featuredArticle.excerpt}</p>
-                <div class="featured-full-text">${featuredFullText}</div>
-            </div>
-        </article>
-    `;
+                <div class="featured-content">
+                    <h3 class="featured-title">${article.title}</h3>
+                    <div class="featured-meta">
+                        <span><i class="far fa-calendar-alt"></i> ${article.date}</span>
+                        <span><i class="far fa-clock"></i> ${article.time}</span>
+                    </div>
+                    <p class="featured-excerpt">${article.excerpt}</p>
+                    <div class="featured-full-text">${fullText}</div>
+                </div>
+            </article>
+        `;
+    }).join('');
 
     // Render latest news
     latestContainer.innerHTML = latestArticles.map(article => {
