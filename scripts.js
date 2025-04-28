@@ -73,6 +73,53 @@ function generateSocialShare(articleId) {
     `;
 }
 
+async function fetchGoldPrice(retries = 3, delay = 100) {
+    for (let i = 0; i < retries; i++) {
+        try {
+            if (typeof window.goldPriceData === 'undefined' || !Array.isArray(window.goldPriceData)) {
+                if (i === retries - 1) {
+                    throw new Error('goldPriceData is not defined or not an array after retries.');
+                }
+                await new Promise(resolve => setTimeout(resolve, delay));
+                continue;
+            }
+            return window.goldPriceData;
+        } catch (error) {
+            console.error('Error fetching gold price data:', error.message);
+            return [];
+        }
+    }
+    return [];
+}
+
+async function renderGoldPrice() {
+    const goldPriceContainer = document.querySelector('.gold-price-grid');
+    if (!goldPriceContainer) {
+        console.error('Gold price container (.gold-price-grid) not found');
+        return;
+    }
+
+    const goldPrices = await fetchGoldPrice();
+    if (goldPrices.length === 0) {
+        goldPriceContainer.innerHTML = '<p>బంగారం ధరలు అందుబాటులో లేవు.</p>';
+        return;
+    }
+
+    goldPriceContainer.innerHTML = goldPrices.map(price => {
+        return `
+            <div class="gold-price-card">
+                <h3 class="gold-price-city">${price.city}</h3>
+                <p class="gold-price-date"><i class="far fa-calendar-alt"></i> ${price.date}</p>
+                <div class="gold-price-details">
+                    <p>22K: ₹${price.price_22k} / 10g</p>
+                    <p>24K: ₹${price.price_24k} / 10g</p>
+                    <p class="gold-price-change">మార్పు: ${price.change}</p>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
 async function renderNews(category = null, subCategory = null) {
     const newsContainer = document.querySelector('.news-grid');
     if (!newsContainer) {
@@ -348,6 +395,8 @@ async function loadCommonComponents() {
         const pageSubCategory = document.body.dataset.subcategory || null;
         if (pageCategory === 'Home') {
             renderHomeNews();
+        } else if (pageCategory === 'gold-price') {
+            renderGoldPrice();
         } else {
             renderNews(pageCategory, pageSubCategory);
         }
