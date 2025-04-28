@@ -106,6 +106,7 @@ async function renderGoldPrice() {
     }
 
     goldPriceContainer.innerHTML = goldPrices.map(price => {
+        const isNegative = price.change.startsWith('-');
         return `
             <div class="gold-price-card">
                 <h3 class="gold-price-city">${price.city}</h3>
@@ -113,7 +114,7 @@ async function renderGoldPrice() {
                 <div class="gold-price-details">
                     <p>22K: ₹${price.price_22k} / 10g</p>
                     <p>24K: ₹${price.price_24k} / 10g</p>
-                    <p class="gold-price-change">మార్పు: ${price.change}</p>
+                    <p class="gold-price-change ${isNegative ? 'negative' : ''}">మార్పు: ${price.change}</p>
                 </div>
             </div>
         `;
