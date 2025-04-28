@@ -116,13 +116,11 @@ async function renderNews(category = null, subCategory = null) {
     document.querySelectorAll('.news-card').forEach(card => {
         card.addEventListener('click', () => {
             const fullText = card.querySelector('.full-text');
-            const imageWrapper = card.querySelector('.news-image-wrapper');
             const isExpanded = card.getAttribute('aria-expanded') === 'true';
             fullText.style.display = isExpanded ? 'none' : 'block';
             card.setAttribute('aria-expanded', !isExpanded);
             card.classList.toggle('preview', isExpanded);
             card.classList.toggle('expanded', !isExpanded);
-            imageWrapper.classList.toggle('expanded', !isExpanded);
 
             // Add or remove social share buttons
             let socialShare = card.querySelector('.social-share');
@@ -227,14 +225,12 @@ async function renderHomeNews() {
     document.querySelectorAll('.featured-card, .latest-card').forEach(card => {
         card.addEventListener('click', () => {
             const fullText = card.querySelector('.featured-full-text, .latest-full-text');
-            const imageWrapper = card.querySelector('.featured-image-wrapper, .latest-image-wrapper');
             const content = card.querySelector('.featured-content, .latest-content');
             const isExpanded = card.getAttribute('aria-expanded') === 'true';
             fullText.style.display = isExpanded ? 'none' : 'block';
             card.setAttribute('aria-expanded', !isExpanded);
             card.classList.toggle('preview', isExpanded);
             card.classList.toggle('expanded', !isExpanded);
-            imageWrapper.classList.toggle('expanded', !isExpanded);
 
             // Add or remove social share buttons
             let socialShare = card.querySelector('.social-share');
