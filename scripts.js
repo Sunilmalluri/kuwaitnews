@@ -45,7 +45,6 @@ async function fetchNews(category = null, subCategory = null, retries = 3, delay
     return [];
 }
 
-// Helper function to generate social share buttons
 function generateSocialShare(articleId) {
     const article = window.newsData.find(a => a.id === articleId);
     if (!article) return '';
@@ -93,30 +92,38 @@ async function fetchGoldPrice(retries = 3, delay = 100) {
 }
 
 async function renderGoldPrice() {
-    const goldPriceContainer = document.querySelector('.gold-price-grid');
-    if (!goldPriceContainer) {
-        console.error('Gold price container (.gold-price-grid) not found');
+    const goldPriceTableBody = document.querySelector('.gold-price-table-body');
+    const dateElement = document.querySelector('#gold-price-date');
+    if (!goldPriceTableBody || !dateElement) {
+        console.error('Gold price table body (.gold-price-table-body) or date element (#gold-price-date) not found');
         return;
     }
 
     const goldPrices = await fetchGoldPrice();
     if (goldPrices.length === 0) {
-        goldPriceContainer.innerHTML = '<p>బంగారం ధరలు అందుబాటులో లేవు.</p>';
+        goldPriceTableBody.innerHTML = '<tr><td colspan="10">బంగారం ధరలు అందుబాటులో లేవు.</td></tr>';
         return;
     }
 
-    goldPriceContainer.innerHTML = goldPrices.map(price => {
-        const isNegative = price.change.startsWith('-');
+    // Set the date (assuming all entries have the same date)
+    dateElement.textContent = goldPrices[0].date;
+
+    // Render table rows
+    goldPriceTableBody.innerHTML = goldPrices.map(price => {
+        const isIndianCity = price.currency === 'INR';
         return `
-            <div class="gold-price-card">
-                <h3 class="gold-price-city">${price.city}</h3>
-                <p class="gold-price-date"><i class="far fa-calendar-alt"></i> ${price.date}</p>
-                <div class="gold-price-details">
-                    <p>22K: ₹${price.price_22k} / 10g</p>
-                    <p>24K: ₹${price.price_24k} / 10g</p>
-                    <p class="gold-price-change ${isNegative ? 'negative' : ''}">మార్పు: ${price.change}</p>
-                </div>
-            </div>
+            <tr>
+                <td>${price.location}</td>
+                <td>${price.currencySymbol}${price.price_24k_1g}</td>
+                <td>${price.currencySymbol}${price.price_24k_10g}</td>
+                <td>₹${isIndianCity ? price.price_24k_10g : price.price_24k_10g_inr}</td>
+                <td>${price.currencySymbol}${price.price_22k_1g}</td>
+                <td>${price.currencySymbol}${price.price_22k_10g}</td>
+                <td>₹${isIndianCity ? price.price_22k_10g : price.price_22k_10g_inr}</td>
+                <td>${price.currencySymbol}${price.price_18k_1g}</td>
+                <td>${price.currencySymbol}${price.price_18k_10g}</td>
+                <td>₹${isIndianCity ? price.price_18k_10g : price.price_18k_10g_inr}</td>
+            </tr>
         `;
     }).join('');
 }
@@ -170,16 +177,13 @@ async function renderNews(category = null, subCategory = null) {
             card.classList.toggle('preview', isExpanded);
             card.classList.toggle('expanded', !isExpanded);
 
-            // Add or remove social share buttons
             let socialShare = card.querySelector('.social-share');
             if (!isExpanded) {
-                // Expanding: Add social share buttons
                 if (!socialShare) {
                     const socialShareHTML = generateSocialShare(card.id);
                     card.querySelector('.news-content').insertAdjacentHTML('beforeend', socialShareHTML);
                 }
             } else {
-                // Collapsing: Remove social share buttons
                 if (socialShare) {
                     socialShare.remove();
                 }
@@ -203,17 +207,14 @@ async function renderHomeNews() {
         return;
     }
 
-    // Find all featured articles
     let featuredArticles = articles.filter(article => article.featured === true);
     let latestArticles = articles.filter(article => !article.featured);
 
-    // If no articles are featured, use the first article as a fallback
     if (featuredArticles.length === 0) {
         featuredArticles = [articles[0]];
         latestArticles = articles.slice(1);
     }
 
-    // Render featured news
     featuredContainer.innerHTML = featuredArticles.map(article => {
         const fullText = article.fullText
             .replace(/\n\n/g, '</p><p>')
@@ -241,7 +242,6 @@ async function renderHomeNews() {
         `;
     }).join('');
 
-    // Render latest news
     latestContainer.innerHTML = latestArticles.map(article => {
         const fullText = article.fullText
             .replace(/\n\n/g, '</p><p>')
@@ -269,7 +269,6 @@ async function renderHomeNews() {
         `;
     }).join('');
 
-    // Add click handlers for featured and latest cards
     document.querySelectorAll('.featured-card, .latest-card').forEach(card => {
         card.addEventListener('click', () => {
             const fullText = card.querySelector('.featured-full-text, .latest-full-text');
@@ -280,16 +279,13 @@ async function renderHomeNews() {
             card.classList.toggle('preview', isExpanded);
             card.classList.toggle('expanded', !isExpanded);
 
-            // Add or remove social share buttons
             let socialShare = card.querySelector('.social-share');
             if (!isExpanded) {
-                // Expanding: Add social share buttons
                 if (!socialShare) {
                     const socialShareHTML = generateSocialShare(card.id);
                     content.insertAdjacentHTML('beforeend', socialShareHTML);
                 }
             } else {
-                // Collapsing: Remove social share buttons
                 if (socialShare) {
                     socialShare.remove();
                 }
@@ -311,7 +307,6 @@ async function loadCommonComponents() {
         const navLoaded = await loadComponent('/includes/navigation.html', '.top-wrapper');
         if (!navLoaded) throw new Error('Navigation failed to load');
 
-        // Load Footer
         const footerWrapper = document.querySelector('.footer-wrapper');
         if (footerWrapper) {
             const footerLoaded = await loadComponent('/includes/footer.html', '.footer-wrapper');
@@ -360,7 +355,6 @@ async function loadCommonComponents() {
             }
         });
 
-        // Sticky navigation logic
         const navContainer = document.querySelector('.nav-container');
         const navPlaceholder = document.querySelector('.nav-placeholder');
         const header = document.querySelector('.header-bg');
@@ -377,8 +371,8 @@ async function loadCommonComponents() {
             const updateStickyNav = () => {
                 const headerHeight = header.offsetHeight;
                 const navHeight = navContainer.offsetHeight;
-                navPlaceholder.style.height = `${navHeight}px`; // Only nav height
-                contentBg.style.paddingTop = `1px`; // Fixed padding as requested
+                navPlaceholder.style.height = `${navHeight}px`;
+                contentBg.style.paddingTop = `1px`;
                 console.log('Header height:', headerHeight, 'Nav height:', navHeight, 'Placeholder height:', navHeight, 'Content padding-top:', '1px');
                 if (window.scrollY >= headerHeight) {
                     navContainer.classList.add('sticky');
@@ -389,7 +383,7 @@ async function loadCommonComponents() {
 
             window.addEventListener('scroll', debounce(updateStickyNav, 10));
             window.addEventListener('resize', debounce(updateStickyNav, 10));
-            updateStickyNav(); // Initial check
+            updateStickyNav();
         }
 
         const pageCategory = document.body.dataset.category || null;
