@@ -45,6 +45,7 @@ async function fetchNews(category = null, subCategory = null, retries = 3, delay
     return [];
 }
 
+// Helper function to generate social share buttons
 function generateSocialShare(articleId) {
     const article = window.newsData.find(a => a.id === articleId);
     if (!article) return '';
@@ -72,60 +73,23 @@ function generateSocialShare(articleId) {
     `;
 }
 
-async function fetchGoldPrice() {
-    const API_KEY = 'your-api-key-here'; // Replace with your Metals-API key
-    const cities = [
-        { symbol: 'XAU-HYDE', name: 'Hyderabad' },
-        { symbol: 'XAU-VJWD', name: 'Vijayawada' },
-        { symbol: 'XAU-VIZG', name: 'Visakhapatnam' }
-    ];
-    const goldUrl = `https://metals-api.com/api/latest?access_key=${API_KEY}&base=USD&symbols=${cities.map(city => city.symbol).join(',')}`;
-    const exchangeUrl = `https://metals-api.com/api/latest?access_key=${API_KEY}&base=USD&symbols=INR`;
-
-    try {
-        // Fetch exchange rate (USD to INR)
-        const exchangeResponse = await fetch(exchangeUrl);
-        if (!exchangeResponse.ok) throw new Error('Failed to fetch exchange rate');
-        const exchangeData = await exchangeResponse.json();
-        if (!exchangeData.success) throw new Error('Exchange rate API error');
-        const usdToInr = exchangeData.rates.INR;
-
-        // Fetch gold prices
-        const goldResponse = await fetch(goldUrl);
-        if (!goldResponse.ok) throw new Error('Failed to fetch gold prices');
-        const goldData = await goldResponse.json();
-        if (!goldData.success) throw new Error('Gold price API error');
-
-        const date = goldData.date;
-        const rates = goldData.rates;
-
-        // Process gold prices
-        const goldPrices = cities.map(city => {
-            const rate = rates[city.symbol]; // e.g., 0.00049817281835633 (1 USD = rate XAU)
-            const pricePerOunceUsd = 1 / rate; // e.g., 2007.33 USD/oz
-            const pricePerGramUsd = pricePerOunceUsd / 31.1035; // e.g., 64.535 USD/gram
-            const pricePer10GramUsd = pricePerGramUsd * 10; // e.g., 645.35 USD/10g
-            const pricePer10GramInr = Math.round(pricePer10GramUsd * usdToInr); // e.g., 53680 INR/10g
-
-            // Calculate 22K price (91.67% of 24K)
-            const price22K = Math.round(pricePer10GramInr * 0.9167);
-            // Simulate daily change (since API doesn't provide same-day fluctuation)
-            const change = Math.round(Math.random() * 1000 - 500); // Random change between -500 and +500
-
-            return {
-                date: date,
-                city: city.name,
-                price_22k: price22K.toString(),
-                price_24k: pricePer10GramInr.toString(),
-                change: change >= 0 ? `+${change}` : change.toString()
-            };
-        });
-
-        return goldPrices;
-    } catch (error) {
-        console.error('Error fetching gold price data:', error.message);
-        return [];
+async function fetchGoldPrice(retries = 3, delay = 100) {
+    for (let i = 0; i < retries; i++) {
+        try {
+            if (typeof window.goldPriceData === 'undefined' || !Array.isArray(window.goldPriceData)) {
+                if (i === retries - 1) {
+                    throw new Error('goldPriceData is not defined or not an array after retries.');
+                }
+                await new Promise(resolve => setTimeout(resolve, delay));
+                continue;
+            }
+            return window.goldPriceData;
+        } catch (error) {
+            console.error('Error fetching gold price data:', error.message);
+            return [];
+        }
     }
+    return [];
 }
 
 async function renderGoldPrice() {
@@ -142,7 +106,6 @@ async function renderGoldPrice() {
     }
 
     goldPriceContainer.innerHTML = goldPrices.map(price => {
-        const isNegative = price.change.startsWith('-');
         return `
             <div class="gold-price-card">
                 <h3 class="gold-price-city">${price.city}</h3>
@@ -150,7 +113,7 @@ async function renderGoldPrice() {
                 <div class="gold-price-details">
                     <p>22K: ₹${price.price_22k} / 10g</p>
                     <p>24K: ₹${price.price_24k} / 10g</p>
-                    <p class="gold-price-change ${isNegative ? 'negative' : ''}">మార్పు: ${price.change}</p>
+                    <p class="gold-price-change">మార్పు: ${price.change}</p>
                 </div>
             </div>
         `;
@@ -206,13 +169,16 @@ async function renderNews(category = null, subCategory = null) {
             card.classList.toggle('preview', isExpanded);
             card.classList.toggle('expanded', !isExpanded);
 
+            // Add or remove social share buttons
             let socialShare = card.querySelector('.social-share');
             if (!isExpanded) {
+                // Expanding: Add social share buttons
                 if (!socialShare) {
                     const socialShareHTML = generateSocialShare(card.id);
                     card.querySelector('.news-content').insertAdjacentHTML('beforeend', socialShareHTML);
                 }
             } else {
+                // Collapsing: Remove social share buttons
                 if (socialShare) {
                     socialShare.remove();
                 }
@@ -236,14 +202,17 @@ async function renderHomeNews() {
         return;
     }
 
+    // Find all featured articles
     let featuredArticles = articles.filter(article => article.featured === true);
     let latestArticles = articles.filter(article => !article.featured);
 
+    // If no articles are featured, use the first article as a fallback
     if (featuredArticles.length === 0) {
         featuredArticles = [articles[0]];
         latestArticles = articles.slice(1);
     }
 
+    // Render featured news
     featuredContainer.innerHTML = featuredArticles.map(article => {
         const fullText = article.fullText
             .replace(/\n\n/g, '</p><p>')
@@ -271,6 +240,7 @@ async function renderHomeNews() {
         `;
     }).join('');
 
+    // Render latest news
     latestContainer.innerHTML = latestArticles.map(article => {
         const fullText = article.fullText
             .replace(/\n\n/g, '</p><p>')
@@ -298,6 +268,7 @@ async function renderHomeNews() {
         `;
     }).join('');
 
+    // Add click handlers for featured and latest cards
     document.querySelectorAll('.featured-card, .latest-card').forEach(card => {
         card.addEventListener('click', () => {
             const fullText = card.querySelector('.featured-full-text, .latest-full-text');
@@ -308,13 +279,16 @@ async function renderHomeNews() {
             card.classList.toggle('preview', isExpanded);
             card.classList.toggle('expanded', !isExpanded);
 
+            // Add or remove social share buttons
             let socialShare = card.querySelector('.social-share');
             if (!isExpanded) {
+                // Expanding: Add social share buttons
                 if (!socialShare) {
                     const socialShareHTML = generateSocialShare(card.id);
                     content.insertAdjacentHTML('beforeend', socialShareHTML);
                 }
             } else {
+                // Collapsing: Remove social share buttons
                 if (socialShare) {
                     socialShare.remove();
                 }
@@ -336,6 +310,7 @@ async function loadCommonComponents() {
         const navLoaded = await loadComponent('/includes/navigation.html', '.top-wrapper');
         if (!navLoaded) throw new Error('Navigation failed to load');
 
+        // Load Footer
         const footerWrapper = document.querySelector('.footer-wrapper');
         if (footerWrapper) {
             const footerLoaded = await loadComponent('/includes/footer.html', '.footer-wrapper');
@@ -384,6 +359,7 @@ async function loadCommonComponents() {
             }
         });
 
+        // Sticky navigation logic
         const navContainer = document.querySelector('.nav-container');
         const navPlaceholder = document.querySelector('.nav-placeholder');
         const header = document.querySelector('.header-bg');
@@ -400,8 +376,8 @@ async function loadCommonComponents() {
             const updateStickyNav = () => {
                 const headerHeight = header.offsetHeight;
                 const navHeight = navContainer.offsetHeight;
-                navPlaceholder.style.height = `${navHeight}px`;
-                contentBg.style.paddingTop = `1px`;
+                navPlaceholder.style.height = `${navHeight}px`; // Only nav height
+                contentBg.style.paddingTop = `1px`; // Fixed padding as requested
                 console.log('Header height:', headerHeight, 'Nav height:', navHeight, 'Placeholder height:', navHeight, 'Content padding-top:', '1px');
                 if (window.scrollY >= headerHeight) {
                     navContainer.classList.add('sticky');
@@ -412,7 +388,7 @@ async function loadCommonComponents() {
 
             window.addEventListener('scroll', debounce(updateStickyNav, 10));
             window.addEventListener('resize', debounce(updateStickyNav, 10));
-            updateStickyNav();
+            updateStickyNav(); // Initial check
         }
 
         const pageCategory = document.body.dataset.category || null;
