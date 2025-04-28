@@ -256,52 +256,45 @@ body {
     margin-bottom: 2rem;
 }
 
-.gold-price-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
-    padding: 1rem 0;
-}
-
-.gold-price-card {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    text-align: center;
-}
-
-.gold-price-city {
-    font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1.3rem;
-    color: #333;
-    margin: 0 0 0.5rem;
-}
-
 .gold-price-date {
-    font-size: 0.9rem;
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 1rem;
     color: #666;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .gold-price-date i {
     margin-right: 0.3rem;
 }
 
-.gold-price-details p {
+.gold-price-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
-    color: #444;
-    margin: 0.3rem 0;
 }
 
-.gold-price-change {
+.gold-price-table th,
+.gold-price-table td {
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.gold-price-table th {
+    background: #f5f5f5;
     font-weight: bold;
-    color: #28a745; /* Green for positive change */
 }
 
-.gold-price-change.negative {
-    color: #dc3545; /* Red for negative change */
+.gold-price-table td {
+    background: #fff;
+}
+
+.gold-price-table tbody tr:nth-child(even) {
+    background: #f9f9f9;
 }
 
 /* Social Share Buttons */
@@ -527,21 +520,14 @@ body {
         font-size: 0.9rem;
     }
 
-    /* Gold Price */
-    .gold-price-grid {
-        grid-template-columns: 1fr;
+    /* Gold Price Table */
+    .gold-price-table {
+        font-size: 0.8rem;
     }
 
-    .gold-price-card {
-        padding: 0.5rem;
-    }
-
-    .gold-price-city {
-        font-size: 1.1rem;
-    }
-
-    .gold-price-details p {
-        font-size: 0.9rem;
+    .gold-price-table th,
+    .gold-price-table td {
+        padding: 0.3rem;
     }
 
     /* News Grid (for other pages) */
