@@ -2,7 +2,7 @@ window.newsData = [
     {
         "id": "ind1",
         "title": "జాతీయ స్థాయిలో కొత్త రైల్వే ప్రాజెక్ట్ ప్రకటన",
-        "category": "India",
+        "category": "international",
         "date": "2025-04-22",
         "time": "09:00 AM",
         "image": "/images/india/ind1.jpg",
