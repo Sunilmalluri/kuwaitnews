@@ -1,591 +1,422 @@
-/* Ensure the body uses flexbox to push the footer to the bottom */
-body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.content-bg {
-    flex: 1 0 auto; /* Ensure content takes up available space */
-}
-
-/* Footer wrapper styles */
-.footer-wrapper {
-    flex-shrink: 0; /* Prevent footer from shrinking */
-}
-
-/* Container for added side space */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-}
-
-/* Main content */
-.main-content {
-    width: 100%;
-}
-
-/* Section Title */
-.section-title {
-    font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1.8rem;
-    color: #333;
-    margin: 1rem 0;
-    border-bottom: 2px solid #007bff;
-    padding-bottom: 0.5rem;
-}
-
-/* Featured News Section */
-.featured-news {
-    margin-bottom: 2rem;
-}
-
-.featured-card {
-    display: flex;
-    flex-direction: row;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.featured-card:hover {
-    transform: translateY(-2px);
-}
-
-.featured-card:focus {
-    outline: 2px solid #007bff;
-}
-
-.featured-image-wrapper {
-    flex: 0 0 40%;
-    max-height: 300px;
-}
-
-.featured-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.featured-content {
-    flex: 1;
-    padding: 1rem;
-}
-
-.featured-title {
-    font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1.8rem;
-    color: #333;
-    margin: 0 0 0.5rem;
-}
-
-.featured-meta {
-    display: flex;
-    gap: 1rem;
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 0.5rem;
-}
-
-.featured-meta i {
-    margin-right: 0.3rem;
-}
-
-.featured-excerpt {
-    font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
-    color: #444;
-    margin: 0 0 0.5rem;
-}
-
-.featured-full-text {
-    font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
-    color: #444;
-    line-height: 1.6;
-    display: none;
-}
-
-.featured-card.expanded .featured-full-text {
-    display: block;
-}
-
-.featured-full-text p {
-    margin: 0 0 0.5rem;
-}
-
-.featured-full-text ul {
-    list-style: none;
-    padding: 0;
-    margin: 0.5rem 0;
-}
-
-.featured-full-text li {
-    position: relative;
-    padding-left: 1.5rem;
-    margin-bottom: 0.3rem;
-}
-
-.featured-full-text li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    color: #007bff;
-    font-size: 1.2rem;
-}
-
-/* Latest News Section */
-.latest-news-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 1rem 0;
-}
-
-.latest-card {
-    display: flex;
-    flex-direction: row;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.latest-card:hover {
-    transform: translateY(-2px);
-}
-
-.latest-card:focus {
-    outline: 2px solid #007bff;
-}
-
-.latest-image-wrapper {
-    flex: 0 0 150px;
-    height: 150px;
-}
-
-.latest-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.latest-content {
-    flex: 1;
-    padding: 1rem;
-}
-
-.latest-title {
-    font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1.2rem;
-    color: #333;
-    margin: 0 0 0.5rem;
-}
-
-.latest-meta {
-    display: flex;
-    gap: 1rem;
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 0.5rem;
-    display: none;
-}
-
-.latest-card.expanded .latest-meta {
-    display: flex;
-}
-
-.latest-meta i {
-    margin-right: 0.3rem;
-}
-
-.latest-excerpt {
-    font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
-    color: #444;
-    margin: 0 0 0.5rem;
-}
-
-.latest-full-text {
-    font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
-    color: #444;
-    line-height: 1.6;
-    display: none;
-}
-
-.latest-card.expanded .latest-full-text {
-    display: block;
-}
-
-.latest-full-text p {
-    margin: 0 0 0.5rem;
-}
-
-.latest-full-text ul {
-    list-style: none;
-    padding: 0;
-    margin: 0.5rem 0;
-}
-
-.latest-full-text li {
-    position: relative;
-    padding-left: 1.5rem;
-    margin-bottom: 0.3rem;
-}
-
-.latest-full-text li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    color: #007bff;
-    font-size: 1.2rem;
-}
-
-/* Gold Price Section */
-.gold-price-section {
-    margin-bottom: 2rem;
-}
-
-.gold-price-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
-    padding: 1rem 0;
-}
-
-.gold-price-card {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    text-align: center;
-}
-
-.gold-price-city {
-    font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1.3rem;
-    color: #333;
-    margin: 0 0 0.5rem;
-}
-
-.gold-price-date {
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 0.5rem;
-}
-
-.gold-price-date i {
-    margin-right: 0.3rem;
-}
-
-.gold-price-details p {
-    font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
-    color: #444;
-    margin: 0.3rem 0;
-}
-
-.gold-price-change {
-    font-weight: bold;
-    color: #28a745; /* Green for positive change */
-}
-
-.gold-price-change.negative {
-    color: #dc3545; /* Red for negative change */
-}
-
-/* Social Share Buttons */
-.social-share {
-    display: flex;
-    gap: 0.5rem;
-    margin: 0.5rem 0 0;
-    justify-content: flex-start;
-}
-
-.share-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 50%;
-    background: #f0f0f0;
-    color: #333;
-    text-decoration: none;
-    transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.share-btn:hover {
-    transform: scale(1.1);
-}
-
-.share-btn:focus {
-    outline: 2px solid #007bff;
-}
-
-.share-btn i {
-    font-size: 1rem;
-}
-
-.share-btn.whatsapp {
-    background: #25D366;
-    color: #fff;
-}
-
-.share-btn.facebook {
-    background: #4267B2;
-    color: #fff;
-}
-
-.share-btn.twitter {
-    background: #000000;
-    color: #fff;
-}
-
-.share-btn.telegram {
-    background: #0088cc;
-    color: #fff;
-}
-
-/* News Grid and Card Styles (for other pages) */
-.news-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    margin: 0 auto;
-    max-width: 1200px;
-    padding: 0.5rem 0;
-}
-
-.news-card {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.news-card:hover {
-    transform: translateY(-2px);
-}
-
-.news-card:focus {
-    outline: 2px solid #007bff;
-}
-
-.news-image-wrapper {
-    flex: 0 0 100px;
-    height: 100px;
-}
-
-.news-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.news-content {
-    flex: 1;
-    padding: 1rem;
-}
-
-.news-title {
-    font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1.2rem;
-    margin: 0 0 0.5rem;
-    color: #333;
-}
-
-.news-meta {
-    display: flex;
-    gap: 1rem;
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 0.5rem;
-}
-
-.news-card.preview .news-meta {
-    display: none;
-}
-
-.news-card.expanded .news-meta {
-    display: flex;
-}
-
-.news-meta i {
-    margin-right: 0.3rem;
-}
-
-.news-excerpt {
-    font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
-    color: #444;
-    margin: 0 0 0.5rem;
-}
-
-.full-text {
-    font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
-    color: #444;
-    line-height: 1.6;
-    display: none;
-}
-
-.news-card.expanded .full-text {
-    display: block;
-}
-
-.full-text p {
-    margin: 0 0 0.5rem;
-}
-
-.full-text ul {
-    list-style: none;
-    padding: 0;
-    margin: 0.5rem 0;
-}
-
-.full-text li {
-    position: relative;
-    padding-left: 1.5rem;
-    margin-bottom: 0.3rem;
-}
-
-.full-text li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    color: #007bff;
-    font-size: 1.2rem;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        padding: 0 1rem;
-    }
-
-    .section-title {
-        font-size: 1.5rem;
-    }
-
-    /* Featured News */
-    .featured-card {
-        flex-direction: column;
-    }
-
-    .featured-image-wrapper {
-        flex: 0 0 auto;
-        height: 200px;
-    }
-
-    .featured-title {
-        font-size: 1.3rem;
-    }
-
-    .featured-excerpt {
-        font-size: 0.9rem;
-    }
-
-    .featured-full-text {
-        font-size: 0.9rem;
-    }
-
-    /* Latest News */
-    .latest-card {
-        flex-direction: column;
-    }
-
-    .latest-image-wrapper {
-        flex: 0 0 auto;
-        height: 120px;
-    }
-
-    .latest-title {
-        font-size: 1.1rem;
-    }
-
-    .latest-excerpt {
-        font-size: 0.9rem;
-    }
-
-    .latest-full-text {
-        font-size: 0.9rem;
-    }
-
-    /* Gold Price */
-    .gold-price-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .gold-price-card {
-        padding: 0.5rem;
-    }
-
-    .gold-price-city {
-        font-size: 1.1rem;
-    }
-
-    .gold-price-details p {
-        font-size: 0.9rem;
-    }
-
-    /* News Grid (for other pages) */
-    .news-grid {
-        padding: 0.5rem 0;
-    }
-
-    .news-card {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .news-image-wrapper {
-        flex: 0 0 auto;
-        height: 150px;
-    }
-
-    .news-image {
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .news-content {
-        padding: 0.5rem;
-    }
-
-    .news-title {
-        font-size: 1.1rem;
-    }
-
-    .news-excerpt, .full-text {
-        font-size: 1.0rem;
-    }
-
-    .social-share {
-        gap: 0.4rem;
-    }
-
-    .share-btn {
-        width: 1.4rem;
-        height: 1.4rem;
-    }
-
-    .share-btn i {
-        font-size: 0.9rem;
+async function loadComponent(url, targetElement, position = 'beforeend') {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Failed to load ${url}: ${response.statusText}`);
+        const html = await response.text();
+        const target = document.querySelector(targetElement);
+        if (!target) throw new Error(`Target element '${targetElement}' not found`);
+        target.insertAdjacentHTML(position, html);
+        return true;
+    } catch (error) {
+        console.error('Error loading component:', error.message);
+        return false;
     }
 }
+
+async function fetchNews(category = null, subCategory = null, retries = 3, delay = 100) {
+    for (let i = 0; i < retries; i++) {
+        try {
+            if (typeof window.newsData === 'undefined' || !Array.isArray(window.newsData)) {
+                if (i === retries - 1) {
+                    throw new Error('newsData is not defined or not an array after retries.');
+                }
+                await new Promise(resolve => setTimeout(resolve, delay));
+                continue;
+            }
+            let filteredData = window.newsData;
+            if (category) {
+                filteredData = filteredData.filter(article => 
+                    article.category && category && 
+                    article.category.toLowerCase() === category.toLowerCase()
+                );
+            }
+            if (subCategory && subCategory !== 'All') {
+                filteredData = filteredData.filter(article => 
+                    article.subCategory && subCategory && 
+                    article.subCategory.toLowerCase() === subCategory.toLowerCase()
+                );
+            }
+            return filteredData;
+        } catch (error) {
+            console.error('Error fetching news:', error.message);
+            return [];
+        }
+    }
+    return [];
+}
+
+// Helper function to generate social share buttons
+function generateSocialShare(articleId) {
+    const article = window.newsData.find(a => a.id === articleId);
+    if (!article) return '';
+
+    const articleUrl = `${window.location.origin}${window.location.pathname}#${article.id}`;
+    const encodedTitle = encodeURIComponent(article.title);
+    const encodedUrl = encodeURIComponent(articleUrl);
+    return `
+        <div class="social-share">
+            <a href="https://wa.me/?text=${encodedTitle}%20${encodedUrl}" class="share-btn whatsapp" target="_blank" aria-label="Share on WhatsApp" tabindex="0">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" class="share-btn facebook" target="_blank" aria-label="Share on Facebook" tabindex="0">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}" class="share-btn twitter" target="_blank" aria-label="Share on Twitter" tabindex="0">
+                <svg class="x-icon" viewBox="0 0 24 24" width="1rem" height="1rem" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+            </a>
+            <a href="https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}" class="share-btn telegram" target="_blank" aria-label="Share on Telegram" tabindex="0">
+                <i class="fab fa-telegram-plane"></i>
+            </a>
+        </div>
+    `;
+}
+
+async function fetchGoldPrice(retries = 3, delay = 100) {
+    for (let i = 0; i < retries; i++) {
+        try {
+            if (typeof window.goldPriceData === 'undefined' || !Array.isArray(window.goldPriceData)) {
+                if (i === retries - 1) {
+                    throw new Error('goldPriceData is not defined or not an array after retries.');
+                }
+                await new Promise(resolve => setTimeout(resolve, delay));
+                continue;
+            }
+            return window.goldPriceData;
+        } catch (error) {
+            console.error('Error fetching gold price data:', error.message);
+            return [];
+        }
+    }
+    return [];
+}
+
+async function renderGoldPrice() {
+    const goldPriceContainer = document.querySelector('.gold-price-grid');
+    if (!goldPriceContainer) {
+        console.error('Gold price container (.gold-price-grid) not found');
+        return;
+    }
+
+    const goldPrices = await fetchGoldPrice();
+    if (goldPrices.length === 0) {
+        goldPriceContainer.innerHTML = '<p>బంగారం ధరలు అందుబాటులో లేవు.</p>';
+        return;
+    }
+
+    goldPriceContainer.innerHTML = goldPrices.map(price => {
+        return `
+            <div class="gold-price-card">
+                <h3 class="gold-price-city">${price.city}</h3>
+                <p class="gold-price-date"><i class="far fa-calendar-alt"></i> ${price.date}</p>
+                <div class="gold-price-details">
+                    <p>22K: ₹${price.price_22k} / 10g</p>
+                    <p>24K: ₹${price.price_24k} / 10g</p>
+                    <p class="gold-price-change">మార్పు: ${price.change}</p>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+async function renderNews(category = null, subCategory = null) {
+    const newsContainer = document.querySelector('.news-grid');
+    if (!newsContainer) {
+        console.error('News container (.news-grid) not found');
+        return;
+    }
+
+    const articles = await fetchNews(category, subCategory);
+    if (articles.length === 0) {
+        newsContainer.innerHTML = '<p>వార్తలు అందుబాటులో లేవు.</p>';
+        return;
+    }
+
+    newsContainer.innerHTML = articles.map(article => {
+        const fullText = article.fullText
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/\n- /g, '</li><li>')
+            .replace(/\n/g, ' ')
+            .replace(/<li>/, '<ul><li>')
+            .replace(/<\/li>$/, '</li></ul>')
+            .replace(/^/, '<p>')
+            .replace(/$/, '</p>');
+        return `
+            <article class="news-card preview" id="${article.id}" tabindex="0" aria-expanded="false">
+                <div class="news-image-wrapper">
+                    <img src="${article.image}" alt="${article.alt}" class="news-image" loading="lazy">
+                </div>
+                <div class="news-content">
+                    <h3 class="news-title">${article.title}</h3>
+                    <div class="news-meta">
+                        <span><i class="far fa-calendar-alt"></i> ${article.date}</span>
+                        <span><i class="far fa-clock"></i> ${article.time}</span>
+                    </div>
+                    <p class="news-excerpt">${article.excerpt}</p>
+                    <div class="full-text">${fullText}</div>
+                </div>
+            </article>
+        `;
+    }).join('');
+
+    document.querySelectorAll('.news-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const fullText = card.querySelector('.full-text');
+            const isExpanded = card.getAttribute('aria-expanded') === 'true';
+            fullText.style.display = isExpanded ? 'none' : 'block';
+            card.setAttribute('aria-expanded', !isExpanded);
+            card.classList.toggle('preview', isExpanded);
+            card.classList.toggle('expanded', !isExpanded);
+
+            // Add or remove social share buttons
+            let socialShare = card.querySelector('.social-share');
+            if (!isExpanded) {
+                // Expanding: Add social share buttons
+                if (!socialShare) {
+                    const socialShareHTML = generateSocialShare(card.id);
+                    card.querySelector('.news-content').insertAdjacentHTML('beforeend', socialShareHTML);
+                }
+            } else {
+                // Collapsing: Remove social share buttons
+                if (socialShare) {
+                    socialShare.remove();
+                }
+            }
+        });
+    });
+}
+
+async function renderHomeNews() {
+    const featuredContainer = document.querySelector('.featured-news-grid');
+    const latestContainer = document.querySelector('.latest-news-grid');
+    if (!featuredContainer || !latestContainer) {
+        console.error('Featured or latest news container not found');
+        return;
+    }
+
+    const articles = await fetchNews();
+    if (articles.length === 0) {
+        featuredContainer.innerHTML = '<p>వార్తలు అందుబాటులో లేవు.</p>';
+        latestContainer.innerHTML = '<p>వార్తలు అందుబాటులో లేవు.</p>';
+        return;
+    }
+
+    // Find all featured articles
+    let featuredArticles = articles.filter(article => article.featured === true);
+    let latestArticles = articles.filter(article => !article.featured);
+
+    // If no articles are featured, use the first article as a fallback
+    if (featuredArticles.length === 0) {
+        featuredArticles = [articles[0]];
+        latestArticles = articles.slice(1);
+    }
+
+    // Render featured news
+    featuredContainer.innerHTML = featuredArticles.map(article => {
+        const fullText = article.fullText
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/\n- /g, '</li><li>')
+            .replace(/\n/g, ' ')
+            .replace(/<li>/, '<ul><li>')
+            .replace(/<\/li>$/, '</li></ul>')
+            .replace(/^/, '<p>')
+            .replace(/$/, '</p>');
+        return `
+            <article class="featured-card" id="${article.id}" tabindex="0" aria-expanded="false">
+                <div class="featured-image-wrapper">
+                    <img src="${article.image}" alt="${article.alt}" class="featured-image" loading="lazy">
+                </div>
+                <div class="featured-content">
+                    <h3 class="featured-title">${article.title}</h3>
+                    <div class="featured-meta">
+                        <span><i class="far fa-calendar-alt"></i> ${article.date}</span>
+                        <span><i class="far fa-clock"></i> ${article.time}</span>
+                    </div>
+                    <p class="featured-excerpt">${article.excerpt}</p>
+                    <div class="featured-full-text">${fullText}</div>
+                </div>
+            </article>
+        `;
+    }).join('');
+
+    // Render latest news
+    latestContainer.innerHTML = latestArticles.map(article => {
+        const fullText = article.fullText
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/\n- /g, '</li><li>')
+            .replace(/\n/g, ' ')
+            .replace(/<li>/, '<ul><li>')
+            .replace(/<\/li>$/, '</li></ul>')
+            .replace(/^/, '<p>')
+            .replace(/$/, '</p>');
+        return `
+            <article class="latest-card preview" id="${article.id}" tabindex="0" aria-expanded="false">
+                <div class="latest-image-wrapper">
+                    <img src="${article.image}" alt="${article.alt}" class="latest-image" loading="lazy">
+                </div>
+                <div class="latest-content">
+                    <h3 class="latest-title">${article.title}</h3>
+                    <div class="latest-meta">
+                        <span><i class="far fa-calendar-alt"></i> ${article.date}</span>
+                        <span><i class="far fa-clock"></i> ${article.time}</span>
+                    </div>
+                    <p class="latest-excerpt">${article.excerpt}</p>
+                    <div class="latest-full-text">${fullText}</div>
+                </div>
+            </article>
+        `;
+    }).join('');
+
+    // Add click handlers for featured and latest cards
+    document.querySelectorAll('.featured-card, .latest-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const fullText = card.querySelector('.featured-full-text, .latest-full-text');
+            const content = card.querySelector('.featured-content, .latest-content');
+            const isExpanded = card.getAttribute('aria-expanded') === 'true';
+            fullText.style.display = isExpanded ? 'none' : 'block';
+            card.setAttribute('aria-expanded', !isExpanded);
+            card.classList.toggle('preview', isExpanded);
+            card.classList.toggle('expanded', !isExpanded);
+
+            // Add or remove social share buttons
+            let socialShare = card.querySelector('.social-share');
+            if (!isExpanded) {
+                // Expanding: Add social share buttons
+                if (!socialShare) {
+                    const socialShareHTML = generateSocialShare(card.id);
+                    content.insertAdjacentHTML('beforeend', socialShareHTML);
+                }
+            } else {
+                // Collapsing: Remove social share buttons
+                if (socialShare) {
+                    socialShare.remove();
+                }
+            }
+        });
+    });
+}
+
+async function loadCommonComponents() {
+    try {
+        const existingWrapper = document.querySelector('.top-wrapper');
+        if (existingWrapper) existingWrapper.remove();
+
+        document.body.insertAdjacentHTML('afterbegin', `<div class="top-wrapper"></div>`);
+
+        const headerLoaded = await loadComponent('/includes/header.html', '.top-wrapper');
+        if (!headerLoaded) throw new Error('Header failed to load');
+
+        const navLoaded = await loadComponent('/includes/navigation.html', '.top-wrapper');
+        if (!navLoaded) throw new Error('Navigation failed to load');
+
+        // Load Footer
+        const footerWrapper = document.querySelector('.footer-wrapper');
+        if (footerWrapper) {
+            const footerLoaded = await loadComponent('/includes/footer.html', '.footer-wrapper');
+            if (!footerLoaded) throw new Error('Footer failed to load');
+            console.log('Footer loaded successfully');
+        } else {
+            console.warn('Footer wrapper (.footer-wrapper) not found; skipping footer load');
+        }
+
+        const menuBtn = document.querySelector('.menu-btn');
+        const navMenuToggle = document.querySelector('.nav-menu-toggle');
+        if (menuBtn && navMenuToggle && window.innerWidth < 769) {
+            menuBtn.addEventListener('click', () => {
+                const isActive = navMenuToggle.classList.toggle('active');
+                menuBtn.setAttribute('aria-expanded', isActive);
+                menuBtn.innerHTML = isActive ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+                if (isActive) {
+                    document.querySelectorAll('.nav-menu-horizontal .dropdown').forEach(dropdown => {
+                        dropdown.classList.remove('open');
+                    });
+                }
+            });
+        }
+
+        const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', (e) => {
+                const dropdown = toggle.closest('.dropdown');
+                e.preventDefault();
+                if (dropdown) {
+                    document.querySelectorAll('.dropdown').forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown) {
+                            otherDropdown.classList.remove('open');
+                        }
+                    });
+                    dropdown.classList.toggle('open');
+                }
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.dropdown') && !e.target.closest('.menu-btn')) {
+                document.querySelectorAll('.dropdown').forEach(dropdown => {
+                    dropdown.classList.remove('open');
+                });
+            }
+        });
+
+        // Sticky navigation logic
+        const navContainer = document.querySelector('.nav-container');
+        const navPlaceholder = document.querySelector('.nav-placeholder');
+        const header = document.querySelector('.header-bg');
+        const contentBg = document.querySelector('.content-bg');
+        if (navContainer && navPlaceholder && header && contentBg) {
+            const debounce = (func, wait) => {
+                let timeout;
+                return () => {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(func, wait);
+                };
+            };
+
+            const updateStickyNav = () => {
+                const headerHeight = header.offsetHeight;
+                const navHeight = navContainer.offsetHeight;
+                navPlaceholder.style.height = `${navHeight}px`; // Only nav height
+                contentBg.style.paddingTop = `1px`; // Fixed padding as requested
+                console.log('Header height:', headerHeight, 'Nav height:', navHeight, 'Placeholder height:', navHeight, 'Content padding-top:', '1px');
+                if (window.scrollY >= headerHeight) {
+                    navContainer.classList.add('sticky');
+                } else {
+                    navContainer.classList.remove('sticky');
+                }
+            };
+
+            window.addEventListener('scroll', debounce(updateStickyNav, 10));
+            window.addEventListener('resize', debounce(updateStickyNav, 10));
+            updateStickyNav(); // Initial check
+        }
+
+        const pageCategory = document.body.dataset.category || null;
+        const pageSubCategory = document.body.dataset.subcategory || null;
+        if (pageCategory === 'Home') {
+            renderHomeNews();
+        } else if (pageCategory === 'gold-price') {
+            renderGoldPrice();
+        } else {
+            renderNews(pageCategory, pageSubCategory);
+        }
+    } catch (error) {
+        console.error('Error in loadCommonComponents:', error);
+    }
+}
+
+const style = document.createElement('style');
+style.textContent = `
+    .top-wrapper {
+        width: 100%;
+        position: relative;
+        z-index: 1000;
+        margin: 0;
+        padding: 0;
+    }
+`;
+document.head.appendChild(style);
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadCommonComponents();
+});
