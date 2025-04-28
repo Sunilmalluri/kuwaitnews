@@ -66,12 +66,6 @@ body {
 .featured-image-wrapper {
     flex: 0 0 40%;
     max-height: 300px;
-    transition: flex 0.3s ease, max-height 0.3s ease;
-}
-
-.featured-image-wrapper.expanded {
-    flex: 0 0 50%;
-    max-height: 400px;
 }
 
 .featured-image {
@@ -149,15 +143,15 @@ body {
 
 /* Latest News Section */
 .latest-news-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Changed from 300px to 220px for 5 columns */
+    display: flex;
+    flex-direction: column;
     gap: 1.5rem;
     padding: 1rem 0;
 }
 
 .latest-card {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -175,13 +169,8 @@ body {
 }
 
 .latest-image-wrapper {
-    flex: 0 0 auto;
+    flex: 0 0 150px;
     height: 150px;
-    transition: height 0.3s ease;
-}
-
-.latest-image-wrapper.expanded {
-    height: 200px;
 }
 
 .latest-image {
@@ -191,6 +180,7 @@ body {
 }
 
 .latest-content {
+    flex: 1;
     padding: 1rem;
 }
 
@@ -346,21 +336,13 @@ body {
 
 .news-image-wrapper {
     flex: 0 0 100px;
-    padding-top: 1rem;
-    transition: flex 0.3s ease, max-height 0.3s ease;
-}
-
-.news-image-wrapper.expanded {
-    flex: 0 0 auto;
-    max-width: 600px;
-    max-height: 400px;
-    padding-top: 1rem;
+    height: 100px;
 }
 
 .news-image {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .news-content {
@@ -458,10 +440,6 @@ body {
         height: 200px;
     }
 
-    .featured-image-wrapper.expanded {
-        height: 300px;
-    }
-
     .featured-title {
         font-size: 1.3rem;
     }
@@ -475,16 +453,13 @@ body {
     }
 
     /* Latest News */
-    .latest-news-grid {
-        grid-template-columns: 1fr; /* Keep single column on mobile */
+    .latest-card {
+        flex-direction: column;
     }
 
     .latest-image-wrapper {
+        flex: 0 0 auto;
         height: 120px;
-    }
-
-    .latest-image-wrapper.expanded {
-        height: 180px;
     }
 
     .latest-title {
@@ -512,13 +487,6 @@ body {
     .news-image-wrapper {
         flex: 0 0 auto;
         height: 150px;
-        padding-top: 0;
-    }
-
-    .news-image-wrapper.expanded {
-        height: auto;
-        max-width: 100%;
-        max-height: 300px;
     }
 
     .news-image {
