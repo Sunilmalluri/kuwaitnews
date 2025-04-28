@@ -39,6 +39,16 @@ body {
     padding-bottom: 0.5rem;
 }
 
+/* Sub-Section Title */
+.sub-section-title {
+    font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
+    font-size: 1.4rem;
+    color: #333;
+    margin: 1.5rem 0 0.5rem;
+    border-bottom: 1px solid #d4af37;
+    padding-bottom: 0.3rem;
+}
+
 /* Featured News Section */
 .featured-news {
     margin-bottom: 2rem;
@@ -267,12 +277,42 @@ body {
     margin-right: 0.3rem;
 }
 
+/* Filter Wrapper */
+.filter-wrapper {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-wrapper label {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 1rem;
+    color: #333;
+}
+
+.filter-wrapper select {
+    padding: 0.3rem;
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 1rem;
+    border: 1px solid #d4af37;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.filter-wrapper select:focus {
+    outline: 2px solid #007bff;
+}
+
+/* Gold Price Tables */
 .gold-price-table {
     width: 100%;
     border-collapse: collapse;
     background: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     font-family: 'Noto Sans Telugu', sans-serif;
+    margin-bottom: 1.5rem;
 }
 
 .gold-price-table th,
@@ -488,6 +528,10 @@ body {
         font-size: 1.5rem;
     }
 
+    .sub-section-title {
+        font-size: 1.2rem;
+    }
+
     /* Featured News */
     .featured-card {
         flex-direction: column;
@@ -532,7 +576,7 @@ body {
         font-size: 0.9rem;
     }
 
-    /* Gold Price Table */
+    /* Gold Price Tables */
     .gold-price-table {
         font-size: 0.8rem;
     }
@@ -540,6 +584,16 @@ body {
     .gold-price-table th,
     .gold-price-table td {
         padding: 0.3rem;
+    }
+
+    .filter-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filter-wrapper select {
+        width: 100%;
+        max-width: 200px;
     }
 
     /* News Grid (for other pages) */
