@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu&family=Ramabhadra&display=swap" rel="stylesheet">
-    <script src="../data/gold-price.js" defer></script>
+    <script src="../data/gold-price-india.js" defer></script>
+    <script src="../data/gold-price-gulf.js" defer></script>
     <script src="../scripts.js" defer></script>
 </head>
 <body data-category="gold-price">
@@ -20,27 +21,36 @@
                 <section class="gold-price-section">
                     <h2 class="section-title">బంగారం ధరలు</h2>
                     <p class="gold-price-date"><i class="far fa-calendar-alt"></i> <span id="gold-price-date"></span></p>
-                    <table class="gold-price-table">
+                    <div class="filter-wrapper">
+                        <label for="gold-type-filter">బంగారం రకం: </label>
+                        <select id="gold-type-filter" onchange="updateGoldTables()">
+                            <option value="24K">24K</option>
+                            <option value="22K" selected>22K</option>
+                            <option value="18K">18K</option>
+                        </select>
+                    </div>
+                    <h3 class="sub-section-title">భారతదేశం (INR)</h3>
+                    <table class="gold-price-table india-table">
                         <thead>
                             <tr>
-                                <th rowspan="2">స్థానం</th>
-                                <th colspan="3">24K</th>
-                                <th colspan="3">22K</th>
-                                <th colspan="3">18K</th>
-                            </tr>
-                            <tr>
+                                <th>స్థానం</th>
                                 <th>1g</th>
-                                <th>స్థానిక కరెన్సీ ధర (10g)</th>
-                                <th>INR ధర (10g)</th>
-                                <th>1g</th>
-                                <th>స్థానిక కరెన్సీ ధర (10g)</th>
-                                <th>INR ధర (10g)</th>
-                                <th>1g</th>
-                                <th>స్థానిక కరెన్సీ ధర (10g)</th>
-                                <th>INR ధర (10g)</th>
+                                <th>10g</th>
                             </tr>
                         </thead>
-                        <tbody class="gold-price-table-body"></tbody>
+                        <tbody class="gold-price-table-body-india"></tbody>
+                    </table>
+                    <h3 class="sub-section-title">గల్ఫ్ దేశాలు</h3>
+                    <table class="gold-price-table gulf-table">
+                        <thead>
+                            <tr>
+                                <th>స్థానం</th>
+                                <th>1g (స్థానిక కరెన్సీ)</th>
+                                <th>10g (స్థానిక కరెన్సీ)</th>
+                                <th>10g (INR)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="gold-price-table-body-gulf"></tbody>
                     </table>
                 </section>
             </main>
