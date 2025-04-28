@@ -2,7 +2,7 @@ window.newsData = [
     {
         "id": "ku1",
         "title": "శువైఖ్ ప్రాంతంలో భారీ అగ్ని ప్రమాద నియంత్రణ తనిఖీలు – పలు భవనాలు మూసివేత",
-        "category": "Kuwait",
+        "category": "gulf",
         "date": "2025-04-22",
         "time": "08:00 AM",
         "image": "/images/kuwait/ku1.jpg",
