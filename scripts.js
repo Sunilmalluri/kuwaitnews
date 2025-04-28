@@ -72,60 +72,111 @@ function generateSocialShare(articleId) {
     `;
 }
 
-async function fetchGoldPrice(retries = 3, delay = 100) {
+async function fetchGoldPriceIndia(retries = 3, delay = 100) {
     for (let i = 0; i < retries; i++) {
         try {
-            if (typeof window.goldPriceData === 'undefined' || !Array.isArray(window.goldPriceData)) {
+            if (typeof window.goldPriceIndiaData === 'undefined' || !Array.isArray(window.goldPriceIndiaData)) {
                 if (i === retries - 1) {
-                    throw new Error('goldPriceData is not defined or not an array after retries.');
+                    throw new Error('goldPriceIndiaData is not defined or not an array after retries.');
                 }
                 await new Promise(resolve => setTimeout(resolve, delay));
                 continue;
             }
-            return window.goldPriceData;
+            return window.goldPriceIndiaData;
         } catch (error) {
-            console.error('Error fetching gold price data:', error.message);
+            console.error('Error fetching India gold price data:', error.message);
             return [];
         }
     }
     return [];
 }
 
-async function renderGoldPrice() {
-    const goldPriceTableBody = document.querySelector('.gold-price-table-body');
+async function fetchGoldPriceGulf(retries = 3, delay = 100) {
+    for (let i = 0; i < retries; i++) {
+        try {
+            if (typeof window.goldPriceGulfData === 'undefined' || !Array.isArray(window.goldPriceGulfData)) {
+                if (i === retries - 1) {
+                    throw new Error('goldPriceGulfData is not defined or not an array after retries.');
+                }
+                await new Promise(resolve => setTimeout(resolve, delay));
+                continue;
+            }
+            return window.goldPriceGulfData;
+        } catch (error) {
+            console.error('Error fetching Gulf gold price data:', error.message);
+            return [];
+        }
+    }
+    return [];
+}
+
+function renderGoldTables(goldType = '22K') {
+    // Fetch elements
+    const indiaTableBody = document.querySelector('.gold-price-table-body-india');
+    const gulfTableBody = document.querySelector('.gold-price-table-body-gulf');
     const dateElement = document.querySelector('#gold-price-date');
-    if (!goldPriceTableBody || !dateElement) {
-        console.error('Gold price table body (.gold-price-table-body) or date element (#gold-price-date) not found');
+
+    if (!indiaTableBody || !gulfTableBody || !dateElement) {
+        console.error('Table bodies or date element not found');
         return;
     }
 
-    const goldPrices = await fetchGoldPrice();
-    if (goldPrices.length === 0) {
-        goldPriceTableBody.innerHTML = '<tr><td colspan="10">బంగారం ధరలు అందుబాటులో లేవు.</td></tr>';
-        return;
+    // Fetch data
+    Promise.all([fetchGoldPriceIndia(), fetchGoldPriceGulf()]).then(([indiaPrices, gulfPrices]) => {
+        // Set the date (using India data as reference)
+        if (indiaPrices.length > 0) {
+            dateElement.textContent = indiaPrices[0].date;
+        } else if (gulfPrices.length > 0) {
+            dateElement.textContent = gulfPrices[0].date;
+        } else {
+            dateElement.textContent = 'N/A';
+        }
+
+        // Render India table
+        if (indiaPrices.length === 0) {
+            indiaTableBody.innerHTML = '<tr><td colspan="3">భారతదేశ బంగారం ధరలు అందుబాటులో లేవు.</td></tr>';
+        } else {
+            indiaTableBody.innerHTML = indiaPrices.map(price => `
+                <tr>
+                    <td>${price.location}</td>
+                    <td>${price.currencySymbol}${price[`price_${goldType.toLowerCase()}_1g`]}</td>
+                    <td>${price.currencySymbol}${price[`price_${goldType.toLowerCase()}_10g`]}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Render Gulf table
+        if (gulfPrices.length === 0) {
+            gulfTableBody.innerHTML = '<tr><td colspan="4">గల్ఫ్ దేశాల బంగారం ధరలు అందుబాటులో లేవు.</td></tr>';
+        } else {
+            gulfTableBody.innerHTML = gulfPrices.map(price => `
+                <tr>
+                    <td>${price.location}</td>
+                    <td>${price.currencySymbol}${price[`price_${goldType.toLowerCase()}_1g`]}</td>
+                    <td>${price.currencySymbol}${price[`price_${goldType.toLowerCase()}_10g`]}</td>
+                    <td>₹${price[`price_${goldType.toLowerCase()}_10g_inr`]}</td>
+                </tr>
+            `).join('');
+        }
+    }).catch(error => {
+        console.error('Error rendering gold tables:', error);
+        indiaTableBody.innerHTML = '<tr><td colspan="3">భారతదేశ బంగారం ధరలు అందుబాటులో లేవు.</td></tr>';
+        gulfTableBody.innerHTML = '<tr><td colspan="4">గల్ఫ్ దేశాల బంగారం ధరలు అందుబాటులో లేవు.</td></tr>';
+    });
+}
+
+// Function to update tables based on dropdown selection
+function updateGoldTables() {
+    const goldTypeFilter = document.querySelector('#gold-type-filter');
+    if (goldTypeFilter) {
+        const selectedGoldType = goldTypeFilter.value;
+        renderGoldTables(selectedGoldType);
     }
+}
 
-    // Set the date (assuming all entries have the same date)
-    dateElement.textContent = goldPrices[0].date;
-
-    // Render table rows
-    goldPriceTableBody.innerHTML = goldPrices.map(price => {
-        const isIndianCity = price.currency === 'INR';
-        return `
-            <tr>
-                <td>${price.location}</td>
-                <td>${price.currencySymbol}${price.price_24k_1g}</td>
-                <td>${price.currencySymbol}${price.price_24k_10g}</td>
-                <td>₹${isIndianCity ? price.price_24k_10g : price.price_24k_10g_inr}</td>
-                <td>${price.currencySymbol}${price.price_22k_1g}</td>
-                <td>${price.currencySymbol}${price.price_22k_10g}</td>
-                <td>₹${isIndianCity ? price.price_22k_10g : price.price_22k_10g_inr}</td>
-                <td>${price.currencySymbol}${price.price_18k_1g}</td>
-                <td>${price.currencySymbol}${price.price_18k_10g}</td>
-                <td>₹${isIndianCity ? price.price_18k_10g : price.price_18k_10g_inr}</td>
-            </tr>
-        `;
-    }).join('');
+async function renderGoldPrice() {
+    // Initial render with default gold type (22K)
+    renderGoldTables('22K');
 }
 
 async function renderNews(category = null, subCategory = null) {
