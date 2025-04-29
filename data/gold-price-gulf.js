@@ -11,11 +11,11 @@ window.goldPriceGulfData = [
         "price_18k_1g": "24.60",
         "price_18k_10g": "246.00",
         "price_24k_1g_inr": "91264.22",
-        "price_24k_10g_inr": "91264.22",
+        "price_24k_10g_inr": "91,264.22",
         "price_22k_1g_inr": "6370",
-        "price_22k_10g_inr": "83700.58",
+        "price_22k_10g_inr": "83,700.58",
         "price_18k_1g_inr": "5213.00",
-        "price_18k_10g_inr": "68406.45"
+        "price_18k_10g_inr": "68,406.45"
     },
     {
         "date": "2025-04-28",
@@ -23,17 +23,17 @@ window.goldPriceGulfData = [
         "currency": "SAR",
         "currencySymbol": "ر.س",
         "price_24k_1g": "405.00",
-        "price_24k_10g": "4050.00",
+        "price_24k_10g": "4,050.00",
         "price_22k_1g": "374.00",
-        "price_22k_10g": "3740.00",
+        "price_22k_10g": "3,740.00",
         "price_18k_1g": "306.00",
-        "price_18k_10g": "3060.00",
+        "price_18k_10g": "3,060.00",
         "price_24k_1g_inr": "6900.00",
-        "price_24k_10g_inr": "91773.00",
+        "price_24k_10g_inr": "91,773.00",
         "price_22k_1g_inr": "6320.00",
-        "price_22k_10g_inr": "84748.40",
+        "price_22k_10g_inr": "84,748.40",
         "price_18k_1g_inr": "5175.00",
-        "price_18k_10g_inr": "69339.60"
+        "price_18k_10g_inr": "69,339.60"
     },
     {
         "date": "2025-04-28",
@@ -41,17 +41,17 @@ window.goldPriceGulfData = [
         "currency": "AED",
         "currencySymbol": "د.إ",
         "price_24k_1g": "395.25",
-        "price_24k_10g": "3952.50",
+        "price_24k_10g": "3,952.50",
         "price_22k_1g": "366.00",
-        "price_22k_10g": "3660.00",
+        "price_22k_10g": "3,660.00",
         "price_18k_1g": "299.50",
-        "price_18k_10g": "2995.00",
+        "price_18k_10g": "2,995.00",
         "price_24k_1g_inr": "6880.00",
-        "price_24k_10g_inr": "91460.85",
+        "price_24k_10g_inr": "91,460.85",
         "price_22k_1g_inr": "6300.00",
-        "price_22k_10g_inr": "84692.40",
+        "price_22k_10g_inr": "84,692.40",
         "price_18k_1g_inr": "5160.00",
-        "price_18k_10g_inr": "69304.30"
+        "price_18k_10g_inr": "69,304.30"
     },
     {
         "date": "2025-04-28",
@@ -65,11 +65,11 @@ window.goldPriceGulfData = [
         "price_18k_1g": "32.00",
         "price_18k_10g": "320.00",
         "price_24k_1g_inr": "6920.00",
-        "price_24k_10g_inr": "92175.65",
+        "price_24k_10g_inr": "92,175.65",
         "price_22k_1g_inr": "6340.00",
-        "price_22k_10g_inr": "86214.59",
+        "price_22k_10g_inr": "86,214.59",
         "price_18k_1g_inr": "5190.00",
-        "price_18k_10g_inr": "70649.60"
+        "price_18k_10g_inr": "70,649.60"
     },
     {
         "date": "2025-04-28",
@@ -77,17 +77,17 @@ window.goldPriceGulfData = [
         "currency": "QAR",
         "currencySymbol": "ر.ق",
         "price_24k_1g": "397.00",
-        "price_24k_10g": "3970.00",
+        "price_24k_10g": "3,970.00",
         "price_22k_1g": "369.50",
-        "price_22k_10g": "3695.00",
+        "price_22k_10g": "3,695.00",
         "price_18k_1g": "302.30",
-        "price_18k_10g": "3023.00",
+        "price_18k_10g": "3,023.00",
         "price_24k_1g_inr": "6870.00",
-        "price_24k_10g_inr": "92501.00",
+        "price_24k_10g_inr": "92,501.00",
         "price_22k_1g_inr": "6290.00",
-        "price_22k_10g_inr": "86093.50",
-        "price_18k_1g_inr": "5153.00",
-        "price_18k_10g_inr": "70435.90"
+        "price_22k_10g_inr": "86,093.50",
+        "price_18k_1g_inr": "5,153.00",
+        "price_18k_10g_inr": "70,435.90"
     },
     {
         "date": "2025-04-28",
@@ -101,10 +101,10 @@ window.goldPriceGulfData = [
         "price_18k_1g": "31.01",
         "price_18k_10g": "310.10",
         "price_24k_1g_inr": "6910.00",
-        "price_24k_10g_inr": "91315.35",
+        "price_24k_10g_inr": "91,315.35",
         "price_22k_1g_inr": "6330.00",
-        "price_22k_10g_inr": "85453.13",
+        "price_22k_10g_inr": "85,453.13",
         "price_18k_1g_inr": "5183.00",
-        "price_18k_10g_inr": "69918.24"
+        "price_18k_10g_inr": "69,918.24"
     }
 ];
