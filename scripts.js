@@ -1,19 +1,14 @@
-import { featuredNews, latestNews } from './data/home-data.js?cachebust=' + Date.now();
-
 async function loadComponent(url, targetElement, position = 'beforeend') {
     try {
-        const response = await fetch(url, { cache: 'no-store' });
-        if (!response.ok) throw new Error(`Failed to load ${url}: ${response.status} ${response.statusText}`);
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Failed to load ${url}: ${response.statusText}`);
         const html = await response.text();
         const target = document.querySelector(targetElement);
         if (!target) throw new Error(`Target element '${targetElement}' not found`);
         target.insertAdjacentHTML(position, html);
-        console.log(`Loaded ${url} successfully`);
         return true;
     } catch (error) {
-        console.error(`Error loading component ${url}:`, error.message);
-        const target = document.querySelector(targetElement);
-        if (target) target.insertAdjacentHTML(position, `<p>Failed to load component: ${url}</p>`);
+        console.error('Error loading component:', error.message);
         return false;
     }
 }
@@ -51,11 +46,8 @@ async function fetchNews(category = null, subCategory = null, retries = 3, delay
 }
 
 function generateSocialShare(articleId) {
-    const article = [...featuredNews, ...latestNews, ...(window.newsData || [])].find(a => a.id === articleId);
-    if (!article) {
-        console.warn(`Article with ID ${articleId} not found for social share`);
-        return '';
-    }
+    const article = window.newsData.find(a => a.id === articleId);
+    if (!article) return '';
 
     const articleUrl = `${window.location.origin}${window.location.pathname}#${article.id}`;
     const encodedTitle = encodeURIComponent(article.title);
@@ -119,6 +111,7 @@ async function fetchGoldPriceGulf(retries = 3, delay = 100) {
 }
 
 function renderGoldTables(goldType = '22K') {
+    // Fetch elements
     const indiaTableBody = document.querySelector('.gold-price-table-body-india');
     const gulfTableBody = document.querySelector('.gold-price-table-body-gulf');
     const dateElement = document.querySelector('#gold-price-date');
@@ -128,7 +121,9 @@ function renderGoldTables(goldType = '22K') {
         return;
     }
 
+    // Fetch data
     Promise.all([fetchGoldPriceIndia(), fetchGoldPriceGulf()]).then(([indiaPrices, gulfPrices]) => {
+        // Set the date (using India data as reference)
         if (indiaPrices.length > 0) {
             dateElement.textContent = indiaPrices[0].date;
         } else if (gulfPrices.length > 0) {
@@ -137,6 +132,7 @@ function renderGoldTables(goldType = '22K') {
             dateElement.textContent = 'N/A';
         }
 
+        // Render India table
         if (indiaPrices.length === 0) {
             indiaTableBody.innerHTML = '<tr><td colspan="3">భారతదేశ బంగారం ధరలు అందుబాటులో లేవు.</td></tr>';
         } else {
@@ -149,6 +145,7 @@ function renderGoldTables(goldType = '22K') {
             `).join('');
         }
 
+        // Render Gulf table
         if (gulfPrices.length === 0) {
             gulfTableBody.innerHTML = '<tr><td colspan="4">గల్ఫ్ దేశాల బంగారం ధరలు అందుబాటులో లేవు.</td></tr>';
         } else {
@@ -163,11 +160,12 @@ function renderGoldTables(goldType = '22K') {
         }
     }).catch(error => {
         console.error('Error rendering gold tables:', error);
-        if (indiaTableBody) indiaTableBody.innerHTML = '<tr><td colspan="3">భారతదేశ బంగారం ధరలు అందుబాటులో లేవు.</td></tr>';
-        if (gulfTableBody) gulfTableBody.innerHTML = '<tr><td colspan="4">గల్ఫ్ దేశాల బంగారం ధరలు అందుబాటులో లేవు.</td></tr>';
+        indiaTableBody.innerHTML = '<tr><td colspan="3">భారతదేశ బంగారం ధరలు అందుబాటులో లేవు.</td></tr>';
+        gulfTableBody.innerHTML = '<tr><td colspan="4">గల్ఫ్ దేశాల బంగారం ధరలు అందుబాటులో లేవు.</td></tr>';
     });
 }
 
+// Function to update tables based on dropdown selection
 function updateGoldTables() {
     const goldTypeFilter = document.querySelector('#gold-type-filter');
     if (goldTypeFilter) {
@@ -177,6 +175,7 @@ function updateGoldTables() {
 }
 
 async function renderGoldPrice() {
+    // Initial render with default gold type (22K)
     renderGoldTables('22K');
 }
 
@@ -247,107 +246,103 @@ async function renderNews(category = null, subCategory = null) {
 async function renderHomeNews() {
     const featuredContainer = document.querySelector('.featured-news-grid');
     const latestContainer = document.querySelector('.latest-news-grid');
-
     if (!featuredContainer || !latestContainer) {
         console.error('Featured or latest news container not found');
-        const container = document.querySelector('.container');
-        if (container) container.insertAdjacentHTML('beforeend', '<p>Error: News containers missing in HTML.</p>');
         return;
     }
 
-    try {
-        if (!featuredNews || featuredNews.length === 0) {
-            console.warn('No featured news available');
-            featuredContainer.innerHTML = '<p>ప్రధాన వార్తలు అందుబాటులో లేవు.</p>';
-        } else {
-            featuredContainer.innerHTML = featuredNews.map(article => {
-                const fullText = article.fullText
-                    .replace(/\n\n/g, '</p><p>')
-                    .replace(/\n- /g, '</li><li>')
-                    .replace(/\n/g, ' ')
-                    .replace(/<li>/, '<ul><li>')
-                    .replace(/<\/li>$/, '</li></ul>')
-                    .replace(/^/, '<p>')
-                    .replace(/$/, '</p>');
-                return `
-                    <article class="featured-card" id="${article.id}" tabindex="0" aria-expanded="false">
-                        <div class="featured-image-wrapper">
-                            <img src="${article.image}" alt="${article.alt}" class="featured-image" loading="lazy">
-                        </div>
-                        <div class="featured-content">
-                            <h3 class="featured-title">${article.title}</h3>
-                            <div class="featured-meta">
-                                <span><i class="far fa-calendar-alt"></i> ${article.date}</span>
-                                <span><i class="far fa-clock"></i> ${article.time}</span>
-                            </div>
-                            <p class="featured-excerpt">${article.excerpt}</p>
-                            <div class="featured-full-text">${fullText}</div>
-                        </div>
-                    </article>
-                `;
-            }).join('');
-        }
-
-        if (!latestNews || latestNews.length === 0) {
-            console.warn('No latest news available');
-            latestContainer.innerHTML = '<p>తాజా వార్తలు అందుబాటులోatorieలేవు.</p>';
-        } else {
-            latestContainer.innerHTML = latestNews.map(article => {
-                const fullText = article.fullText
-                    .replace(/\n\n/g, '</p><p>')
-                    .replace(/\n- /g, '</li><li>')
-                    .replace(/\n/g, ' ')
-                    .replace(/<li>/, '<ul><li>')
-                    .replace(/<\/li>$/, '</li></ul>')
-                    .replace(/^/, '<p>')
-                    .replace(/$/, '</p>');
-                return `
-                    <article class="latest-card preview" id="${article.id}" tabindex="0" aria-expanded="false">
-                        <div class="latest-image-wrapper">
-                            <img src="${article.image}" alt="${article.alt}" class="latest-image" loading="lazy">
-                        </div>
-                        <div class="latest-content">
-                            <h3 class="latest-title">${article.title}</h3>
-                            <div class="latest-meta">
-                                <span><i class="far fa-calendar-alt"></i> ${article.date}</span>
-                                <span><i class="far fa-clock"></i> ${article.time}</span>
-                            </div>
-                            <p class="latest-excerpt">${article.excerpt}</p>
-                            <div class="latest-full-text">${fullText}</div>
-                        </div>
-                    </article>
-                `;
-            }).join('');
-        }
-
-        document.querySelectorAll('.featured-card, .latest-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const fullText = card.querySelector('.featured-full-text, .latest-full-text');
-                const content = card.querySelector('.featured-content, .latest-content');
-                const isExpanded = card.getAttribute('aria-expanded') === 'true';
-                fullText.style.display = isExpanded ? 'none' : 'block';
-                card.setAttribute('aria-expanded', !isExpanded);
-                card.classList.toggle('preview', isExpanded);
-                card.classList.toggle('expanded', !isExpanded);
-
-                let socialShare = card.querySelector('.social-share');
-                if (!isExpanded) {
-                    if (!socialShare) {
-                        const socialShareHTML = generateSocialShare(card.id);
-                        content.insertAdjacentHTML('beforeend', socialShareHTML);
-                    }
-                } else {
-                    if (socialShare) {
-                        socialShare.remove();
-                    }
-                }
-            });
-        });
-    } catch (error) {
-        console.error('Error rendering home news:', error);
-        featuredContainer.innerHTML = '<p>Error loading featured news: ' + error.message + '</p>';
-        latestContainer.innerHTML = '<p>Error loading latest news: ' + error.message + '</p>';
+    const articles = await fetchNews();
+    if (articles.length === 0) {
+        featuredContainer.innerHTML = '<p>వార్తలు అందుబాటులో లేవు.</p>';
+        latestContainer.innerHTML = '<p>వార్తలు అందుబాటులో లేవు.</p>';
+        return;
     }
+
+    let featuredArticles = articles.filter(article => article.featured === true);
+    let latestArticles = articles.filter(article => !article.featured);
+
+    if (featuredArticles.length === 0) {
+        featuredArticles = [articles[0]];
+        latestArticles = articles.slice(1);
+    }
+
+    featuredContainer.innerHTML = featuredArticles.map(article => {
+        const fullText = article.fullText
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/\n- /g, '</li><li>')
+            .replace(/\n/g, ' ')
+            .replace(/<li>/, '<ul><li>')
+            .replace(/<\/li>$/, '</li></ul>')
+            .replace(/^/, '<p>')
+            .replace(/$/, '</p>');
+        return `
+            <article class="featured-card" id="${article.id}" tabindex="0" aria-expanded="false">
+                <div class="featured-image-wrapper">
+                    <img src="${article.image}" alt="${article.alt}" class="featured-image" loading="lazy">
+                </div>
+                <div class="featured-content">
+                    <h3 class="featured-title">${article.title}</h3>
+                    <div class="featured-meta">
+                        <span><i class="far fa-calendar-alt"></i> ${article.date}</span>
+                        <span><i class="far fa-clock"></i> ${article.time}</span>
+                    </div>
+                    <p class="featured-excerpt">${article.excerpt}</p>
+                    <div class="featured-full-text">${fullText}</div>
+                </div>
+            </article>
+        `;
+    }).join('');
+
+    latestContainer.innerHTML = latestArticles.map(article => {
+        const fullText = article.fullText
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/\n- /g, '</li><li>')
+            .replace(/\n/g, ' ')
+            .replace(/<li>/, '<ul><li>')
+            .replace(/<\/li>$/, '</li></ul>')
+            .replace(/^/, '<p>')
+            .replace(/$/, '</p>');
+        return `
+            <article class="latest-card preview" id="${article.id}" tabindex="0" aria-expanded="false">
+                <div class="latest-image-wrapper">
+                    <img src="${article.image}" alt="${article.alt}" class="latest-image" loading="lazy">
+                </div>
+                <div class="latest-content">
+                    <h3 class="latest-title">${article.title}</h3>
+                    <div class="latest-meta">
+                        <span><i class="far fa-calendar-alt"></i> ${article.date}</span>
+                        <span><i class="far fa-clock"></i> ${article.time}</span>
+                    </div>
+                    <p class="latest-excerpt">${article.excerpt}</p>
+                    <div class="latest-full-text">${fullText}</div>
+                </div>
+            </article>
+        `;
+    }).join('');
+
+    document.querySelectorAll('.featured-card, .latest-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const fullText = card.querySelector('.featured-full-text, .latest-full-text');
+            const content = card.querySelector('.featured-content, .latest-content');
+            const isExpanded = card.getAttribute('aria-expanded') === 'true';
+            fullText.style.display = isExpanded ? 'none' : 'block';
+            card.setAttribute('aria-expanded', !isExpanded);
+            card.classList.toggle('preview', isExpanded);
+            card.classList.toggle('expanded', !isExpanded);
+
+            let socialShare = card.querySelector('.social-share');
+            if (!isExpanded) {
+                if (!socialShare) {
+                    const socialShareHTML = generateSocialShare(card.id);
+                    content.insertAdjacentHTML('beforeend', socialShareHTML);
+                }
+            } else {
+                if (socialShare) {
+                    socialShare.remove();
+                }
+            }
+        });
+    });
 }
 
 async function loadCommonComponents() {
@@ -357,16 +352,19 @@ async function loadCommonComponents() {
 
         document.body.insertAdjacentHTML('afterbegin', `<div class="top-wrapper"></div>`);
 
-        await loadComponent('/includes/header.html', '.top-wrapper');
-        await loadComponent('/includes/navigation.html', '.top-wrapper');
+        const headerLoaded = await loadComponent('/includes/header.html', '.top-wrapper');
+        if (!headerLoaded) throw new Error('Header failed to load');
+
+        const navLoaded = await loadComponent('/includes/navigation.html', '.top-wrapper');
+        if (!navLoaded) throw new Error('Navigation failed to load');
 
         const footerWrapper = document.querySelector('.footer-wrapper');
         if (footerWrapper) {
-            await loadComponent('/includes/footer.html', '.footer-wrapper');
+            const footerLoaded = await loadComponent('/includes/footer.html', '.footer-wrapper');
+            if (!footerLoaded) throw new Error('Footer failed to load');
+            console.log('Footer loaded successfully');
         } else {
-            console.warn('Footer wrapper (.footer-wrapper) not found; creating dynamically');
-            document.body.insertAdjacentHTML('beforeend', `<div class="footer-wrapper"></div>`);
-            await loadComponent('/includes/footer.html', '.footer-wrapper');
+            console.warn('Footer wrapper (.footer-wrapper) not found; skipping footer load');
         }
 
         const menuBtn = document.querySelector('.menu-btn');
@@ -426,6 +424,7 @@ async function loadCommonComponents() {
                 const navHeight = navContainer.offsetHeight;
                 navPlaceholder.style.height = `${navHeight}px`;
                 contentBg.style.paddingTop = `1px`;
+                console.log('Header height:', headerHeight, 'Nav height:', navHeight, 'Placeholder height:', navHeight, 'Content padding-top:', '1px');
                 if (window.scrollY >= headerHeight) {
                     navContainer.classList.add('sticky');
                 } else {
@@ -436,8 +435,6 @@ async function loadCommonComponents() {
             window.addEventListener('scroll', debounce(updateStickyNav, 10));
             window.addEventListener('resize', debounce(updateStickyNav, 10));
             updateStickyNav();
-        } else {
-            console.warn('Sticky nav elements missing; skipping sticky nav setup');
         }
 
         const pageCategory = document.body.dataset.category || null;
@@ -451,7 +448,6 @@ async function loadCommonComponents() {
         }
     } catch (error) {
         console.error('Error in loadCommonComponents:', error);
-        document.body.insertAdjacentHTML('beforeend', `<p>Error loading components: ${error.message}</p>`);
     }
 }
 
