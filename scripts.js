@@ -1,16 +1,18 @@
-import { featuredNews, latestNews } from './data/home-data.js';
+import { featuredNews, latestNews } from './data/home-data.js?cachebust=' + Date.now();
 
 async function loadComponent(url, targetElement, position = 'beforeend') {
     try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`Failed to load ${url}: ${response.statusText}`);
+        const response = await fetch(url, { cache: 'no-store' });
+        if (!response.ok) throw new Error(`Failed to load ${url}: ${response.status} ${response.statusText}`);
         const html = await response.text();
         const target = document.querySelector(targetElement);
         if (!target) throw new Error(`Target element '${targetElement}' not found`);
         target.insertAdjacentHTML(position, html);
+        console.log(`Loaded ${url} successfully`);
         return true;
     } catch (error) {
-        console.error('Error loading component:', error.message);
+        console.error(`Error loading component ${url}:`, error.message);
+        document.querySelector(targetElement)?.insertAdjacentHTML(position, `<p>Failed to load component: ${url}</p>`);
         return false;
     }
 }
@@ -244,10 +246,12 @@ async function renderHomeNews() {
 
     if (!featuredContainer || !latestContainer) {
         console.error('Featured or latest news container not found');
+        document.querySelector('.container')?.insertAdjacentHTML('beforeend', '<p>Error: News containers missing in HTML.</p>');
         return;
     }
 
     if (featuredNews.length === 0) {
+        console.warn('No featured news available');
         featuredContainer.innerHTML = '<p>ఫీచర్డ్ వార్తలు అందుబాటులో లేవు.</p>';
     } else {
         featuredContainer.innerHTML = featuredNews.map(article => {
@@ -279,6 +283,7 @@ async function renderHomeNews() {
     }
 
     if (latestNews.length === 0) {
+        console.warn('No latest news available');
         latestContainer.innerHTML = '<p>తాజా వార్తలు అందుబాటులో లేవు.</p>';
     } else {
         latestContainer.innerHTML = latestNews.map(article => {
@@ -342,18 +347,18 @@ async function loadCommonComponents() {
         document.body.insertAdjacentHTML('afterbegin', `<div class="top-wrapper"></div>`);
 
         const headerLoaded = await loadComponent('/includes/header.html', '.top-wrapper');
-        if (!headerLoaded) throw new Error('Header failed to load');
+        if (!headerLoaded) console.warn('Header failed to load, continuing...');
 
         const navLoaded = await loadComponent('/includes/navigation.html', '.top-wrapper');
-        if (!navLoaded) throw new Error('Navigation failed to load');
+        if (!navLoaded) console.warn('Navigation failed to load, continuing...');
 
         const footerWrapper = document.querySelector('.footer-wrapper');
         if (footerWrapper) {
             const footerLoaded = await loadComponent('/includes/footer.html', '.footer-wrapper');
-            if (!footerLoaded) throw new Error('Footer failed to load');
-            console.log('Footer loaded successfully');
+            if (!footerLoaded) console.warn('Footer failed to load');
         } else {
             console.warn('Footer wrapper (.footer-wrapper) not found; skipping footer load');
+            document.body.insertAdjacentHTML('beforeend', `<div class="footer-wrapper"><p>Footer wrapper missing in HTML</p></div>`);
         }
 
         const menuBtn = document.querySelector('.menu-btn');
@@ -424,6 +429,8 @@ async function loadCommonComponents() {
             window.addEventListener('scroll', debounce(updateStickyNav, 10));
             window.addEventListener('resize', debounce(updateStickyNav, 10));
             updateStickyNav();
+        } else {
+            console.warn('Sticky nav elements missing; skipping sticky nav setup');
         }
 
         const pageCategory = document.body.dataset.category || null;
@@ -437,6 +444,7 @@ async function loadCommonComponents() {
         }
     } catch (error) {
         console.error('Error in loadCommonComponents:', error);
+        document.body.insertAdjacentHTML('beforeend', `<p>Error loading components: ${error.message}</p>`);
     }
 }
 
