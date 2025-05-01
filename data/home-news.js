@@ -144,7 +144,7 @@ window.newsData = [
         "featured": true
     },
     {
-        "id": "gulf1",
+        "id": "home13",
         "title": "కువైట్ పౌరుడు 16 నకిలీ సోషల్ మీడియా ఖాతాలతో అరెస్ట్",
         "category": "gulf",
         "date": "01-05-2025",
