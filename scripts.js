@@ -17,6 +17,7 @@ async function fetchNews(category = null, subCategory = null, retries = 3, delay
     for (let i = 0; i < retries; i++) {
         try {
             if (typeof window.newsData === 'undefined' || !Array.isArray(window.newsData)) {
+                console.warn(`Attempt ${i + 1}: newsData is not defined or not an array. Retrying...`);
                 if (i === retries - 1) {
                     throw new Error('newsData is not defined or not an array after retries.');
                 }
@@ -65,7 +66,7 @@ function generateSocialShare(articleId) {
                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                 </svg>
             </a>
-            <a href="https://t.me/share/url?url=${encodedUrl}&text=${ utf-8Title}" class="share-btn telegram" target="_blank" aria-label="Share on Telegram" tabindex="0">
+            <a href="https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}" class="share-btn telegram" target="_blank" aria-label="Share on Telegram" tabindex="0">
                 <i class="fab fa-telegram-plane"></i>
             </a>
         </div>
@@ -111,7 +112,6 @@ async function fetchGoldPriceGulf(retries = 3, delay = 100) {
 }
 
 function renderGoldTables(goldType = '22K') {
-    // Fetch elements
     const indiaTableBody = document.querySelector('.gold-price-table-body-india');
     const gulfTableBody = document.querySelector('.gold-price-table-body-gulf');
     const dateElement = document.querySelector('#gold-price-date');
@@ -121,9 +121,7 @@ function renderGoldTables(goldType = '22K') {
         return;
     }
 
-    // Fetch data
     Promise.all([fetchGoldPriceIndia(), fetchGoldPriceGulf()]).then(([indiaPrices, gulfPrices]) => {
-        // Set the date (using India data as reference)
         if (indiaPrices.length > 0) {
             dateElement.textContent = indiaPrices[0].date;
         } else if (gulfPrices.length > 0) {
@@ -132,7 +130,6 @@ function renderGoldTables(goldType = '22K') {
             dateElement.textContent = 'N/A';
         }
 
-        // Render India table
         if (indiaPrices.length === 0) {
             indiaTableBody.innerHTML = '<tr><td colspan="3">భారతదేశ బంగారం ధరలు అందుబాటులో లేవు.</td></tr>';
         } else {
@@ -145,7 +142,6 @@ function renderGoldTables(goldType = '22K') {
             `).join('');
         }
 
-        // Render Gulf table
         if (gulfPrices.length === 0) {
             gulfTableBody.innerHTML = '<tr><td colspan="4">గల్ఫ్ దేశాల బంగారం ధరలు అందుబాటులో లేవు.</td></tr>';
         } else {
@@ -165,7 +161,6 @@ function renderGoldTables(goldType = '22K') {
     });
 }
 
-// Function to update tables based on dropdown selection
 function updateGoldTables() {
     const goldTypeFilter = document.querySelector('#gold-type-filter');
     if (goldTypeFilter) {
@@ -175,7 +170,6 @@ function updateGoldTables() {
 }
 
 async function renderGoldPrice() {
-    // Initial render with default gold type (22K)
     renderGoldTables('22K');
 }
 
@@ -248,6 +242,8 @@ async function renderHomeNews() {
     const latestContainer = document.querySelector('.latest-news-grid');
     if (!featuredContainer || !latestContainer) {
         console.error('Featured or latest news container not found');
+        featuredContainer && (featuredContainer.innerHTML = '<p>ఫీచర్డ్ వార్తలు లోడ్ కాలేదు.</p>');
+        latestContainer && (latestContainer.innerHTML = '<p>తాజా వార్తలు లోడ్ కాలేదు.</p>');
         return;
     }
 
@@ -276,7 +272,7 @@ async function renderHomeNews() {
             .replace(/^/, '<p>')
             .replace(/$/, '</p>');
         return `
-            <article class="featured-card" id="${article.id}" tabindex="0" aria-expanded="false">
+            <article class="featured-card preview" id="${article.id}" tabindex="0" aria-expanded="false">
                 <div class="featured-image-wrapper">
                     <img src="${article.image}" alt="${article.alt}" class="featured-image" loading="lazy">
                 </div>
@@ -326,6 +322,12 @@ async function renderHomeNews() {
             const content = card.querySelector('.featured-content, .latest-content');
             const imageWrapper = card.querySelector('.featured-image-wrapper, .latest-image-wrapper');
             const isExpanded = card.getAttribute('aria-expanded') === 'true');
+
+            if (!fullText || !content || !imageWrapper) {
+                console.error('Card elements missing:', { fullText, content, imageWrapper });
+                return;
+            }
+
             fullText.style.display = isExpanded ? 'none' : 'block';
             card.setAttribute('aria-expanded', !isExpanded);
             card.classList.toggle('preview', isExpanded);
@@ -335,7 +337,7 @@ async function renderHomeNews() {
             if (!isExpanded) {
                 card.insertBefore(imageWrapper, card.firstChild);
             } else {
-                // Move image wrapper back to its original position (before content)
+                // Move image wrapper back before content for preview
                 card.insertBefore(imageWrapper, content);
             }
 
@@ -457,6 +459,7 @@ async function loadCommonComponents() {
         }
     } catch (error) {
         console.error('Error in loadCommonComponents:', error);
+        document.querySelector('.main-content')?.insertAdjacentHTML('beforeend', '<p>కంటెంట్ లోడ్ చేయడంలో లోపం ఏర్పడింది. దయచేసి తర్వాత మళ్లీ ప్రయత్నించండి.</p>');
     }
 }
 
