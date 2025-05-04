@@ -50,7 +50,7 @@ function generateSocialShare(articleId) {
     const article = window.newsData.find(a => a.id === articleId);
     if (!article) return '';
 
-    const articleUrl = `${window.location.origin}${window.location.pathname}#${article.id}`;
+    const articleUrl = `${window.location.origin}${window.location.pathname}?id=${article.id}`;
     const encodedTitle = encodeURIComponent(article.title);
     const encodedUrl = encodeURIComponent(articleUrl);
     return `
@@ -196,7 +196,7 @@ async function renderNews(category = null, subCategory = null) {
             .replace(/^/, '<p>')
             .replace(/$/, '</p>');
         return `
-            <article class="news-card preview" id="${article.id}" tabindex="0" aria-expanded="false">
+            <article class="news-card preview" id="${article.id}" tabindex="0">
                 <div class="news-image-wrapper">
                     <img src="${article.image}" alt="${article.alt}" class="news-image" loading="lazy">
                 </div>
@@ -215,24 +215,8 @@ async function renderNews(category = null, subCategory = null) {
 
     document.querySelectorAll('.news-card').forEach(card => {
         card.addEventListener('click', () => {
-            const fullText = card.querySelector('.full-text');
-            const isExpanded = card.getAttribute('aria-expanded') === 'true';
-            fullText.style.display = isExpanded ? 'none' : 'block';
-            card.setAttribute('aria-expanded', !isExpanded);
-            card.classList.toggle('preview', isExpanded);
-            card.classList.toggle('expanded', !isExpanded);
-
-            let socialShare = card.querySelector('.social-share');
-            if (!isExpanded) {
-                if (!socialShare) {
-                    const socialShareHTML = generateSocialShare(card.id);
-                    card.querySelector('.news-content').insertAdjacentHTML('beforeend', socialShareHTML);
-                }
-            } else {
-                if (socialShare) {
-                    socialShare.remove();
-                }
-            }
+            const articleId = card.id;
+            window.location.href = `/article.html?id=${articleId}`;
         });
     });
 }
@@ -272,7 +256,7 @@ async function renderHomeNews() {
             .replace(/^/, '<p>')
             .replace(/$/, '</p>');
         return `
-            <article class="featured-card preview" id="${article.id}" tabindex="0" aria-expanded="false">
+            <article class="featured-card preview" id="${article.id}" tabindex="0">
                 <div class="featured-image-wrapper">
                     <img src="${article.image}" alt="${article.alt}" class="featured-image" loading="lazy">
                 </div>
@@ -299,7 +283,7 @@ async function renderHomeNews() {
             .replace(/^/, '<p>')
             .replace(/$/, '</p>');
         return `
-            <article class="latest-card preview" id="${article.id}" tabindex="0" aria-expanded="false">
+            <article class="latest-card preview" id="${article.id}" tabindex="0">
                 <div class="latest-image-wrapper">
                     <img src="${article.image}" alt="${article.alt}" class="latest-image" loading="lazy">
                 </div>
@@ -318,42 +302,56 @@ async function renderHomeNews() {
 
     document.querySelectorAll('.featured-card, .latest-card').forEach(card => {
         card.addEventListener('click', () => {
-            const fullText = card.querySelector('.featured-full-text, .latest-full-text');
-            const content = card.querySelector('.featured-content, .latest-content');
-            const imageWrapper = card.querySelector('.featured-image-wrapper, .latest-image-wrapper');
-            const isExpanded = card.getAttribute('aria-expanded') === 'true';
-
-            if (!fullText || !content || !imageWrapper) {
-                console.error('Card elements missing:', { fullText, content, imageWrapper });
-                return;
-            }
-
-            fullText.style.display = isExpanded ? 'none' : 'block';
-            card.setAttribute('aria-expanded', !isExpanded);
-            card.classList.toggle('preview', isExpanded);
-            card.classList.toggle('expanded', !isExpanded);
-
-            // Move image wrapper to top when expanding
-            if (!isExpanded) {
-                card.insertBefore(imageWrapper, card.firstChild);
-            } else {
-                // Move image wrapper back before content for preview
-                card.insertBefore(imageWrapper, content);
-            }
-
-            let socialShare = card.querySelector('.social-share');
-            if (!isExpanded) {
-                if (!socialShare) {
-                    const socialShareHTML = generateSocialShare(card.id);
-                    content.insertAdjacentHTML('beforeend', socialShareHTML);
-                }
-            } else {
-                if (socialShare) {
-                    socialShare.remove();
-                }
-            }
+            const articleId = card.id;
+            window.location.href = `/article.html?id=${articleId}`;
         });
     });
+}
+
+async function renderArticle() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const articleId = urlParams.get('id');
+    const articleContainer = document.querySelector('.article-container');
+
+    if (!articleContainer || !articleId) {
+        console.error('Article container or ID not found');
+        if (articleContainer) {
+            articleContainer.innerHTML = '<p>వార్తను లోడ్ చేయడంలో లోపం ఏర్పడింది.</p>';
+        }
+        return;
+    }
+
+    const articles = await fetchNews();
+    const article = articles.find(a => a.id === articleId);
+
+    if (!article) {
+        articleContainer.innerHTML = '<p>వార్త కనుగొనబడలేదు.</p>';
+        return;
+    }
+
+    const fullText = article.fullText
+        .replace(/\n\n/g, '</p><p>')
+        .replace(/\n- /g, '</li><li>')
+        .replace(/\n/g, ' ')
+        .replace(/<li>/, '<ul><li>')
+        .replace(/<\/li>$/, '</li></ul>')
+        .replace(/^/, '<p>')
+        .replace(/$/, '</p>');
+
+    articleContainer.innerHTML = `
+        <div class="article-image-wrapper">
+            <img src="${article.image}" alt="${article.alt}" class="article-image" loading="lazy">
+        </div>
+        <div class="article-content">
+            <h1 class="article-title">${article.title}</h1>
+            <div class="article-meta">
+                <span><i class="far fa-calendar-alt"></i> ${article.date}</span>
+                <span><i class="far fa-clock"></i> ${article.time}</span>
+            </div>
+            <div class="article-full-text">${fullText}</div>
+            ${generateSocialShare(articleId)}
+        </div>
+    `;
 }
 
 async function loadCommonComponents() {
@@ -454,6 +452,8 @@ async function loadCommonComponents() {
             renderHomeNews();
         } else if (pageCategory === 'gold-price') {
             renderGoldPrice();
+        } else if (pageCategory === 'article') {
+            renderArticle();
         } else {
             renderNews(pageCategory, pageSubCategory);
         }
