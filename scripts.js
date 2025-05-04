@@ -321,7 +321,7 @@ async function renderHomeNews() {
             const fullText = card.querySelector('.featured-full-text, .latest-full-text');
             const content = card.querySelector('.featured-content, .latest-content');
             const imageWrapper = card.querySelector('.featured-image-wrapper, .latest-image-wrapper');
-            const isExpanded = card.getAttribute('aria-expanded') === 'true');
+            const isExpanded = card.getAttribute('aria-expanded') === 'true';
 
             if (!fullText || !content || !imageWrapper) {
                 console.error('Card elements missing:', { fullText, content, imageWrapper });
