@@ -16,6 +16,7 @@ async function loadComponent(url, targetElement, position = 'beforeend') {
 async function fetchDataFile(articleId) {
     const categoryMap = {
         'ind': '/data/news-national.js',
+        'national': '/data/news-national.js', // Added to handle 'national' prefix
         'international': '/data/news-international.js',
         'gulf': '/data/news-gulf.js',
         'home': '/data/home-news.js'
@@ -23,7 +24,7 @@ async function fetchDataFile(articleId) {
 
     // Determine category from article ID prefix
     let category = 'home'; // Default to home
-    if (articleId.startsWith('ind')) category = 'ind';
+    if (articleId.startsWith('ind') || articleId.startsWith('national')) category = 'national';
     else if (articleId.startsWith('international')) category = 'international';
     else if (articleId.startsWith('gulf')) category = 'gulf';
     else if (articleId.startsWith('home')) category = 'home';
