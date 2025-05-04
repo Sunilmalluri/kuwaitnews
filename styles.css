@@ -87,13 +87,14 @@ body {
 .featured-image-wrapper {
     flex: 0 0 30%; /* Reduced image size */
     max-height: 200px; /* Reduced max-height for smaller image */
+    position: relative; /* Ensure proper stacking context */
 }
 
 .featured-card.expanded .featured-image-wrapper {
-    flex: 0 0 auto; /* Ensure image wrapper takes only needed space */
+    flex: 0 0 auto; /* Take only needed space */
     width: 100%; /* Full width in expanded view */
     max-height: 300px; /* Slightly larger for expanded view */
-    margin-bottom: 1rem; /* Add space below image to prevent overlap */
+    margin-bottom: 1.5rem; /* Increased space to prevent overlap */
 }
 
 .featured-image {
@@ -105,6 +106,7 @@ body {
 .featured-content {
     flex: 1;
     padding: 1rem;
+    position: relative; /* Ensure content stays below image */
 }
 
 .featured-title {
@@ -208,13 +210,14 @@ body {
 .latest-image-wrapper {
     flex: 0 0 150px;
     height: 150px;
+    position: relative; /* Ensure proper stacking context */
 }
 
 .latest-card.expanded .latest-image-wrapper {
-    flex: 0 0 auto; /* Ensure image wrapper takes only needed space */
+    flex: 0 0 auto; /* Take only needed space */
     width: 100%; /* Full width in expanded view */
     max-height: 200px; /* Slightly larger for expanded view */
-    margin-bottom: 1rem; /* Add space below image to prevent overlap */
+    margin-bottom: 1.5rem; /* Increased space to prevent overlap */
 }
 
 .latest-image {
@@ -226,6 +229,7 @@ body {
 .latest-content {
     flex: 1;
     padding: 1rem;
+    position: relative; /* Ensure content stays below image */
 }
 
 .latest-title {
@@ -330,7 +334,7 @@ body {
     font-family: 'Noto Sans Telugu', sans-serif;
     font-size: 1rem;
     border: 1px solid #d4af37;
-    border-radius: 4px;
+    border Wradius: 4px;
     background: #fff;
     cursor: pointer;
 }
@@ -345,7 +349,7 @@ body {
     border-collapse: collapse;
     background: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    font-family: 'Noto Sans Telugu', sans-serif;
+ on-family: 'Noto Sans Telugu', sans-serif;
     margin-bottom: 1.5rem;
 }
 
@@ -578,7 +582,7 @@ body {
 
     .featured-card.expanded .featured-image-wrapper {
         max-height: 200px; /* Adjusted for expanded view on smaller screens */
-        margin-bottom: 0.5rem; /* Reduced margin for smaller screens */
+        margin-bottom: 1rem; /* Adjusted margin for smaller screens */
     }
 
     .featured-title {
@@ -605,7 +609,7 @@ body {
 
     .latest-card.expanded .latest-image-wrapper {
         max-height: 150px; /* Adjusted for expanded view on smaller screens */
-        margin-bottom: 0.5rem; /* Reduced margin for smaller screens */
+        margin-bottom: 1rem; /* Adjusted margin for smaller screens */
     }
 
     .latest-title {
