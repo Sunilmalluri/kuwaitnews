@@ -12,13 +12,16 @@
     <div class="content-bg">
         <main class="main-content">
             <div class="container">
-                <article class="article-container"></article>
+                <article class="article-container">
+                    <p class="loading-message">వార్తను లోడ్ చేస్తోంది, దయచేసి వేచి ఉండండి...</p>
+                </article>
             </div>
         </main>
     </div>
     <div class="footer-wrapper"></div>
-    <script src="/scripts.js"></script>
-    <!-- Ensure newsData is loaded -->
+    <!-- Load news-data.js first -->
     <script src="/data/news-data.js"></script>
+    <!-- Load scripts.js after news-data.js -->
+    <script src="/scripts.js"></script>
 </body>
 </html>
