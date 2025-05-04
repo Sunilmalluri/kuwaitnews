@@ -582,9 +582,9 @@ body {
 }
 
 .article-image-wrapper {
-    width: 100%;
+    flex: 0 0 40%; /* Image on left */
     max-height: 400px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0; /* Remove bottom margin */
 }
 
 .article-image {
@@ -594,6 +594,7 @@ body {
 }
 
 .article-content {
+    flex: 1;
     padding: 1rem;
 }
 
@@ -663,20 +664,14 @@ body {
 
     /* Featured News */
     .featured-card {
-        flex-direction: column;
+        display: flex;
+        flex-direction: row; /* Keep image on left */
     }
 
     .featured-image-wrapper {
-        flex: 0 0 auto;
-        height: 150px; /* Adjusted for smaller screens */
+        flex: 0 0 40%; /* Adjust image width for mobile */
+        height: auto; /* Allow height to adjust with content */
     }
-
-    /*
-    .featured-card.expanded .featured-image-wrapper {
-        max-height: 200px;
-        margin-bottom: 1rem;
-    }
-    */
 
     .featured-title {
         font-size: 1.3rem;
@@ -692,20 +687,14 @@ body {
 
     /* Latest News */
     .latest-card {
-        flex-direction: column;
+        display: flex;
+        flex-direction: row; /* Keep image on left */
     }
 
     .latest-image-wrapper {
-        flex: 0 0 auto;
-        height: 120px;
+        flex: 0 0 40%; /* Adjust image width for mobile */
+        height: auto; /* Allow height to adjust with content */
     }
-
-    /*
-    .latest-card.expanded .latest-image-wrapper {
-        max-height: 150px;
-        margin-bottom: 1rem;
-    }
-    */
 
     .latest-title {
         font-size: 1.1rem;
@@ -745,13 +734,13 @@ body {
     }
 
     .news-card {
-        flex-direction: column;
-        align-items: stretch;
+        display: flex;
+        flex-direction: row; /* Keep image on left */
     }
 
     .news-image-wrapper {
-        flex: 0 0 auto;
-        height: 150px;
+        flex: 0 0 40%; /* Adjust image width for mobile */
+        height: auto; /* Allow height to adjust with content */
     }
 
     .news-image {
@@ -776,12 +765,13 @@ body {
         padding: 1rem;
     }
 
-    .article-title {
-        font-size: 1.5rem;
+    .article-image-wrapper {
+        flex: 0 0 40%; /* Image on left in mobile */
+        max-height: 250px;
     }
 
-    .article-image-wrapper {
-        max-height: 250px;
+    .article-title {
+        font-size: 1.5rem;
     }
 
     .social-share {
