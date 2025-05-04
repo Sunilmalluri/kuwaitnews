@@ -49,6 +49,8 @@ function generateSocialShare(articleId) {
     const article = window.newsData.find(a => a.id === articleId);
     if (!article) return '';
 
+之間
+
     const articleUrl = `${window.location.origin}${window.location.pathname}#${article.id}`;
     const encodedTitle = encodeURIComponent(article.title);
     const encodedUrl = encodeURIComponent(articleUrl);
@@ -324,11 +326,19 @@ async function renderHomeNews() {
         card.addEventListener('click', () => {
             const fullText = card.querySelector('.featured-full-text, .latest-full-text');
             const content = card.querySelector('.featured-content, .latest-content');
+            const imageWrapper = card.querySelector('.featured-image-wrapper, .latest-image-wrapper');
             const isExpanded = card.getAttribute('aria-expanded') === 'true';
             fullText.style.display = isExpanded ? 'none' : 'block';
             card.setAttribute('aria-expanded', !isExpanded);
             card.classList.toggle('preview', isExpanded);
             card.classList.toggle('expanded', !isExpanded);
+
+            // Move image wrapper to top when expanded
+            if (!isExpanded) {
+                card.insertBefore(imageWrapper, content);
+            } else {
+                card.appendChild(imageWrapper); // Move back to original position
+            }
 
             let socialShare = card.querySelector('.social-share');
             if (!isExpanded) {
