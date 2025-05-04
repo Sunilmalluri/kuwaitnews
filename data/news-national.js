@@ -26,7 +26,7 @@ window.newsData = [
     {
         "id": "home11",
         "title": "ఆంధ్రప్రదేశ్‌లో కొత్త ప్రభుత్వ పథకం",
-        "category": "Home",
+        "category": "national",
         "date": "2025-05-04",
         "time": "10:00 AM",
         "excerpt": "ఆంధ్రప్రదేశ్ ప్రభుత్వం కొత్త పథకాన్ని ప్రకటించింది.",
