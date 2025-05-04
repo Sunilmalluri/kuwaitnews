@@ -49,8 +49,6 @@ function generateSocialShare(articleId) {
     const article = window.newsData.find(a => a.id === articleId);
     if (!article) return '';
 
-之間
-
     const articleUrl = `${window.location.origin}${window.location.pathname}#${article.id}`;
     const encodedTitle = encodeURIComponent(article.title);
     const encodedUrl = encodeURIComponent(articleUrl);
@@ -67,7 +65,7 @@ function generateSocialShare(articleId) {
                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                 </svg>
             </a>
-            <a href="https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}" class="share-btn telegram" target="_blank" aria-label="Share on Telegram" tabindex="0">
+            <a href="https://t.me/share/url?url=${encodedUrl}&text=${ utf-8Title}" class="share-btn telegram" target="_blank" aria-label="Share on Telegram" tabindex="0">
                 <i class="fab fa-telegram-plane"></i>
             </a>
         </div>
@@ -327,17 +325,18 @@ async function renderHomeNews() {
             const fullText = card.querySelector('.featured-full-text, .latest-full-text');
             const content = card.querySelector('.featured-content, .latest-content');
             const imageWrapper = card.querySelector('.featured-image-wrapper, .latest-image-wrapper');
-            const isExpanded = card.getAttribute('aria-expanded') === 'true';
+            const isExpanded = card.getAttribute('aria-expanded') === 'true');
             fullText.style.display = isExpanded ? 'none' : 'block';
             card.setAttribute('aria-expanded', !isExpanded);
             card.classList.toggle('preview', isExpanded);
             card.classList.toggle('expanded', !isExpanded);
 
-            // Move image wrapper to top when expanded
+            // Move image wrapper to top when expanding
             if (!isExpanded) {
-                card.insertBefore(imageWrapper, content);
+                card.insertBefore(imageWrapper, card.firstChild);
             } else {
-                card.appendChild(imageWrapper); // Move back to original position
+                // Move image wrapper back to its original position (before content)
+                card.insertBefore(imageWrapper, content);
             }
 
             let socialShare = card.querySelector('.social-share');
