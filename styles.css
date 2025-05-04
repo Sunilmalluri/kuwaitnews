@@ -57,7 +57,7 @@ body {
 .featured-news-grid {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem; /* Added gap to match latest-news-grid */
+    gap: 1.5rem; /* Space between cards */
     padding: 1rem 0;
 }
 
@@ -81,20 +81,19 @@ body {
 }
 
 .featured-card.expanded {
-    flex-direction: column; /* Stack image and content vertically in expanded view */
+    flex-direction: column; /* Stack image and content vertically */
 }
 
 .featured-image-wrapper {
-    flex: 0 0 30%; /* Reduced image size */
-    max-height: 200px; /* Reduced max-height for smaller image */
-    position: relative; /* Ensure proper stacking context */
+    flex: 0 0 30%; /* Reduced image size in preview */
+    max-height: 200px; /* Smaller image height */
 }
 
 .featured-card.expanded .featured-image-wrapper {
     flex: 0 0 auto; /* Take only needed space */
     width: 100%; /* Full width in expanded view */
-    max-height: 300px; /* Slightly larger for expanded view */
-    margin-bottom: 1.5rem; /* Increased space to prevent overlap */
+    max-height: 300px; /* Larger for expanded view */
+    margin-bottom: 1.5rem; /* Space to prevent overlap */
 }
 
 .featured-image {
@@ -106,7 +105,6 @@ body {
 .featured-content {
     flex: 1;
     padding: 1rem;
-    position: relative; /* Ensure content stays below image */
 }
 
 .featured-title {
@@ -117,12 +115,11 @@ body {
 }
 
 .featured-meta {
-    display: flex;
+    display: none; /* Hide meta in preview */
     gap: 1rem;
     font-size: 0.9rem;
     color: #666;
     margin-bottom: 0.5rem;
-    display: none; /* Hide meta in preview */
 }
 
 .featured-card.expanded .featured-meta {
@@ -204,20 +201,19 @@ body {
 }
 
 .latest-card.expanded {
-    flex-direction: column; /* Stack image and content vertically in expanded view */
+    flex-direction: column; /* Stack image and content vertically */
 }
 
 .latest-image-wrapper {
     flex: 0 0 150px;
     height: 150px;
-    position: relative; /* Ensure proper stacking context */
 }
 
 .latest-card.expanded .latest-image-wrapper {
     flex: 0 0 auto; /* Take only needed space */
     width: 100%; /* Full width in expanded view */
-    max-height: 200px; /* Slightly larger for expanded view */
-    margin-bottom: 1.5rem; /* Increased space to prevent overlap */
+    max-height: 200px; /* Larger for expanded view */
+    margin-bottom: 1.5rem; /* Space to prevent overlap */
 }
 
 .latest-image {
@@ -229,7 +225,6 @@ body {
 .latest-content {
     flex: 1;
     padding: 1rem;
-    position: relative; /* Ensure content stays below image */
 }
 
 .latest-title {
@@ -240,16 +235,15 @@ body {
 }
 
 .latest-meta {
-    display: flex;
+    display: none; /* Hide meta in preview */
     gap: 1rem;
     font-size: 0.9rem;
     color: #666;
     margin-bottom: 0.5rem;
-    display: none;
 }
 
 .latest-card.expanded .latest-meta {
-    display: flex;
+    display: flex; /* Show meta in expanded view */
 }
 
 .latest-meta i {
@@ -334,7 +328,7 @@ body {
     font-family: 'Noto Sans Telugu', sans-serif;
     font-size: 1rem;
     border: 1px solid #d4af37;
-    border Wradius: 4px;
+    border-radius: 4px;
     background: #fff;
     cursor: pointer;
 }
@@ -349,7 +343,7 @@ body {
     border-collapse: collapse;
     background: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
- on-family: 'Noto Sans Telugu', sans-serif;
+    font-family: 'Noto Sans Telugu', sans-serif;
     margin-bottom: 1.5rem;
 }
 
@@ -581,8 +575,8 @@ body {
     }
 
     .featured-card.expanded .featured-image-wrapper {
-        max-height: 200px; /* Adjusted for expanded view on smaller screens */
-        margin-bottom: 1rem; /* Adjusted margin for smaller screens */
+        max-height: 200px; /* Adjusted for expanded view */
+        margin-bottom: 1rem; /* Reduced for smaller screens */
     }
 
     .featured-title {
@@ -608,8 +602,8 @@ body {
     }
 
     .latest-card.expanded .latest-image-wrapper {
-        max-height: 150px; /* Adjusted for expanded view on smaller screens */
-        margin-bottom: 1rem; /* Adjusted margin for smaller screens */
+        max-height: 150px; /* Adjusted for expanded view */
+        margin-bottom: 1rem; /* Reduced for smaller screens */
     }
 
     .latest-title {
