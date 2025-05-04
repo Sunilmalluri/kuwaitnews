@@ -13,6 +13,36 @@ async function loadComponent(url, targetElement, position = 'beforeend') {
     }
 }
 
+async function fetchDataFile(articleId) {
+    const categoryMap = {
+        'ind': '/data/news-national.js',
+        'international': '/data/news-international.js',
+        'gulf': '/data/news-gulf.js',
+        'home': '/data/home-news.js'
+    };
+
+    // Determine category from article ID prefix
+    let category = 'home'; // Default to home
+    if (articleId.startsWith('ind')) category = 'ind';
+    else if (articleId.startsWith('international')) category = 'international';
+    else if (articleId.startsWith('gulf')) category = 'gulf';
+    else if (articleId.startsWith('home')) category = 'home';
+
+    const dataFile = categoryMap[category] || '/data/home-news.js'; // Fallback to home-news.js
+    try {
+        const response = await fetch(dataFile);
+        if (!response.ok) throw new Error(`Failed to load ${dataFile}: ${response.statusText}`);
+        const script = await response.text();
+        const scriptElement = document.createElement('script');
+        scriptElement.textContent = script;
+        document.head.appendChild(scriptElement);
+        return true;
+    } catch (error) {
+        console.error('Error loading data file:', error.message);
+        return false;
+    }
+}
+
 async function fetchNews(category = null, subCategory = null, retries = 5, delay = 200) {
     for (let i = 0; i < retries; i++) {
         try {
@@ -327,6 +357,9 @@ async function renderArticle() {
     }
 
     console.log('Attempting to fetch article with ID:', articleId);
+
+    // Dynamically load the correct data file based on article ID
+    await fetchDataFile(articleId);
 
     const articles = await fetchNews();
     if (articles.length === 0) {
