@@ -13,17 +13,19 @@ async function loadComponent(url, targetElement, position = 'beforeend') {
     }
 }
 
-async function fetchNews(category = null, subCategory = null, retries = 3, delay = 100) {
+async function fetchNews(category = null, subCategory = null, retries = 5, delay = 200) {
     for (let i = 0; i < retries; i++) {
         try {
             if (typeof window.newsData === 'undefined' || !Array.isArray(window.newsData)) {
-                console.warn(`Attempt ${i + 1}: newsData is not defined or not an array. Retrying...`);
+                console.warn(`Attempt ${i + 1}/${retries}: newsData is not defined or not an array. Waiting ${delay}ms...`);
                 if (i === retries - 1) {
-                    throw new Error('newsData is not defined or not an array after retries.');
+                    console.error('newsData is not defined or not an array after all retries.');
+                    throw new Error('newsData is not available.');
                 }
                 await new Promise(resolve => setTimeout(resolve, delay));
                 continue;
             }
+            console.log('newsData loaded successfully:', window.newsData);
             let filteredData = window.newsData;
             if (category) {
                 filteredData = filteredData.filter(article => 
@@ -48,7 +50,10 @@ async function fetchNews(category = null, subCategory = null, retries = 3, delay
 
 function generateSocialShare(articleId) {
     const article = window.newsData.find(a => a.id === articleId);
-    if (!article) return '';
+    if (!article) {
+        console.warn(`Article with ID ${articleId} not found for social share generation.`);
+        return '';
+    }
 
     const articleUrl = `${window.location.origin}${window.location.pathname}?id=${article.id}`;
     const encodedTitle = encodeURIComponent(article.title);
@@ -314,17 +319,27 @@ async function renderArticle() {
     const articleContainer = document.querySelector('.article-container');
 
     if (!articleContainer || !articleId) {
-        console.error('Article container or ID not found');
+        console.error('Article container or ID not found', { articleContainer, articleId });
         if (articleContainer) {
             articleContainer.innerHTML = '<p>వార్తను లోడ్ చేయడంలో లోపం ఏర్పడింది.</p>';
         }
         return;
     }
 
+    console.log('Attempting to fetch article with ID:', articleId);
+
     const articles = await fetchNews();
+    if (articles.length === 0) {
+        console.error('No articles found in newsData');
+        articleContainer.innerHTML = '<p>వార్తలు అందుబాటులో లేవు.</p>';
+        return;
+    }
+
+    console.log('Available articles:', articles.map(a => a.id));
     const article = articles.find(a => a.id === articleId);
 
     if (!article) {
+        console.warn(`Article with ID ${articleId} not found in newsData`);
         articleContainer.innerHTML = '<p>వార్త కనుగొనబడలేదు.</p>';
         return;
     }
