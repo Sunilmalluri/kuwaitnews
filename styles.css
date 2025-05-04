@@ -797,3 +797,101 @@ body {
         font-size: 0.9rem;
     }
 }
+
+/* Existing styles remain unchanged unless modified below */
+
+/* General container styles for news cards */
+.news-card, .featured-card, .latest-card, .article-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Image wrapper styles */
+.news-image-wrapper, .featured-image-wrapper, .latest-image-wrapper, .article-image-wrapper {
+    flex: 0 0 40%; /* Fixed width for image, adjustable as needed */
+    max-width: 40%;
+    height: auto;
+    overflow: hidden;
+}
+
+.news-image, .featured-image, .latest-image, .article-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
+
+/* Content styles */
+.news-content, .featured-content, .latest-content, .article-content {
+    flex: 1 1 60%; /* Remaining space for content */
+    padding: 1rem;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+    .news-card, .featured-card, .latest-card, .article-container {
+        flex-direction: column; /* Stack vertically on small screens if needed */
+        gap: 0.5rem;
+    }
+
+    .news-image-wrapper, .featured-image-wrapper, .latest-image-wrapper, .article-image-wrapper {
+        flex: 0 0 100%; /* Full width image on mobile */
+        max-width: 100%;
+    }
+
+    .news-content, .featured-content, .latest-content, .article-content {
+        flex: 1 1 100%; /* Full width content below image */
+        padding: 0.5rem;
+    }
+}
+
+/* Ensure text and other elements adjust */
+.news-title, .featured-title, .latest-title, .article-title {
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.3;
+}
+
+.news-excerpt, .featured-excerpt, .latest-excerpt {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.article-full-text, .featured-full-text, .latest-full-text, .full-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Social share styling (if applicable) */
+.social-share {
+    margin-top: 1rem;
+}
+
+.share-btn {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+    color: #fff;
+    padding: 0.3rem;
+    border-radius: 50%;
+    text-decoration: none;
+}
+
+.share-btn.whatsapp { background-color: #25D366; }
+.share-btn.facebook { background-color: #3b5998; }
+.share-btn.twitter { background-color: #1DA1F2; }
+.share-btn.telegram { background-color: #0088cc; }
+
+/* Placeholder for other existing styles */
+.header-bg, .nav-container, .content-bg, .footer-wrapper {
+    /* Preserve existing styles */
+}
