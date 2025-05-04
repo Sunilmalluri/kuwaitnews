@@ -242,7 +242,6 @@ async function renderNews(category = null, subCategory = null) {
                         <span><i class="far fa-calendar-alt"></i> ${article.date}</span>
                         <span><i class="far fa-clock"></i> ${article.time}</span>
                     </div>
-                    <p class="news-excerpt">${article.excerpt}</p>
                     <div class="full-text">${fullText}</div>
                 </div>
             </article>
@@ -302,7 +301,6 @@ async function renderHomeNews() {
                         <span><i class="far fa-calendar-alt"></i> ${article.date}</span>
                         <span><i class="far fa-clock"></i> ${article.time}</span>
                     </div>
-                    <p class="featured-excerpt">${article.excerpt}</p>
                     <div class="featured-full-text">${fullText}</div>
                 </div>
             </article>
@@ -329,7 +327,6 @@ async function renderHomeNews() {
                         <span><i class="far fa-calendar-alt"></i> ${article.date}</span>
                         <span><i class="far fa-clock"></i> ${article.time}</span>
                     </div>
-                    <p class="latest-excerpt">${article.excerpt}</p>
                     <div class="latest-full-text">${fullText}</div>
                 </div>
             </article>
