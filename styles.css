@@ -88,8 +88,8 @@ body {
 */
 
 .featured-image-wrapper {
-    flex: 0 0 100px; /* Match national news image size */
-    height: 100px; /* Match national news image size */
+    flex: 0 0 100px; /* Desktop image size */
+    height: 100px; /* Desktop image size */
 }
 
 /*
@@ -193,7 +193,7 @@ body {
 .latest-card {
     display: flex;
     flex-direction: row;
-    background: #www.gulfandhra.com/news/national.htmlfff;
+    background: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -216,8 +216,8 @@ body {
 */
 
 .latest-image-wrapper {
-    flex: 0 0 100px; /* Match national news image size */
-    height: 100px; /* Match national news image size */
+    flex: 0 0 100px; /* Desktop image size */
+    height: 100px; /* Desktop image size */
 }
 
 /*
@@ -482,9 +482,18 @@ body {
 }
 
 .news-image-wrapper {
-    flex: 0 0 100px;
-    height: 100px;
+    flex: 0 0 100px; /* Desktop image size */
+    height: 100px; /* Desktop image size */
 }
+
+/*
+.news-card.expanded .news-image-wrapper {
+    flex: 0 0 auto;
+    width: 100%;
+    max-height: 200px;
+    margin-bottom: 1.5rem;
+}
+*/
 
 .news-image {
     width: 100%;
@@ -582,8 +591,8 @@ body {
 }
 
 .article-image-wrapper {
-    flex: 0 0 40%;
-    max-height: 400px;
+    flex: 0 0 100px; /* Desktop image size */
+    height: 100px; /* Desktop image size */
     margin-bottom: 0;
 }
 
@@ -669,12 +678,12 @@ body {
     }
 
     .featured-image-wrapper {
-        flex: 0 0 40%;
-        height: auto;
+        flex: 0 0 40px; /* Reduced to 40% of 100px */
+        height: auto; /* Allow height to adjust with content */
     }
 
     .featured-title {
-        font-size: 1.1rem; /* Adjusted for mobile consistency */
+        font-size: 1.1rem;
     }
 
     .featured-excerpt {
@@ -692,12 +701,12 @@ body {
     }
 
     .latest-image-wrapper {
-        flex: 0 0 40%;
-        height: auto;
+        flex: 0 0 40px; /* Reduced to 40% of 100px */
+        height: auto; /* Allow height to adjust with content */
     }
 
     .latest-title {
-        font-size: 1.1rem; /* Adjusted for mobile consistency */
+        font-size: 1.1rem;
     }
 
     .latest-excerpt {
@@ -739,8 +748,8 @@ body {
     }
 
     .news-image-wrapper {
-        flex: 0 0 40%;
-        height: auto;
+        flex: 0 0 40px; /* Reduced to 40% of 100px */
+        height: auto; /* Allow height to adjust with content */
     }
 
     .news-image {
@@ -753,7 +762,7 @@ body {
     }
 
     .news-title {
-        font-size: 1.1rem; /* Adjusted for mobile consistency */
+        font-size: 1.1rem;
     }
 
     .news-excerpt, .full-text {
@@ -766,7 +775,7 @@ body {
     }
 
     .article-image-wrapper {
-        flex: 0 0 40%;
+        flex: 0 0 40px; /* Reduced to 40% of 100px */
         max-height: 250px;
     }
 
