@@ -1,6 +1,6 @@
 window.newsData = [
     {
-        "id": "ind1",
+        "id": "home1",
         "title": "భారతీయ రైల్వే – ప్రగతి మరియు మొదటి ప్రైవేట్ స్టేషన్",
         "category": "national",
         "date": "01-05-2025",
@@ -12,7 +12,7 @@ window.newsData = [
         "featured": true
     },
     {
-        "id": "ind2",
+        "id": "home2",
         "title": "పహల్గాం దాడికి ప్రతీకారం? పాక్ సైన్యంలో భయాందోళనలు!",
         "category": "national",
         "date": "01-05-2025",
@@ -144,7 +144,7 @@ window.newsData = [
         "featured": true
     },
      {
-        "id": "gulf1",
+        "id": "home13",
         "title": "కువైట్ పౌరుడు 16 నకిలీ సోషల్ మీడియా ఖాతాలతో అరెస్ట్",
         "category": "gulf",
         "date": "01-05-2025",
