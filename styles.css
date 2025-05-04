@@ -88,8 +88,8 @@ body {
 */
 
 .featured-image-wrapper {
-    flex: 0 0 30%; /* Reduced image size in preview */
-    max-height: 200px; /* Smaller image height */
+    flex: 0 0 100px; /* Match national news image size */
+    height: 100px; /* Match national news image size */
 }
 
 /*
@@ -114,7 +114,7 @@ body {
 
 .featured-title {
     font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1.8rem;
+    font-size: 1.2rem; /* Match national news title size */
     color: #333;
     margin: 0 0 0.5rem;
 }
@@ -139,14 +139,14 @@ body {
 
 .featured-excerpt {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
+    font-size: 1rem; /* Already matches national news */
     color: #444;
     margin: 0 0 0.5rem;
 }
 
 .featured-full-text {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
+    font-size: 1rem; /* Already matches national news */
     color: #444;
     line-height: 1.6;
     display: none; /* Always hidden since full text is on a separate page */
@@ -193,7 +193,7 @@ body {
 .latest-card {
     display: flex;
     flex-direction: row;
-    background: #fff;
+    background: #www.gulfandhra.com/news/national.htmlfff;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -216,8 +216,8 @@ body {
 */
 
 .latest-image-wrapper {
-    flex: 0 0 150px;
-    height: 150px;
+    flex: 0 0 100px; /* Match national news image size */
+    height: 100px; /* Match national news image size */
 }
 
 /*
@@ -242,7 +242,7 @@ body {
 
 .latest-title {
     font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.2rem; /* Match national news title size */
     color: #333;
     margin: 0 0 0.5rem;
 }
@@ -267,14 +267,14 @@ body {
 
 .latest-excerpt {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
+    font-size: 1rem; /* Already matches national news */
     color: #444;
     margin: 0 0 0.5rem;
 }
 
 .latest-full-text {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
+    font-size: 1rem; /* Already matches national news */
     color: #444;
     line-height: 1.6;
     display: none; /* Always hidden since full text is on a separate page */
@@ -582,9 +582,9 @@ body {
 }
 
 .article-image-wrapper {
-    flex: 0 0 40%; /* Image on left */
+    flex: 0 0 40%;
     max-height: 400px;
-    margin-bottom: 0; /* Remove bottom margin */
+    margin-bottom: 0;
 }
 
 .article-image {
@@ -665,16 +665,16 @@ body {
     /* Featured News */
     .featured-card {
         display: flex;
-        flex-direction: row; /* Keep image on left */
+        flex-direction: row;
     }
 
     .featured-image-wrapper {
-        flex: 0 0 40%; /* Adjust image width for mobile */
-        height: auto; /* Allow height to adjust with content */
+        flex: 0 0 40%;
+        height: auto;
     }
 
     .featured-title {
-        font-size: 1.3rem;
+        font-size: 1.1rem; /* Adjusted for mobile consistency */
     }
 
     .featured-excerpt {
@@ -688,16 +688,16 @@ body {
     /* Latest News */
     .latest-card {
         display: flex;
-        flex-direction: row; /* Keep image on left */
+        flex-direction: row;
     }
 
     .latest-image-wrapper {
-        flex: 0 0 40%; /* Adjust image width for mobile */
-        height: auto; /* Allow height to adjust with content */
+        flex: 0 0 40%;
+        height: auto;
     }
 
     .latest-title {
-        font-size: 1.1rem;
+        font-size: 1.1rem; /* Adjusted for mobile consistency */
     }
 
     .latest-excerpt {
@@ -735,12 +735,12 @@ body {
 
     .news-card {
         display: flex;
-        flex-direction: row; /* Keep image on left */
+        flex-direction: row;
     }
 
     .news-image-wrapper {
-        flex: 0 0 40%; /* Adjust image width for mobile */
-        height: auto; /* Allow height to adjust with content */
+        flex: 0 0 40%;
+        height: auto;
     }
 
     .news-image {
@@ -753,7 +753,7 @@ body {
     }
 
     .news-title {
-        font-size: 1.1rem;
+        font-size: 1.1rem; /* Adjusted for mobile consistency */
     }
 
     .news-excerpt, .full-text {
@@ -766,7 +766,7 @@ body {
     }
 
     .article-image-wrapper {
-        flex: 0 0 40%; /* Image on left in mobile */
+        flex: 0 0 40%;
         max-height: 250px;
     }
 
