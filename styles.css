@@ -591,9 +591,9 @@ body {
 }
 
 .article-image-wrapper {
-    flex: 0 0 100px; /* Desktop image size */
-    height: 100px; /* Desktop image size */
-    margin-bottom: 0;
+    width: 100%; /* Restored desktop style */
+    max-height: 400px; /* Restored desktop style */
+    margin-bottom: 1.5rem;
 }
 
 .article-image {
