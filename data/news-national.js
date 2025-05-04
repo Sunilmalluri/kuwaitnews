@@ -1,6 +1,6 @@
 window.newsData = [
     {
-        "id": "ind1",
+        "id": "national1",
         "title": "భారతీయ రైల్వే – ప్రగతి మరియు మొదటి ప్రైవేట్ స్టేషన్",
         "category": "national",
         "date": "01-05-2025",
@@ -12,7 +12,7 @@ window.newsData = [
         "featured": true
     },
     {
-        "id": "ind2",
+        "id": "national2",
         "title": "పహల్గాం దాడికి ప్రతీకారం? పాక్ సైన్యంలో భయాందోళనలు!",
         "category": "national",
         "date": "01-05-2025",
@@ -24,7 +24,7 @@ window.newsData = [
         "featured": false
     },
     {
-        "id": "home11",
+        "id": "national3",
         "title": "ఆంధ్రప్రదేశ్‌లో కొత్త ప్రభుత్వ పథకం",
         "category": "national",
         "date": "2025-05-04",
