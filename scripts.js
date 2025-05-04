@@ -49,7 +49,7 @@ async function fetchNews(category = null, subCategory = null, retries = 5, delay
 }
 
 function generateSocialShare(articleId) {
-    const article = window.newsData.find(a => a.id === articleId);
+    const article = window.newsData ? window.newsData.find(a => a.id === articleId) : null;
     if (!article) {
         console.warn(`Article with ID ${articleId} not found for social share generation.`);
         return '';
@@ -187,7 +187,7 @@ async function renderNews(category = null, subCategory = null) {
 
     const articles = await fetchNews(category, subCategory);
     if (articles.length === 0) {
-        newsContainer.innerHTML = '<p>వార్తలు అందుబాటులో లేవు.</p>';
+        newsContainer.innerHTML = '<p>వార్తలు అందుబాటులో లేవు. దయచేసి తర్వాత మళ్లీ ప్రయత్నించండి.</p>';
         return;
     }
 
@@ -238,8 +238,8 @@ async function renderHomeNews() {
 
     const articles = await fetchNews();
     if (articles.length === 0) {
-        featuredContainer.innerHTML = '<p>వార్తలు అందుబాటులో లేవు.</p>';
-        latestContainer.innerHTML = '<p>వార్తలు అందుబాటులో లేవు.</p>';
+        featuredContainer.innerHTML = '<p>వార్తలు అందుబాటులో లేవు. దయచేసి తర్వాత మళ్లీ ప్రయత్నించండి.</p>';
+        latestContainer.innerHTML = '<p>వార్తలు అందుబాటులో లేవు. దయచేసి తర్వాత మళ్లీ ప్రయత్నించండి.</p>';
         return;
     }
 
@@ -331,7 +331,7 @@ async function renderArticle() {
     const articles = await fetchNews();
     if (articles.length === 0) {
         console.error('No articles found in newsData');
-        articleContainer.innerHTML = '<p>వార్తలు అందుబాటులో లేవు.</p>';
+        articleContainer.innerHTML = '<p>వార్తలు అందుబాటులో లేవు. దయచేసి తర్వాత మళ్లీ ప్రయత్నించండి.</p>';
         return;
     }
 
@@ -486,6 +486,13 @@ style.textContent = `
         z-index: 1000;
         margin: 0;
         padding: 0;
+    }
+    .loading-message {
+        font-family: 'Noto Sans Telugu', sans-serif;
+        font-size: 1rem;
+        color: #666;
+        text-align: center;
+        padding: 1rem;
     }
 `;
 document.head.appendChild(style);
