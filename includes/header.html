@@ -215,30 +215,5 @@
     
     <!-- Your existing navigation will go here -->
   </div>
-  
-  <!-- Date Update Script -->
-  <script>
-    window.updateTeluguDate = function() {
-      const teluguMonths = ['జనవరి', 'ఫిబ్రవరి', 'మార్చి', 'ఏప్రిల్', 'మే', 'జూన్', 
-                           'జులై', 'ఆగస్టు', 'సెప్టెంబర్', 'అక్టోబర్', 'నవంబర్', 'డిసెంబర్'];
-      
-      const teluguDays = ['ఆదివారం', 'సోమవారం', 'మంగళవారం', 'బుధవారం', 
-                         'గురువారం', 'శుక్రవారం', 'శనివారం'];
-      
-      const today = new Date();
-      const dateStr = `${today.getDate()} ${teluguMonths[today.getMonth()]} ${today.getFullYear()}, ${teluguDays[today.getDay()]}`;
-      
-      const dateElement = document.getElementById('telugu-date');
-      if (dateElement) {
-        dateElement.textContent = dateStr;
-        dateElement.style.display = 'block'; // Ensure visibility
-      } else {
-        console.warn('telugu-date element not found');
-      }
-    };
-
-    // Run immediately
-    window.updateTeluguDate();
-  </script>
 </body>
 </html>
