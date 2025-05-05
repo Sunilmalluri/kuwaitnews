@@ -398,6 +398,25 @@ async function renderArticle() {
     `;
 }
 
+function updateTeluguDate() {
+    const teluguMonths = ['జనవరి', 'ఫిబ్రవరి', 'మార్చి', 'ఏప్రిల్', 'మే', 'జూన్', 
+                         'జులై', 'ఆగస్టు', 'సెప్టెంబర్', 'అక్టోబర్', 'నవంబర్', 'డిసెంబర్'];
+    
+    const teluguDays = ['ఆదివారం', 'సోమవారం', 'మంగళవారం', 'బుధవారం', 
+                       'గురువారం', 'శుక్రవారం', 'శనివారం'];
+    
+    const today = new Date();
+    const dateStr = `${today.getDate()} ${teluguMonths[today.getMonth()]} ${today.getFullYear()}, ${teluguDays[today.getDay()]}`;
+    
+    const dateElement = document.getElementById('telugu-date');
+    if (dateElement) {
+        dateElement.textContent = dateStr;
+        dateElement.style.display = 'block'; // Ensure visibility
+    } else {
+        console.warn('telugu-date element not found');
+    }
+}
+
 async function loadCommonComponents() {
     try {
         const existingWrapper = document.querySelector('.top-wrapper');
@@ -409,12 +428,8 @@ async function loadCommonComponents() {
         if (!headerLoaded) throw new Error('Header failed to load');
 
         // Call updateTeluguDate after header is injected
-        if (typeof window.updateTeluguDate === 'function') {
-            window.updateTeluguDate();
-            console.log('updateTeluguDate called after header load');
-        } else {
-            console.warn('updateTeluguDate function not found after header load');
-        }
+        updateTeluguDate();
+        console.log('updateTeluguDate called after header load');
 
         const navLoaded = await loadComponent('/includes/navigation.html', '.top-wrapper');
         if (!navLoaded) throw new Error('Navigation failed to load');
