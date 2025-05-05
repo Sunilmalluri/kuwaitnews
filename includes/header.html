@@ -46,6 +46,7 @@
       margin-right: 20px;
       white-space: nowrap;
       font-size: 14px;
+      min-width: 180px;
     }
     
     /* Theme Ribbon */
@@ -133,6 +134,7 @@
       .date-display {
         margin-right: 0;
         font-size: 13px;
+        min-width: auto;
       }
       
       .theme-container {
@@ -211,24 +213,42 @@
         </div>
       </div>
     </div>
-    
-    <!-- Your existing navigation will go here -->
   </div>
-  
-  <!-- Date Update Script -->
+
+  <!-- Date Script - MUST be placed after the date element -->
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const teluguMonths = ['జనవరి', 'ఫిబ్రవరి', 'మార్చి', 'ఏప్రిల్', 'మే', 'జూన్', 
-                         'జులై', 'ఆగస్టు', 'సెప్టెంబర్', 'అక్టోబర్', 'నవంబర్', 'డిసెంబర్'];
+    // Debugging check
+    console.log("Date script executing...");
     
-    const teluguDays = ['ఆదివారం', 'సోమవారం', 'మంగళవారం', 'బుధవారం', 
-                       'గురువారం', 'శుక్రవారం', 'శనివారం'];
+    // Telugu month and day names
+    const teluguMonths = [
+      'జనవరి', 'ఫిబ్రవరి', 'మార్చి', 'ఏప్రిల్', 'మే', 'జూన్',
+      'జులై', 'ఆగస్టు', 'సెప్టెంబర్', 'అక్టోబర్', 'నవంబర్', 'డిసెంబర్'
+    ];
     
+    const teluguDays = [
+      'ఆదివారం', 'సోమవారం', 'మంగళవారం', 'బుధవారం',
+      'గురువారం', 'శుక్రవారం', 'శనివారం'
+    ];
+    
+    // Get current date
     const today = new Date();
-    const dateStr = `${today.getDate()} ${teluguMonths[today.getMonth()]} ${today.getFullYear()}, ${teluguDays[today.getDay()]}`;
+    const day = today.getDate();
+    const month = teluguMonths[today.getMonth()];
+    const year = today.getFullYear();
+    const dayName = teluguDays[today.getDay()];
     
-    document.getElementById('telugu-date').textContent = dateStr;
-  });
-</script>
+    // Format date string
+    const dateStr = `${day} ${month} ${year}, ${dayName}`;
+    
+    // Display date
+    const dateElement = document.getElementById('current-date');
+    if (dateElement) {
+      dateElement.textContent = dateStr;
+      console.log("Date displayed:", dateStr);
+    } else {
+      console.error("Could not find date element!");
+    }
+  </script>
 </body>
 </html>
