@@ -16,20 +16,19 @@ async function loadComponent(url, targetElement, position = 'beforeend') {
 async function fetchDataFile(articleId) {
     const categoryMap = {
         'ind': '/data/news-national.js',
-        'national': '/data/news-national.js', // Added to handle 'national' prefix
+        'national': '/data/news-national.js',
         'international': '/data/news-international.js',
         'gulf': '/data/news-gulf.js',
         'home': '/data/home-news.js'
     };
 
-    // Determine category from article ID prefix
-    let category = 'home'; // Default to home
+    let category = 'home';
     if (articleId.startsWith('ind') || articleId.startsWith('national')) category = 'national';
     else if (articleId.startsWith('international')) category = 'international';
     else if (articleId.startsWith('gulf')) category = 'gulf';
     else if (articleId.startsWith('home')) category = 'home';
 
-    const dataFile = categoryMap[category] || '/data/home-news.js'; // Fallback to home-news.js
+    const dataFile = categoryMap[category] || '/data/home-news.js';
     try {
         const response = await fetch(dataFile);
         if (!response.ok) throw new Error(`Failed to load ${dataFile}: ${response.statusText}`);
@@ -356,7 +355,6 @@ async function renderArticle() {
 
     console.log('Attempting to fetch article with ID:', articleId);
 
-    // Dynamically load the correct data file based on article ID
     await fetchDataFile(articleId);
 
     const articles = await fetchNews();
@@ -409,6 +407,14 @@ async function loadCommonComponents() {
 
         const headerLoaded = await loadComponent('/includes/header.html', '.top-wrapper');
         if (!headerLoaded) throw new Error('Header failed to load');
+
+        // Call updateTeluguDate after header is injected
+        if (typeof window.updateTeluguDate === 'function') {
+            window.updateTeluguDate();
+            console.log('updateTeluguDate called after header load');
+        } else {
+            console.warn('updateTeluguDate function not found after header load');
+        }
 
         const navLoaded = await loadComponent('/includes/navigation.html', '.top-wrapper');
         if (!navLoaded) throw new Error('Navigation failed to load');
