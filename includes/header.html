@@ -218,7 +218,7 @@
   
   <!-- Date Update Script -->
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    function updateTeluguDate() {
       const teluguMonths = ['జనవరి', 'ఫిబ్రవరి', 'మార్చి', 'ఏప్రిల్', 'మే', 'జూన్', 
                            'జులై', 'ఆగస్టు', 'సెప్టెంబర్', 'అక్టోబర్', 'నవంబర్', 'డిసెంబర్'];
       
@@ -231,9 +231,13 @@
       const dateElement = document.getElementById('telugu-date');
       if (dateElement) {
         dateElement.textContent = dateStr;
-        dateElement.style.display = 'block'; // Force display if overridden
+        dateElement.style.display = 'block'; // Ensure visibility
       }
-    });
+    }
+
+    // Run on DOM load and set as a global function for external calls
+    document.addEventListener('DOMContentLoaded', updateTeluguDate);
+    window.updateTeluguDate = updateTeluguDate; // Expose function globally
   </script>
 </body>
 </html>
