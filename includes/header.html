@@ -46,6 +46,7 @@
       margin-right: 20px;
       white-space: nowrap;
       font-size: 14px;
+      display: block !important; /* Override any external display: none */
     }
     
     /* Theme Ribbon */
@@ -227,7 +228,11 @@
       const today = new Date();
       const dateStr = `${today.getDate()} ${teluguMonths[today.getMonth()]} ${today.getFullYear()}, ${teluguDays[today.getDay()]}`;
       
-      document.getElementById('telugu-date').textContent = dateStr;
+      const dateElement = document.getElementById('telugu-date');
+      if (dateElement) {
+        dateElement.textContent = dateStr;
+        dateElement.style.display = 'block'; // Force display if overridden
+      }
     });
   </script>
 </body>
