@@ -136,6 +136,11 @@
         font-size: 13px;
       }
       
+      /* Slow down marquee scrolling speed for mobile */
+      .ticker-content marquee {
+        scrollamount: 3 !important; /* Slower speed for mobile */
+      }
+      
       .theme-container {
         gap: 15px;
         flex-wrap: wrap;
@@ -176,7 +181,7 @@
     <div class="ticker-bar">
       <div class="ticker-content">
         <div class="date-display" id="telugu-date"></div>
-        <marquee>గోల్డ్ రేటు: 24K - ₹7,599 | 22K - ₹7,127 | KWD రేటు: ₹274.69 | SAR రేటు: ₹22.47 | AED రేటు: ₹22.95 | OMR రేటు: ₹218.96 | QAR రేటు: ₹23.11 | BHD రేటు: ₹223.57 | విదేశీ వార్తలు | తాజా అప్డేట్లు</marquee>
+        <marquee scrollamount="6">గోల్డ్ రేటు: 24K - ₹7,599 | 22K - ₹7,127 | KWD రేటు: ₹274.69 | SAR రేటు: ₹22.47 | AED రేటు: ₹22.95 | OMR రేటు: ₹218.96 | QAR రేటు: ₹23.11 | BHD రేటు: ₹223.57 | విదేశీ వార్తలు | తాజా అప్డేట్లు</marquee>
       </div>
     </div>
     
