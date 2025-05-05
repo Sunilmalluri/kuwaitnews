@@ -220,7 +220,7 @@
     async function fetchGoldPrices() {
       try {
         // Using goldprice.org API (Note: This is a placeholder; you'll need to sign up for an API key)
-        const response = await fetch('https://data-asg.goldprice.org/dbXRates/USD');
+        const response = await fetch('http://goldprice.org/live-gold-price.html');
         if (!response.ok) throw new Error('Failed to fetch gold prices');
         const data = await response.json();
         
