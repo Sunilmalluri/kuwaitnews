@@ -176,7 +176,7 @@
     <div class="ticker-bar">
       <div class="ticker-content">
         <div class="date-display" id="telugu-date"></div>
-        <marquee>గోల్డ్ రేటు: 24K - ₹7,599 | 22K - ₹7,127 | KWD రేటు: ₹274.69 | SAR రేటు: ₹22.47 | AED రేటు: ₹22.95 | OMR రేటు: ₹218.96 | QAR రేటు: ₹23.11 | BHD రేటు: ₹223.57 | విదేశీ వార్తలు | తాజా అప్డేట్లు</marquee>
+        <marquee id="ticker-marquee">గోల్డ్ రేటు: 24K - ₹<span id="gold-24k">Loading...</span> | 22K - ₹<span id="gold-22k">Loading...</span> | KWD రేటు: ₹<span id="kwd-rate">Loading...</span> | SAR రేటు: ₹<span id="sar-rate">Loading...</span> | AED రేటు: ₹<span id="aed-rate">Loading...</span> | OMR రేటు: ₹<span id="omr-rate">Loading...</span> | QAR రేటు: ₹<span id="qar-rate">Loading...</span> | BHD రేటు: ₹<span id="bhd-rate">Loading...</span> | విదేశీ వార్తలు | తాజా అప్డేట్లు</marquee>
       </div>
     </div>
     
@@ -212,8 +212,83 @@
         </div>
       </div>
     </div>
-    
-    <!-- Your existing navigation will go here -->
   </div>
+
+  <!-- Script to Fetch and Update Ticker Data -->
+  <script>
+    // Function to fetch gold prices
+    async function fetchGoldPrices() {
+      try {
+        // Using goldprice.org API (Note: This is a placeholder; you'll need to sign up for an API key)
+        const response = await fetch('https://data-asg.goldprice.org/dbXRates/USD');
+        if (!response.ok) throw new Error('Failed to fetch gold prices');
+        const data = await response.json();
+        
+        // Gold price per ounce in USD
+        const goldPricePerOunce = data.items[0].xauPrice; // 24K gold price per ounce
+        const goldPricePerGram = goldPricePerOunce / 31.1035; // Convert to per gram (1 troy ounce = 31.1035 grams)
+        
+        // Assuming 22K is 91.67% of 24K
+        const goldPrice24K = (goldPricePerGram * 74.5).toFixed(0); // Adjust multiplier based on market standards (74.5 grams per tola)
+        const goldPrice22K = (goldPrice24K * 0.9167).toFixed(0); // 22K is 91.67% of 24K
+
+        return { gold24K: goldPrice24K, gold22K: goldPrice22K };
+      } catch (error) {
+        console.error('Error fetching gold prices:', error.message);
+        return { gold24K: 'N/A', gold22K: 'N/A' };
+      }
+    }
+
+    // Function to fetch exchange rates
+    async function fetchExchangeRates() {
+      try {
+        // Using exchangeratesapi.io (Note: Requires an API key; this is a placeholder)
+        const apiKey = 'YOUR_API_KEY'; // Replace with your API key
+        const response = await fetch(`https://api.exchangeratesapi.io/v1/latest?access_key=${apiKey}&base=USD&symbols=INR,KWD,SAR,AED,OMR,QAR,BHD`);
+        if (!response.ok) throw new Error('Failed to fetch exchange rates');
+        const data = await response.json();
+
+        // Convert USD to INR for each currency
+        const inrPerUsd = data.rates.INR;
+        const rates = {
+          kwd: (inrPerUsd / data.rates.KWD).toFixed(2),
+          sar: (inrPerUsd / data.rates.SAR).toFixed(2),
+          aed: (inrPerUsd / data.rates.AED).toFixed(2),
+          omr: (inrPerUsd / data.rates.OMR).toFixed(2),
+          qar: (inrPerUsd / data.rates.QAR).toFixed(2),
+          bhd: (inrPerUsd / data.rates.BHD).toFixed(2),
+        };
+
+        return rates;
+      } catch (error) {
+        console.error('Error fetching exchange rates:', error.message);
+        return { kwd: 'N/A', sar: 'N/A', aed: 'N/A', omr: 'N/A', qar: 'N/A', bhd: 'N/A' };
+      }
+    }
+
+    // Function to update the ticker
+    async function updateTicker() {
+      const goldPrices = await fetchGoldPrices();
+      const exchangeRates = await fetchExchangeRates();
+
+      // Update gold prices
+      document.getElementById('gold-24k').textContent = goldPrices.gold24K;
+      document.getElementById('gold-22k').textContent = goldPrices.gold22K;
+
+      // Update exchange rates
+      document.getElementById('kwd-rate').textContent = exchangeRates.kwd;
+      document.getElementById('sar-rate').textContent = exchangeRates.sar;
+      document.getElementById('aed-rate').textContent = exchangeRates.aed;
+      document.getElementById('omr-rate').textContent = exchangeRates.omr;
+      document.getElementById('qar-rate').textContent = exchangeRates.qar;
+      document.getElementById('bhd-rate').textContent = exchangeRates.bhd;
+    }
+
+    // Initial update
+    updateTicker();
+
+    // Update every 5 minutes (300,000 milliseconds)
+    setInterval(updateTicker, 300000);
+  </script>
 </body>
 </html>
