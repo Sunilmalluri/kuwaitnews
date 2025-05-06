@@ -61,23 +61,13 @@ body {
     padding: 1rem 0;
 }
 
-article.featured-card {
+.featured-card {
     display: flex;
     flex-direction: row;
     background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Restored shadow */
+    border-bottom: 1px solid #d4af37; /* Single line at the bottom */
     overflow: hidden;
     cursor: pointer;
-    transition: transform 0.2s ease; /* Restored transition */
-}
-
-article.featured-card:hover {
-    transform: translateY(-2px); /* Restored hover effect */
-}
-
-article.featured-card:focus {
-    outline: 2px solid #007bff; /* Restored focus effect */
 }
 
 .featured-image-wrapper {
@@ -163,23 +153,13 @@ article.featured-card:focus {
     padding: 1rem 0;
 }
 
-article.latest-card {
+.latest-card {
     display: flex;
     flex-direction: row;
     background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Restored shadow */
+    border-bottom: 1px solid #d4af37; /* Single line at the bottom */
     overflow: hidden;
     cursor: pointer;
-    transition: transform 0.2s ease; /* Restored transition */
-}
-
-article.latest-card:hover {
-    transform: translateY(-2px); /* Restored hover effect */
-}
-
-article.latest-card:focus {
-    outline: 2px solid #007bff; /* Restored focus effect */
 }
 
 .latest-image-wrapper {
@@ -593,7 +573,7 @@ article.latest-card:focus {
         grid-template-columns: 1fr; /* Single column on mobile */
     }
 
-    article.featured-card {
+    .featured-card {
         display: flex;
         flex-direction: row;
     }
@@ -625,7 +605,7 @@ article.latest-card:focus {
         grid-template-columns: 1fr; /* Single column on mobile */
     }
 
-    article.latest-card {
+    .latest-card {
         display: flex;
         flex-direction: row;
     }
@@ -736,4 +716,4 @@ article.latest-card:focus {
     }
 }
 
-/* Updated on May 6, 2025: Increased specificity for .featured-card and .latest-card by using article.featured-card and article.latest-card to ensure styles apply */
+/* Updated on May 6, 2025: Made all news cards (featured, latest, category) plain with no effects and a single bottom line */
