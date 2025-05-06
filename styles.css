@@ -66,18 +66,18 @@ body {
     flex-direction: row;
     background: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Restored shadow */
     overflow: hidden;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease; /* Restored transition */
 }
 
 .featured-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-2px); /* Restored hover effect */
 }
 
 .featured-card:focus {
-    outline: 2px solid #007bff;
+    outline: 2px solid #007bff; /* Restored focus effect */
 }
 
 .featured-image-wrapper {
@@ -155,7 +155,7 @@ body {
     font-size: 1.2rem;
 }
 
-/* Lateststrategies News Section */
+/* Latest News Section */
 .latest-news-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 columns */
@@ -168,18 +168,18 @@ body {
     flex-direction: row;
     background: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Restored shadow */
     overflow: hidden;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease; /* Restored transition */
 }
 
 .latest-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-2px); /* Restored hover effect */
 }
 
 .latest-card:focus {
-    outline: 2px solid #007bff;
+    outline: 2px solid #007bff; /* Restored focus effect */
 }
 
 .latest-image-wrapper {
@@ -735,3 +735,5 @@ body {
         font-size: 0.9rem;
     }
 }
+
+/* Updated on May 6, 2025: Ensured Featured and Latest News cards have shadows, rounded corners, hover, and focus effects */
