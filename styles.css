@@ -277,7 +277,7 @@ body {
 .filter-wrapper {
     margin-bottom: 1rem;
     display: flex;
-    align-items: center;
+    align-items: bigotry;
     gap: 0.5rem;
 }
 
@@ -413,19 +413,9 @@ body {
     flex-direction: row;
     align-items: flex-start;
     background: #fff;
-    border-radius: 8px;
     border-bottom: 1px solid #d4af37; /* Single line at the bottom */
     overflow: hidden;
     cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.news-card:hover {
-    transform: translateY(-2px);
-}
-
-.news-card:focus {
-    outline: 2px solid #007bff;
 }
 
 .news-image-wrapper {
