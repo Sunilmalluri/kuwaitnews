@@ -163,18 +163,31 @@
       }
       
       .main-header {
-        flex-direction: column;
-        text-align: center;
-        gap: 10px;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
       }
       
       .logo-container {
-        justify-content: center;
+        justify-content: flex-start;
       }
     }
     
     @media (max-width: 480px) {
       .theme-item {
+        font-size: 12px;
+      }
+      
+      .logo {
+        height: 40px;
+      }
+      
+      .header-text h1 {
+        font-size: 24px;
+      }
+      
+      .header-text p {
         font-size: 12px;
       }
     }
@@ -199,7 +212,6 @@
       </div>
     </div>
     
-        
     <!-- Main Header -->
     <div class="main-header">
       <div class="logo-container">
