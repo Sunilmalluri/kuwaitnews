@@ -553,17 +553,48 @@ document.addEventListener('DOMContentLoaded', () => {
     loadCommonComponents();
 });
 
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
-  const adSection = document.createElement('div');
-  adSection.className = 'birthday-ad';
-  adSection.innerHTML = `
+  const adContainer = document.createElement('div');
+  adContainer.className = 'ad-container';
+
+  const leftAd = document.createElement('div');
+  leftAd.className = 'birthday-ad left-ad';
+  leftAd.innerHTML = `
     <div class="ad-image-wrapper">
       <img src="https://github.com/Sunilmalluri/kuwaitnews/raw/main/images/helen.jpeg" alt="Helen's 38th Birthday" class="ad-image">
     </div>
     <div class="ad-content">
-      <h3>Birthday</h3>
-      <p>Celebrate with Helen - 38!</p>
+      <h3>Birthday Celebration</h3>
+      <p>Helen - 38!</p>
     </div>
   `;
-  document.querySelector('.main-content').insertBefore(adSection, document.querySelector('.featured-news'));
+
+  const rightAd = document.createElement('div');
+  rightAd.className = 'birthday-ad right-ad';
+  rightAd.innerHTML = `
+    <div class="ad-image-wrapper">
+      <img src="https://github.com/Sunilmalluri/kuwaitnews/raw/main/images/helen.jpeg" alt="Helen's 38th Birthday" class="ad-image">
+    </div>
+    <div class="ad-content">
+      <h3>Birthday Celebration</h3>
+      <p>Helen - 38!</p>
+    </div>
+  `;
+
+  const newsContentWrapper = document.createElement('div');
+  newsContentWrapper.className = 'news-content-wrapper';
+  const mainContent = document.querySelector('.main-content');
+  while (mainContent.firstChild) {
+    newsContentWrapper.appendChild(mainContent.firstChild);
+  }
+
+  adContainer.appendChild(leftAd);
+  adContainer.appendChild(newsContentWrapper);
+  adContainer.appendChild(rightAd);
+
+  mainContent.appendChild(adContainer);
 });
