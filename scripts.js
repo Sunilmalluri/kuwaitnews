@@ -552,3 +552,18 @@ document.head.appendChild(style);
 document.addEventListener('DOMContentLoaded', () => {
     loadCommonComponents();
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+  const adSection = document.createElement('div');
+  adSection.className = 'birthday-ad';
+  adSection.innerHTML = `
+    <div class="ad-image-wrapper">
+      <img src="https://github.com/Sunilmalluri/kuwaitnews/raw/main/images/helen.jpeg" alt="Helen's 38th Birthday" class="ad-image">
+    </div>
+    <div class="ad-content">
+      <h3>Birthday</h3>
+      <p>Celebrate with Helen - 38!</p>
+    </div>
+  `;
+  document.querySelector('.main-content').insertBefore(adSection, document.querySelector('.featured-news'));
+});
