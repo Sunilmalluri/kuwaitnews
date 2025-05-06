@@ -61,7 +61,7 @@ body {
     padding: 1rem 0;
 }
 
-.featured-card {
+article.featured-card {
     display: flex;
     flex-direction: row;
     background: #fff;
@@ -72,11 +72,11 @@ body {
     transition: transform 0.2s ease; /* Restored transition */
 }
 
-.featured-card:hover {
+article.featured-card:hover {
     transform: translateY(-2px); /* Restored hover effect */
 }
 
-.featured-card:focus {
+article.featured-card:focus {
     outline: 2px solid #007bff; /* Restored focus effect */
 }
 
@@ -163,7 +163,7 @@ body {
     padding: 1rem 0;
 }
 
-.latest-card {
+article.latest-card {
     display: flex;
     flex-direction: row;
     background: #fff;
@@ -174,11 +174,11 @@ body {
     transition: transform 0.2s ease; /* Restored transition */
 }
 
-.latest-card:hover {
+article.latest-card:hover {
     transform: translateY(-2px); /* Restored hover effect */
 }
 
-.latest-card:focus {
+article.latest-card:focus {
     outline: 2px solid #007bff; /* Restored focus effect */
 }
 
@@ -593,7 +593,7 @@ body {
         grid-template-columns: 1fr; /* Single column on mobile */
     }
 
-    .featured-card {
+    article.featured-card {
         display: flex;
         flex-direction: row;
     }
@@ -625,7 +625,7 @@ body {
         grid-template-columns: 1fr; /* Single column on mobile */
     }
 
-    .latest-card {
+    article.latest-card {
         display: flex;
         flex-direction: row;
     }
@@ -736,4 +736,4 @@ body {
     }
 }
 
-/* Updated on May 6, 2025: Ensured Featured and Latest News cards have shadows, rounded corners, hover, and focus effects */
+/* Updated on May 6, 2025: Increased specificity for .featured-card and .latest-card by using article.featured-card and article.latest-card to ensure styles apply */
