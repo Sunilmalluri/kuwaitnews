@@ -81,8 +81,8 @@ body {
 }
 
 .featured-image-wrapper {
-    flex: 0 0 100px; /* Desktop image size */
-    height: 100px; /* Desktop image size */
+    flex: 0 0 80px; /* Reduced size for preview */
+    height: 80px; /* Reduced size for preview */
 }
 
 .featured-image {
@@ -98,7 +98,8 @@ body {
 
 .featured-title {
     font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1.2rem; /* Match national news title size */
+    font-size: 1rem; /* Reduced size for preview */
+    font-weight: normal; /* Remove bold */
     color: #333;
     margin: 0 0 0.5rem;
 }
@@ -117,7 +118,7 @@ body {
 
 .featured-excerpt {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem; /* Already matches national news */
+    font-size: 0.9rem; /* Reduced size for preview */
     color: #444;
     margin: 0 0 0.5rem;
 }
@@ -182,8 +183,8 @@ body {
 }
 
 .latest-image-wrapper {
-    flex: 0 0 100px; /* Desktop image size */
-    height: 100px; /* Desktop image size */
+    flex: 0 0 80px; /* Reduced size for preview */
+    height: 80px; /* Reduced size for preview */
 }
 
 .latest-image {
@@ -199,7 +200,8 @@ body {
 
 .latest-title {
     font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1.2rem; /* Match national news title size */
+    font-size: 1rem; /* Reduced size for preview */
+    font-weight: normal; /* Remove bold */
     color: #333;
     margin: 0 0 0.5rem;
 }
@@ -218,7 +220,7 @@ body {
 
 .latest-excerpt {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem; /* Already matches national news */
+    font-size: 0.9rem; /* Reduced size for preview */
     color: #444;
     margin: 0 0 0.5rem;
 }
@@ -364,15 +366,6 @@ body {
     transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.blue-btn {
-    background-color: #007bff;
-    color: white;
-}
-
-.blue-btn:hover {
-    background-color: #0056b3;
-}
-
 .share-btn:hover {
     transform: scale(1.1);
 }
@@ -421,7 +414,7 @@ body {
     align-items: flex-start;
     background: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #d4af37; /* Single line at the bottom */
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.2s ease;
@@ -436,8 +429,8 @@ body {
 }
 
 .news-image-wrapper {
-    flex: 0 0 100px; /* Desktop image size */
-    height: 100px; /* Desktop image size */
+    flex: 0 0 80px; /* Reduced size for preview */
+    height: 80px; /* Reduced size for preview */
 }
 
 .news-image {
@@ -453,7 +446,8 @@ body {
 
 .news-title {
     font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1rem; /* Reduced size for preview */
+    font-weight: normal; /* Remove bold */
     margin: 0 0 0.5rem;
     color: #333;
 }
@@ -476,7 +470,7 @@ body {
 
 .news-excerpt {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
+    font-size: 0.9rem; /* Reduced size for preview */
     color: #444;
     margin: 0 0 0.5rem;
 }
@@ -624,11 +618,12 @@ body {
     }
 
     .featured-title {
-        font-size: 1.1rem;
+        font-size: 0.9rem; /* Further reduced for mobile */
+        font-weight: normal; /* Ensure no bold */
     }
 
     .featured-excerpt {
-        font-size: 0.9rem;
+        font-size: 0.8rem; /* Further reduced for mobile */
     }
 
     .featured-full-text {
@@ -655,11 +650,12 @@ body {
     }
 
     .latest-title {
-        font-size: 1.1rem;
+        font-size: 0.9rem; /* Further reduced for mobile */
+        font-weight: normal; /* Ensure no bold */
     }
 
     .latest-excerpt {
-        font-size: 0.9rem;
+        font-size: 0.8rem; /* Further reduced for mobile */
     }
 
     .latest-full-text {
@@ -710,11 +706,12 @@ body {
     }
 
     .news-title {
-        font-size: 1.1rem;
+        font-size: 0.9rem; /* Further reduced for mobile */
+        font-weight: normal; /* Ensure no bold */
     }
 
     .news-excerpt, .full-text {
-        font-size: 1.0rem;
+        font-size: 0.8rem; /* Further reduced for mobile */
     }
 
     /* Article Page */
