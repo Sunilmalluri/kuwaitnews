@@ -717,3 +717,42 @@ body {
 }
 
 /* Updated on May 6, 2025: Made all news cards (featured, latest, category) plain with no effects and a single bottom line */
+
+.birthday-ad {
+  display: flex;
+  flex-direction: row;
+  background: #fff;
+  border-bottom: 1px solid #d4af37;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.ad-image-wrapper {
+  flex: 0 0 80px;
+  height: 80px;
+}
+
+.ad-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ad-content {
+  flex: 1;
+  padding: 1rem;
+}
+
+.ad-content h3 {
+  font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
+  font-size: 1.2rem;
+  color: #333;
+  margin: 0 0 0.5rem;
+}
+
+.ad-content p {
+  font-family: 'Noto Sans Telugu', sans-serif;
+  font-size: 1rem;
+  color: #444;
+  margin: 0;
+}
