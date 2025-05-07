@@ -599,9 +599,8 @@ body {
     }
 
     .featured-image-wrapper {
-        flex: 0 0 30%;
-        height: auto;
-        aspect-ratio: 1/1;
+        flex: 0 0 70px; /* Reduced by 20px */
+        height: 70px; /* Maintain square aspect ratio */
     }
 
     .featured-image {
@@ -613,7 +612,7 @@ body {
     }
 
     .featured-title {
-        font-size: 0.9rem;
+        font-size: 1rem; /* Increased font size */
         font-weight: normal;
         -webkit-line-clamp: 2; /* Maintain 2 lines */
         line-height: 1.2;
@@ -640,9 +639,8 @@ body {
     }
 
     .latest-image-wrapper {
-        flex: 0 0 30%;
-        height: auto;
-        aspect-ratio: 1/1;
+        flex: 0 0 70px; /* Reduced by 20px */
+        height: 70px; /* Maintain square aspect ratio */
     }
 
     .latest-image {
@@ -654,7 +652,7 @@ body {
     }
 
     .latest-title {
-        font-size: 0.9rem;
+        font-size: 1rem; /* Increased font size */
         font-weight: normal;
         -webkit-line-clamp: 2; /* Maintain 2 lines */
         line-height: 1.2;
@@ -681,9 +679,8 @@ body {
     }
 
     .news-image-wrapper {
-        flex: 0 0 30%;
-        height: auto;
-        aspect-ratio: 1/1;
+        flex: 0 0 70px; /* Reduced by 20px from ~90px */
+        height: 70px; /* Maintain square aspect ratio */
     }
 
     .news-image {
@@ -695,7 +692,7 @@ body {
     }
 
     .news-title {
-        font-size: 0.9rem;
+        font-size: 1rem; /* Increased font size */
         font-weight: normal;
         -webkit-line-clamp: 2;
         line-height: 1.2;
@@ -761,4 +758,4 @@ body {
     }
 }
 
-/* Updated on May 8, 2025: Aligned Category News with two-column layout, same image size (90x60px), card size, and title limited to 2 lines in desktop view */
+/* Updated on May 8, 2025: Increased font size to 1rem and reduced image width by 20px (to 70px) for Category News in mobile view */
