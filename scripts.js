@@ -353,79 +353,141 @@ function initializeFeedback(articleId) {
     const likeBtn = document.querySelector(`#like-btn-${articleId}`);
     const dislikeBtn = document.querySelector(`#dislike-btn-${articleId}`);
     const commentBtn = document.querySelector(`#comment-btn-${articleId}`);
-    const commentFormContainer = document.querySelector(`#comment-form-${articleId}`);
-    const commentForm = document.querySelector(`#comment-form-${articleId} form`);
-    const commentList = document.querySelector(`#comment-list-${articleId}`);
 
     // Update button states and counters
-    likeBtn.querySelector('span').textContent = feedback.likes;
-    dislikeBtn.querySelector('span').textContent = feedback.dislikes;
-    if (feedback.userLiked) likeBtn.classList.add('liked');
-    if (feedback.userDisliked) dislikeBtn.classList.add('disliked');
-
-    // Render comments
-    commentList.innerHTML = feedback.comments.map(comment => `
-        <div class="comment-item">${comment}</div>
-    `).join('');
+    if (likeBtn) {
+        likeBtn.querySelector('span').textContent = feedback.likes;
+        if (feedback.userLiked) likeBtn.classList.add('liked');
+    }
+    if (dislikeBtn) {
+        dislikeBtn.querySelector('span').textContent = feedback.dislikes;
+        if (feedback.userDisliked) dislikeBtn.classList.add('disliked');
+    }
 
     // Like button handler
-    likeBtn.addEventListener('click', () => {
-        if (!feedback.userLiked && !feedback.userDisliked) {
-            feedback.likes++;
-            feedback.userLiked = true;
-            likeBtn.classList.add('liked');
-            likeBtn.querySelector('span').textContent = feedback.likes;
-        } else if (feedback.userLiked) {
-            feedback.likes--;
-            feedback.userLiked = false;
-            likeBtn.classList.remove('liked');
-            likeBtn.querySelector('span').textContent = feedback.likes;
-        } else if (feedback.userDisliked) {
-            feedback.dislikes--;
-            feedback.dislikes = Math.max(0, feedback.dislikes); // Prevent negative
-            feedback.userDisliked = false;
-            dislikeBtn.classList.remove('disliked');
-            dislikeBtn.querySelector('span').textContent = feedback.dislikes;
-            feedback.likes++;
-            feedback.userLiked = true;
-            likeBtn.classList.add('liked');
-            likeBtn.querySelector('span').textContent = feedback.likes;
-        }
-        localStorage.setItem(feedbackKey, JSON.stringify(feedback));
-    });
+    if (likeBtn) {
+        likeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (!feedback.userLiked && !feedback.userDisliked) {
+                feedback.likes++;
+                feedback.userLiked = true;
+                likeBtn.classList.add('liked');
+                likeBtn.querySelector('span').textContent = feedback.likes;
+            } else if (feedback.userLiked) {
+                feedback.likes--;
+                feedback.userLiked = false;
+                likeBtn.classList.remove('liked');
+                likeBtn.querySelector('span').textContent = feedback.likes;
+            } else if (feedback.userDisliked) {
+                feedback.dislikes--;
+                feedback.dislikes = Math.max(0, feedback.dislikes); // Prevent negative
+                feedback.userDisliked = false;
+                dislikeBtn.classList.remove('disliked');
+                dislikeBtn.querySelector('span').textContent = feedback.dislikes;
+                feedback.likes++;
+                feedback.userLiked = true;
+                likeBtn.classList.add('liked');
+                likeBtn.querySelector('span').textContent = feedback.likes;
+            }
+            localStorage.setItem(feedbackKey, JSON.stringify(feedback));
+        });
+    }
 
     // Dislike button handler
-    dislikeBtn.addEventListener('click', () => {
-        if (!feedback.userDisliked && !feedback.userLiked) {
-            feedback.dislikes++;
-            feedback.userDisliked = true;
-            dislikeBtn.classList.add('disliked');
-            dislikeBtn.querySelector('span').textContent = feedback.dislikes;
-        } else if (feedback.userDisliked) {
-            feedback.dislikes--;
-            feedback.userDisliked = false;
-            dislikeBtn.classList.remove('disliked');
-            dislikeBtn.querySelector('span').textContent = feedback.dislikes;
-        } else if (feedback.userLiked) {
-            feedback.likes--;
-            feedback.likes = Math.max(0, feedback.likes); // Prevent negative
-            feedback.userLiked = false;
-            likeBtn.classList.remove('liked');
-            likeBtn.querySelector('span').textContent = feedback.likes;
-            feedback.dislikes++;
-            feedback.userDisliked = true;
-            dislikeBtn.classList.add('disliked');
-            dislikeBtn.querySelector('span').textContent = feedback.dislikes;
-        }
-        localStorage.setItem(feedbackKey, JSON.stringify(feedback));
-    });
+    if (dislikeBtn) {
+        dislikeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (!feedback.userDisliked && !feedback.userLiked) {
+                feedback.dislikes++;
+                feedback.userDisliked = true;
+                dislikeBtn.classList.add('disliked');
+                dislikeBtn.querySelector('span').textContent = feedback.dislikes;
+            } else if (feedback.userDisliked) {
+                feedback.dislikes--;
+                feedback.userDisliked = false;
+                dislikeBtn.classList.remove('disliked');
+                dislikeBtn.querySelector('span').textContent = feedback.dislikes;
+            } else if (feedback.userLiked) {
+                feedback.likes--;
+                feedback.likes = Math.max(0, feedback.likes); // Prevent negative
+                feedback.userLiked = false;
+                likeBtn.classList.remove('liked');
+                likeBtn.querySelector('span').textContent = feedback.likes;
+                feedback.dislikes++;
+                feedback.userDisliked = true;
+                dislikeBtn.classList.add('disliked');
+                dislikeBtn.querySelector('span').textContent = feedback.dislikes;
+            }
+            localStorage.setItem(feedbackKey, JSON.stringify(feedback));
+        });
+    }
 
     // Comment button handler
-    commentBtn.addEventListener('click', () => {
-        commentFormContainer.classList.toggle('active');
-    });
+    if (commentBtn) {
+        commentBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = `/feedback.html?id=${articleId}`;
+        });
+    }
+}
 
-    // Comment form submission
+async function renderFeedbackPage() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const articleId = urlParams.get('id');
+    const feedbackContainer = document.querySelector('.feedback-container');
+
+    if (!feedbackContainer || !articleId) {
+        console.error('Feedback container or ID not found', { feedbackContainer, articleId });
+        if (feedbackContainer) {
+            feedbackContainer.innerHTML = '<p>స్పందనను లోడ్ చేయడంలో లోపం ఏర్పడింది.</p>';
+        }
+        return;
+    }
+
+    console.log('Attempting to fetch article for feedback with ID:', articleId);
+
+    await fetchDataFile(articleId);
+
+    const articles = await fetchNews();
+    if (articles.length === 0) {
+        console.error('No articles found in newsData');
+        feedbackContainer.innerHTML = '<p>వార్తలు అందుబాటులో లేవు. దయచేసి తర్వాత మళ్లీ ప్రయత్నించండి.</p>';
+        return;
+    }
+
+    console.log('Available articles:', articles.map(a => a.id));
+    const article = articles.find(a => a.id === articleId);
+
+    if (!article) {
+        console.warn(`Article with ID ${articleId} not found in newsData`);
+        feedbackContainer.innerHTML = '<p>వార్త కనుగొనబడలేదు.</p>';
+        return;
+    }
+
+    const feedbackKey = `feedback_${articleId}`;
+    const feedback = JSON.parse(localStorage.getItem(feedbackKey)) || {
+        likes: 0,
+        dislikes: 0,
+        comments: []
+    };
+
+    feedbackContainer.innerHTML = `
+        <h1 class="feedback-title">వార్తపై స్పందన</h1>
+        <div class="feedback-article-title">వార్త: ${article.title}</div>
+        <div class="comment-form-container">
+            <form id="comment-form-${articleId}">
+                <textarea placeholder="మీ స్పందనను ఇక్కడ రాయండి..." required></textarea>
+                <button type="submit">సమర్పించు</button>
+            </form>
+        </div>
+        <div class="comment-list" id="comment-list-${articleId}">
+            ${feedback.comments.map(comment => `<div class="comment-item">${comment}</div>`).join('')}
+        </div>
+    `;
+
+    const commentForm = document.querySelector(`#comment-form-${articleId}`);
+    const commentList = document.querySelector(`#comment-list-${articleId}`);
+
     commentForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const commentText = commentForm.querySelector('textarea').value.trim();
@@ -433,7 +495,6 @@ function initializeFeedback(articleId) {
             feedback.comments.push(commentText);
             commentList.innerHTML += `<div class="comment-item">${commentText}</div>`;
             commentForm.reset();
-            commentFormContainer.classList.remove('active');
             localStorage.setItem(feedbackKey, JSON.stringify(feedback));
         }
     });
@@ -499,12 +560,6 @@ async function renderArticle() {
                 <span><i class="far fa-clock"></i> ${article.time}</span>
             </div>
             <div class="article-full-text">${fullText}</div>
-            <div class="share-section">
-                <a href="#" class="forward-btn" id="forward-btn-${articleId}" aria-label="Forward article" tabindex="0">
-                    <i class="fas fa-share"></i>
-                </a>
-                ${generateSocialShare(articleId)}
-            </div>
             <div class="feedback-section">
                 <div class="feedback-buttons">
                     <a href="#" class="feedback-btn" id="like-btn-${articleId}" aria-label="Like article" tabindex="0">
@@ -520,13 +575,12 @@ async function renderArticle() {
                         <span>స్పందించు</span>
                     </a>
                 </div>
-                <div class="comment-form-container" id="comment-form-${articleId}">
-                    <form>
-                        <textarea placeholder="మీ స్పందనను ఇక్కడ రాయండి..." required></textarea>
-                        <button type="submit">సమర్పించు</button>
-                    </form>
-                </div>
-                <div class="comment-list" id="comment-list-${articleId}"></div>
+            </div>
+            <div class="share-section">
+                <a href="#" class="forward-btn" id="forward-btn-${articleId}" aria-label="Forward article" tabindex="0">
+                    <i class="fas fa-share"></i>
+                </a>
+                ${generateSocialShare(articleId)}
             </div>
         </div>
     `;
@@ -668,6 +722,8 @@ async function loadCommonComponents() {
             renderGoldPrice();
         } else if (pageCategory === 'article') {
             renderArticle();
+        } else if (pageCategory === 'feedback') {
+            renderFeedbackPage();
         } else {
             renderNews(pageCategory, pageSubCategory);
         }
