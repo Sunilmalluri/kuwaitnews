@@ -9,12 +9,12 @@ body {
 }
 
 .content-bg {
-    flex: 1 0 auto; /* Ensure content takes up available space */
+    flex: 1 0 auto;
 }
 
 /* Footer wrapper styles */
 .footer-wrapper {
-    flex-shrink: 0; /* Prevent footer from shrinking */
+    flex-shrink: 0;
 }
 
 /* Container for added side space */
@@ -56,8 +56,8 @@ body {
 
 .featured-news-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns */
-    gap: 1.5rem; /* Space between cards */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
     padding: 1rem 0;
 }
 
@@ -65,14 +65,15 @@ body {
     display: flex;
     flex-direction: row;
     background: #fff;
-    border-bottom: 1px solid #d4af37; /* Single line at the bottom */
+    border-bottom: 1px solid #d4af37;
     overflow: hidden;
     cursor: pointer;
+    min-height: 100px; /* Ensure consistent height */
 }
 
 .featured-image-wrapper {
-    flex: 0 0 80px; /* Reduced size for preview */
-    height: 80px; /* Reduced size for preview */
+    flex: 0 0 80px;
+    height: 80px;
 }
 
 .featured-image {
@@ -84,18 +85,25 @@ body {
 .featured-content {
     flex: 1;
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    max-height: 80px; /* Match image height for alignment */
+    overflow: hidden;
 }
 
 .featured-title {
     font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem; /* Reduced size for preview */
-    font-weight: normal; /* Remove bold */
+    font-size: 1rem;
+    font-weight: normal;
     color: #333;
     margin: 0 0 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Prevent title wrapping */
 }
 
 .featured-meta {
-    display: none; /* Hide meta in preview */
+    display: none;
     gap: 1rem;
     font-size: 0.9rem;
     color: #666;
@@ -108,17 +116,22 @@ body {
 
 .featured-excerpt {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 0.9rem; /* Reduced size for preview */
+    font-size: 0.9rem;
     color: #444;
-    margin: 0 0 0.5rem;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-box-orient: vertical;
 }
 
 .featured-full-text {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem; /* Already matches national news */
+    font-size: 1rem;
     color: #444;
     line-height: 1.6;
-    display: none; /* Always hidden since full text is on a separate page */
+    display: none;
 }
 
 .featured-full-text p {
@@ -146,9 +159,13 @@ body {
 }
 
 /* Latest News Section */
+.latest-news {
+    margin-bottom: 2rem;
+}
+
 .latest-news-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
     padding: 1rem 0;
 }
@@ -157,14 +174,15 @@ body {
     display: flex;
     flex-direction: row;
     background: #fff;
-    border-bottom: 1px solid #d4af37; /* Single line at the bottom */
+    border-bottom: 1px solid #d4af37;
     overflow: hidden;
     cursor: pointer;
+    min-height: 100px;
 }
 
 .latest-image-wrapper {
-    flex: 0 0 80px; /* Reduced size for preview */
-    height: 80px; /* Reduced size for preview */
+    flex: 0 0 80px;
+    height: 80px;
 }
 
 .latest-image {
@@ -176,18 +194,25 @@ body {
 .latest-content {
     flex: 1;
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    max-height: 80px;
+    overflow: hidden;
 }
 
 .latest-title {
     font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem; /* Reduced size for preview */
-    font-weight: normal; /* Remove bold */
+    font-size: 1rem;
+    font-weight: normal;
     color: #333;
     margin: 0 0 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .latest-meta {
-    display: none; /* Hide meta in preview */
+    display: none;
     gap: 1rem;
     font-size: 0.9rem;
     color: #666;
@@ -200,17 +225,22 @@ body {
 
 .latest-excerpt {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 0.9rem; /* Reduced size for preview */
+    font-size: 0.9rem;
     color: #444;
-    margin: 0 0 0.5rem;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .latest-full-text {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem; /* Already matches national news */
+    font-size: 1rem;
     color: #444;
     line-height: 1.6;
-    display: none; /* Always hidden since full text is on a separate page */
+    display: none;
 }
 
 .latest-full-text p {
@@ -293,35 +323,34 @@ body {
 
 .gold-price-table th,
 .gold-price-table td {
-    border: 1px solid #d4af37; /* Muted gold for borders */
+    border: 1px solid #d4af37;
     padding: 0.5rem;
     text-align: center;
     font-size: 0.9rem;
     color: #333;
-    transition: background 0.2s ease; /* For hover effect */
+    transition: background 0.2s ease;
 }
 
 .gold-price-table th {
-    background: #d4af37; /* Soft gold background */
-    color: #fff; /* White text for contrast */
+    background: #d4af37;
+    color: #fff;
     font-weight: bold;
 }
 
 .gold-price-table td {
-    background: #fff; /* Default white background for cells */
+    background: #fff;
 }
 
 .gold-price-table tbody tr:nth-child(even) {
-    background: #fff5e6; /* Light cream for alternating rows */
+    background: #fff5e6;
 }
 
 .gold-price-table tbody tr:hover td {
-    background: #fff9e6; /* Light yellow on hover */
+    background: #fff9e6;
 }
 
-/* Highlight the location column */
 .gold-price-table td:first-child {
-    background: #f5f5dc; /* Beige for the location column */
+    background: #f5f5dc;
     font-weight: bold;
 }
 
@@ -393,14 +422,14 @@ body {
     flex-direction: row;
     align-items: flex-start;
     background: #fff;
-    border-bottom: 1px solid #d4af37; /* Single line at the bottom */
+    border-bottom: 1px solid #d4af37;
     overflow: hidden;
     cursor: pointer;
 }
 
 .news-image-wrapper {
-    flex: 0 0 80px; /* Reduced size for preview */
-    height: 80px; /* Reduced size for preview */
+    flex: 0 0 80px;
+    height: 80px;
 }
 
 .news-image {
@@ -416,8 +445,8 @@ body {
 
 .news-title {
     font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem; /* Reduced size for preview */
-    font-weight: normal; /* Remove bold */
+    font-size: 1rem;
+    font-weight: normal;
     margin: 0 0 0.5rem;
     color: #333;
 }
@@ -440,7 +469,7 @@ body {
 
 .news-excerpt {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 0.9rem; /* Reduced size for preview */
+    font-size: 0.9rem;
     color: #444;
     margin: 0 0 0.5rem;
 }
@@ -488,8 +517,8 @@ body {
 }
 
 .article-image-wrapper {
-    width: 100%; /* Restored desktop style */
-    max-height: 400px; /* Restored desktop style */
+    width: 100%;
+    max-height: 400px;
     margin-bottom: 1.5rem;
 }
 
@@ -570,30 +599,38 @@ body {
 
     /* Featured News */
     .featured-news-grid {
-        grid-template-columns: 1fr; /* Single column on mobile */
+        grid-template-columns: 1fr;
     }
 
     .featured-card {
         display: flex;
         flex-direction: row;
+        min-height: auto; /* Allow natural height on mobile */
     }
 
     .featured-image-wrapper {
-        flex: 0 0 30%; /* 30% of card width for preview */
-        height: auto; /* Maintain square aspect ratio */
+        flex: 0 0 30%;
+        height: auto;
+        aspect-ratio: 1/1; /* Ensure square images */
     }
 
     .featured-image {
-        object-fit: cover; /* Ensure image fits within square */
+        object-fit: cover;
+    }
+
+    .featured-content {
+        max-height: none; /* Remove height constraint on mobile */
     }
 
     .featured-title {
-        font-size: 0.9rem; /* Further reduced for mobile */
-        font-weight: normal; /* Ensure no bold */
+        font-size: 0.9rem;
+        font-weight: normal;
+        white-space: normal; /* Allow wrapping on mobile */
     }
 
     .featured-excerpt {
-        font-size: 0.8rem; /* Further reduced for mobile */
+        font-size: 0.8rem;
+        -webkit-line-clamp: 3; /* Allow 3 lines on mobile */
     }
 
     .featured-full-text {
@@ -602,30 +639,38 @@ body {
 
     /* Latest News */
     .latest-news-grid {
-        grid-template-columns: 1fr; /* Single column on mobile */
+        grid-template-columns: 1fr;
     }
 
     .latest-card {
         display: flex;
         flex-direction: row;
+        min-height: auto;
     }
 
     .latest-image-wrapper {
-        flex: 0 0 30%; /* 30% of card width for preview */
-        height: auto; /* Maintain square aspect ratio */
+        flex: 0 0 30%;
+        height: auto;
+        aspect-ratio: 1/1;
     }
 
     .latest-image {
-        object-fit: cover; /* Ensure image fits within square */
+        object-fit: cover;
+    }
+
+    .latest-content {
+        max-height: none;
     }
 
     .latest-title {
-        font-size: 0.9rem; /* Further reduced for mobile */
-        font-weight: normal; /* Ensure no bold */
+        font-size: 0.9rem;
+        font-weight: normal;
+        white-space: normal;
     }
 
     .latest-excerpt {
-        font-size: 0.8rem; /* Further reduced for mobile */
+        font-size: 0.8rem;
+        -webkit-line-clamp: 3;
     }
 
     .latest-full-text {
@@ -663,12 +708,13 @@ body {
     }
 
     .news-image-wrapper {
-        flex: 0 0 30%; /* 30% of card width for preview */
-        height: auto; /* Maintain square aspect ratio */
+        flex: 0 0 30%;
+        height: auto;
+        aspect-ratio: 1/1;
     }
 
     .news-image {
-        object-fit: cover; /* Ensure image fits within square */
+        object-fit: cover;
     }
 
     .news-content {
@@ -676,12 +722,12 @@ body {
     }
 
     .news-title {
-        font-size: 0.9rem; /* Further reduced for mobile */
-        font-weight: normal; /* Ensure no bold */
+        font-size: 0.9rem;
+        font-weight: normal;
     }
 
     .news-excerpt, .full-text {
-        font-size: 0.8rem; /* Further reduced for mobile */
+        font-size: 0.8rem;
     }
 
     /* Article Page */
@@ -690,12 +736,12 @@ body {
     }
 
     .article-image-wrapper {
-        flex: 0 0 30%; /* 30% of card width for preview */
+        flex: 0 0 30%;
         max-height: 250px;
     }
 
     .article-image {
-        object-fit: cover; /* Ensure image fits within square */
+        object-fit: cover;
     }
 
     .article-title {
@@ -716,4 +762,4 @@ body {
     }
 }
 
-/* Updated on May 6, 2025: Made all news cards (featured, latest, category) plain with no effects and a single bottom line */
+/* Updated on May 7, 2025: Fixed card height visibility for featured and latest news in desktop view */
