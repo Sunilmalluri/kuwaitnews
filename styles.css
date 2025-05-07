@@ -398,6 +398,16 @@ body {
 }
 
 /* Forward Button */
+.share-section {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
 .forward-btn {
     display: flex;
     align-items: center;
@@ -476,14 +486,33 @@ body {
     color: #fff;
 }
 
-/* Comment Form */
-.comment-form-container {
-    display: none; /* Hidden by default, toggled by Comment button */
-    margin-top: 1rem;
+/* Feedback Page */
+.feedback-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.comment-form-container.active {
-    display: block; /* Show when active */
+.feedback-title {
+    font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
+    font-size: 2rem;
+    color: #333;
+    margin: 0 0 1rem;
+}
+
+.feedback-article-title {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+/* Comment Form */
+.comment-form-container {
+    margin-top: 1rem;
 }
 
 .comment-form {
@@ -654,6 +683,7 @@ body {
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative; /* For absolute positioning of share-section */
 }
 
 .article-image-wrapper {
@@ -671,12 +701,13 @@ body {
 .article-content {
     flex: 1;
     padding: 1rem;
+    position: relative; /* For absolute positioning of share-section */
 }
 
 .article-title {
     font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
     font-size: 2rem;
-    color: #$333;
+    color: #333;
     margin: 0 0 0.5rem;
 }
 
@@ -878,12 +909,11 @@ body {
     }
 
     /* Article Page */
-    .article-container {
+    .article-container, .feedback-container {
         padding: 1rem;
     }
 
     .article-image-wrapper {
-        flex: 0 0 30%;
         max-height: 250px;
     }
 
@@ -891,12 +921,13 @@ body {
         object-fit: cover;
     }
 
-    .article-title {
+    .article-title, .feedback-title {
         font-size: 1.5rem;
     }
 
-    .social-share {
-        gap: 0.4rem;
+    .share-section {
+        bottom: 0.5rem;
+        right: 0.5rem;
     }
 
     .share-btn, .forward-btn {
@@ -934,4 +965,4 @@ body {
     }
 }
 
-/* Updated on May 8, 2025: Added styles for Forward button, Like/Dislike/Comment buttons, and comment form in article view */
+/* Updated on May 9, 2025: Repositioned share button to bottom right, added feedback page styles, prevented mobile zooming */
