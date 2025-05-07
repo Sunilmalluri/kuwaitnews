@@ -3,108 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="తాజా తెలుగు సినిమా సమాచారం: GCC దేశాలలో సినిమాలు, థియేటర్ లొకేషన్లు, షో టైమింగ్స్, రివ్యూలు, ట్రైలర్స్ మరియు మరిన్ని">
-    <meta name="keywords" content="తెలుగు సినిమాలు, GCC థియేటర్లు, సినిమా టైమింగ్స్, సినిమా రివ్యూలు, ట్రైలర్స్, తెలుగు">
-    <title>సినిమాలు - GCC దేశాలలో తెలుగు సినిమాలు</title>
+    <meta name="description" content="GCC దేశాలలో తెలుగు సినిమా సమాచారం: సినిమాలు, థియేటర్ లొకేషన్లు, షో టైమింగ్స్, రివ్యూలు - తెలుగులో">
+    <meta name="keywords" content="GCC తెలుగు సినిమాలు, UAE తెలుగు సినిమాలు, సినిమా షో టైమింగ్స్, థియేటర్ లొకేషన్లు, తెలుగు సినిమా టికెట్లు">
+    <title>GCC దేశాలలో తెలుగు సినిమాలు</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu&family=Ramabhadra&display=swap" rel="stylesheet">
     <script src="../scripts.js" defer></script>
     <style>
-        /* Movie Section Styles */
-        .movies-section {
-            padding: 20px 0;
-        }
-        .section-title {
-            font-family: 'Ramabhadra', sans-serif;
-            font-size: 28px;
-            color: #1976d2;
-            margin-bottom: 20px;
-        }
-        .movie-ticker {
-            background: #333;
-            color: white;
-            padding: 10px 0;
+        .movie-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             margin-bottom: 20px;
             overflow: hidden;
         }
-        .ticker-wrapper {
-            width: 100%;
-            overflow: hidden;
-        }
-        .ticker-inner {
-            display: inline-flex;
-            white-space: nowrap;
-            animation: ticker-scroll 30s linear infinite;
-        }
-        @keyframes ticker-scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .ticker-item {
-            display: inline-flex;
+        .movie-header {
+            display: flex;
+            padding: 15px;
             align-items: center;
-            margin-right: 15px;
-            font-size: 14px;
         }
-        .ticker-separator {
-            color: #888;
-            margin: 0 10px;
+        .movie-poster {
+            width: 120px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 5px;
         }
-        .movie-list, .theatre-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+        .movie-info {
+            padding: 0 15px;
+            flex: 1;
+        }
+        .movie-title {
+            font-size: 1.4rem;
+            margin: 0 0 5px 0;
+            color: #d32f2f;
+        }
+        .movie-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        .movie-rating {
+            background: #ffc107;
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .theater-list {
+            background: #f5f5f5;
+            padding: 15px;
+        }
+        .theater-item {
+            margin-bottom: 15px;
+        }
+        .theater-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .show-times {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .show-time {
+            background: #d32f2f;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        .gcc-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        .gcc-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: #f1f1f1;
+            margin-right: 5px;
+            border-radius: 5px 5px 0 0;
+        }
+        .gcc-tab.active {
+            background: #d32f2f;
+            color: white;
+        }
+        .country-content {
+            display: none;
+        }
+        .country-content.active {
+            display: block;
+        }
+        .now-showing, .coming-soon {
             margin-bottom: 30px;
         }
-        .movie-card, .theatre-card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            padding: 15px;
-            transition: transform 0.3s ease;
-        }
-        .movie-card:hover, .theatre-card:hover {
-            transform: translateY(-5px);
-        }
-        .movie-card h3, .theatre-card h3 {
-            font-family: 'Ramabhadra', sans-serif;
-            font-size: 20px;
+        .section-subtitle {
             color: #333;
-            margin: 0 0 10px;
-        }
-        .movie-card p, .theatre-card p {
-            font-family: 'Noto Sans Telugu', sans-serif;
-            font-size: 14px;
-            color: #666;
-            margin: 5px 0;
-        }
-        .movie-card a, .theatre-card a {
-            color: #1976d2;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .movie-card a:hover, .theatre-card a:hover {
-            text-decoration: underline;
-        }
-        .movie-icon {
-            color: #FFD700;
-            margin-right: 5px;
-        }
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            .ticker-inner {
-                animation: ticker-scroll 40s linear infinite; /* Slower for mobile */
-            }
-            .ticker-item {
-                font-size: 13px;
-            }
-            .section-title {
-                font-size: 24px;
-            }
-            .movie-card h3, .theatre-card h3 {
-                font-size: 18px;
-            }
+            border-left: 4px solid #d32f2f;
+            padding-left: 10px;
+            margin: 20px 0 15px 0;
         }
     </style>
 </head>
@@ -116,87 +116,177 @@
                 <section class="movies-section">
                     <h2 class="section-title">GCC దేశాలలో తెలుగు సినిమాలు</h2>
                     
-                    <!-- Movie Ticker -->
-                    <div class="movie-ticker">
-                        <div class="ticker-wrapper">
-                            <div class="ticker-inner">
-                                <!-- Repeated for seamless looping -->
-                                <span class="ticker-item"><i class="fas fa-film movie-icon"></i> HIT: The Third Case - ఇప్పుడు ప్రదర్శనలో!</span>
-                                <span class="ticker-separator">•</span>
-                                <span class="ticker-item">Retro - థియేటర్లలో గ్రాండ్ రిలీజ్!</span>
-                                <span class="ticker-separator">•</span>
-                                <span class="ticker-item">Pushpa 2: The Rule - డిసెంబర్ 2025లో విడుదల!</span>
-                                <span class="ticker-separator">•</span>
-                                <span class="ticker-item">Book tickets at BookMyShow or VOX Cinemas</span>
-                                <span class="ticker-separator">•</span>
-                                <!-- Repeat content for looping -->
-                                <span class="ticker-item"><i class="fas fa-film movie-icon"></i> HIT: The Third Case - ఇప్పుడు ప్రదర్శనలో!</span>
-                                <span class="ticker-separator">•</span>
-                                <span class="ticker-item">Retro - థియేటర్లలో గ్రాండ్ రిలీజ్!</span>
-                                <span class="ticker-separator">•</span>
-                                <span class="ticker-item">Pushpa 2: The Rule - డిసెంబర్ 2025లో విడుదల!</span>
-                                <span class="ticker-separator">•</span>
-                                <span class="ticker-item">Book tickets at BookMyShow or VOX Cinemas</span>
-                                <span class="ticker-separator">•</span>
+                    <div class="gcc-tabs">
+                        <div class="gcc-tab active" onclick="openCountry('uae')">UAE</div>
+                        <div class="gcc-tab" onclick="openCountry('saudi')">Saudi Arabia</div>
+                        <div class="gcc-tab" onclick="openCountry('qatar')">Qatar</div>
+                        <div class="gcc-tab" onclick="openCountry('kuwait')">Kuwait</div>
+                        <div class="gcc-tab" onclick="openCountry('oman')">Oman</div>
+                        <div class="gcc-tab" onclick="openCountry('bahrain')">Bahrain</div>
+                    </div>
+                    
+                    <!-- UAE Content -->
+                    <div id="uae" class="country-content active">
+                        <h3 class="section-subtitle">యునైటెడ్ ఆరబ్ ఎమిరేట్స్</h3>
+                        
+                        <div class="now-showing">
+                            <h4>ప్రస్తుతం ప్రదర్శనలో ఉన్న సినిమాలు</h4>
+                            
+                            <div class="movie-card">
+                                <div class="movie-header">
+                                    <img src="https://via.placeholder.com/120x180" alt="సినిమా పోస్టర్" class="movie-poster">
+                                    <div class="movie-info">
+                                        <h3 class="movie-title">సలార్ 2</h3>
+                                        <div class="movie-meta">Action, Thriller | UA | 2h 45m</div>
+                                        <div class="movie-meta">Director: Prashanth Neel</div>
+                                        <div class="movie-rating">IMDb: 8.5/10</div>
+                                    </div>
+                                </div>
+                                <div class="theater-list">
+                                    <div class="theater-item">
+                                        <div class="theater-name">Vox Cinemas, Dubai Mall</div>
+                                        <div class="show-times">
+                                            <span class="show-time">10:00 AM</span>
+                                            <span class="show-time">1:30 PM</span>
+                                            <span class="show-time">5:00 PM</span>
+                                            <span class="show-time">8:30 PM</span>
+                                        </div>
+                                    </div>
+                                    <div class="theater-item">
+                                        <div class="theater-name">Novo Cinemas, Ibn Battuta</div>
+                                        <div class="show-times">
+                                            <span class="show-time">11:00 AM</span>
+                                            <span class="show-time">2:30 PM</span>
+                                            <span class="show-time">6:00 PM</span>
+                                            <span class="show-time">9:30 PM</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="movie-card">
+                                <div class="movie-header">
+                                    <img src="https://via.placeholder.com/120x180" alt="సినిమా పోస్టర్" class="movie-poster">
+                                    <div class="movie-info">
+                                        <h3 class="movie-title">పుష్ప: ద రైజ్</h3>
+                                        <div class="movie-meta">Drama, Action | A | 2h 30m</div>
+                                        <div class="movie-meta">Director: Sandeep Reddy Vanga</div>
+                                        <div class="movie-rating">IMDb: 7.9/10</div>
+                                    </div>
+                                </div>
+                                <div class="theater-list">
+                                    <div class="theater-item">
+                                        <div class="theater-name">Reel Cinemas, The Dubai Mall</div>
+                                        <div class="show-times">
+                                            <span class="show-time">9:30 AM</span>
+                                            <span class="show-time">1:00 PM</span>
+                                            <span class="show-time">4:30 PM</span>
+                                            <span class="show-time">8:00 PM</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="coming-soon">
+                            <h4>త్వరలో విడుదల కానున్న సినిమాలు</h4>
+                            
+                            <div class="movie-card">
+                                <div class="movie-header">
+                                    <img src="https://via.placeholder.com/120x180" alt="సినిమా పోస్టర్" class="movie-poster">
+                                    <div class="movie-info">
+                                        <h3 class="movie-title">గంటేశ్</h3>
+                                        <div class="movie-meta">Action, Drama | UA | Coming June 15</div>
+                                        <div class="movie-meta">Director: Gopichand Malineni</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Currently Showing Movies -->
-                    <h3>ఇప్పుడు ప్రదర్శనలో ఉన్న సినిమాలు</h3>
-                    <div class="movie-list">
-                        <div class="movie-card">
-                            <h3>HIT: The Third Case</h3>
-                            <p><strong>విడుదల తేదీ:</strong> 2025</p>
-                            <p><strong>వివరాలు:</strong> నాని నటించిన యాక్షన్ థ్రిల్లర్. డాల్బీ అట్మాస్‌లో అనుభవించండి!</p>
-                            <p><a href="https://in.bookmyshow.com" target="_blank">టికెట్లు బుక్ చేయండి <i class="fas fa-ticket"></i></a></p>
-                        </div>
-                        <div class="movie-card">
-                            <h3>Retro</h3>
-                            <p><strong>విడుదల తేదీ:</strong> 2025</p>
-                            <p><strong>వివరాలు:</strong> ఒక ఆసక్తికరమైన కథాంశంతో గ్రాండ్ రిలీజ్.</p>
-                            <p><a href="https://in.bookmyshow.com" target="_blank">టికెట్లు బుక్ చేయండి <i class="fas fa-ticket"></i></a></p>
-                        </div>
-                        <div class="movie-card">
-                            <h3>Pushpa 2: The Rule</h3>
-                            <p><strong>విడుదల తేదీ:</strong> డిసెంబర్ 2025 (సంభావ్య)</p>
-                            <p><strong>వివరాలు:</strong> అల్లు అర్జున్ యొక్క బ్లాక్‌బస్టర్ సీక్వెల్.</p>
-                            <p><a href="https://in.bookmyshow.com" target="_blank">టికెట్లు బుక్ చేయండి <i class="fas fa-ticket"></i></a></p>
+                    <!-- Saudi Arabia Content -->
+                    <div id="saudi" class="country-content">
+                        <h3 class="section-subtitle">సౌదీ అరేబియా</h3>
+                        
+                        <div class="now-showing">
+                            <h4>ప్రస్తుతం ప్రదర్శనలో ఉన్న సినిమాలు</h4>
+                            
+                            <div class="movie-card">
+                                <div class="movie-header">
+                                    <img src="https://via.placeholder.com/120x180" alt="సినిమా పోస్టర్" class="movie-poster">
+                                    <div class="movie-info">
+                                        <h3 class="movie-title">సలార్ 2</h3>
+                                        <div class="movie-meta">Action, Thriller | UA | 2h 45m</div>
+                                        <div class="movie-meta">Director: Prashanth Neel</div>
+                                        <div class="movie-rating">IMDb: 8.5/10</div>
+                                    </div>
+                                </div>
+                                <div class="theater-list">
+                                    <div class="theater-item">
+                                        <div class="theater-name">Vox Cinemas, Riyadh Park</div>
+                                        <div class="show-times">
+                                            <span class="show-time">11:00 AM</span>
+                                            <span class="show-time">2:30 PM</span>
+                                            <span class="show-time">6:00 PM</span>
+                                            <span class="show-time">9:30 PM</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- Theatre Locations and Timings -->
-                    <h3>థియేటర్ లొకేషన్లు & షో టైమింగ్స్</h3>
-                    <div class="theatre-list">
-                        <div class="theatre-card">
-                            <h3>VOX Cinemas, Mall of the Emirates</h3>
-                            <p><strong>స్థానం:</strong> దుబాయ్, UAE</p>
-                            <p><strong>సినిమా:</strong> HIT: The Third Case</p>
-                            <p><strong>టైమింగ్స్:</strong> 10:30 AM, 2:00 PM, 6:30 PM, 10:00 PM</p>
-                            <p><a href="https://uae.voxcinemas.com" target="_blank">షోలు చూడండి <i class="fas fa-ticket"></i></a></p>
-                        </div>
-                        <div class="theatre-card">
-                            <h3>Novo Cinemas, Dragon Mart</h3>
-                            <p><strong>స్థానం:</strong> దుబాయ్, UAE</p>
-                            <p><strong>సినిమా:</strong> Retro</p>
-                            <p><strong>టైమింగ్స్:</strong> 11:00 AM, 3:30 PM, 7:00 PM, 10:30 PM</p>
-                            <p><a href="https://www.novocinemas.com" target="_blank">షోలు చూడండి <i class="fas fa-ticket"></i></a></p>
-                        </div>
-                        <div class="theatre-card">
-                            <h3>Al Rajhi Grand Cinemas</h3>
-                            <p><strong>స్థానం:</strong> రియాద్, సౌదీ అరేబియా</p>
-                            <p><strong>సినిమా:</strong> HIT: The Third Case</p>
-                            <p><strong>టైమింగ్స్:</strong> 12:00 PM, 4:00 PM, 8:00 PM</p>
-                            <p><a href="https://www.alrajhigrandcinemas.com" target="_blank">షోలు చూడండి <i class="fas fa-ticket"></i></a></p>
-                        </div>
-                        <div class="theatre-card">
-                            <h3>Reel Cinemas, The Avenues</h3>
-                            <p><strong>స్థానం:</strong> కువైట్ సిటీ, కువైట్</p>
-                            <p><strong>సినిమా:</strong> Retro</p>
-                            <p><strong>టైమింగ్స్:</strong> 1:00 PM, 5:30 PM, 9:00 PM</p>
-                            <p><a href="https://www.reelcinemas.com" target="_blank">షోలు చూడండి <i class="fas fa-ticket"></i></a></p>
-                        </div>
+                    <!-- Qatar Content -->
+                    <div id="qatar" class="country-content">
+                        <h3 class="section-subtitle">ఖతార్</h3>
+                        <p>త్వరలో సమాచారం అప్డేట్ చేయబడుతుంది</p>
                     </div>
+                    
+                    <!-- Kuwait Content -->
+                    <div id="kuwait" class="country-content">
+                        <h3 class="section-subtitle">కువైట్</h3>
+                        <p>త్వరలో సమాచారం అప్డేట్ చేయబడుతుంది</p>
+                    </div>
+                    
+                    <!-- Oman Content -->
+                    <div id="oman" class="country-content">
+                        <h3 class="section-subtitle">ఒమన్</h3>
+                        <p>త్వరలో సమాచారం అప్డేట్ చేయబడుతుంది</p>
+                    </div>
+                    
+                    <!-- Bahrain Content -->
+                    <div id="bahrain" class="country-content">
+                        <h3 class="section-subtitle">బహ్రైన్</h3>
+                        <p>త్వరలో సమాచారం అప్డేట్ చేయబడుతుంది</p>
+                    </div>
+                    
+                    <script>
+                        function openCountry(countryName) {
+                            var i;
+                            var x = document.getElementsByClassName("country-content");
+                            for (i = 0; i < x.length; i++) {
+                                x[i].style.display = "none";
+                            }
+                            document.getElementById(countryName).style.display = "block";
+                            
+                            var tabs = document.getElementsByClassName("gcc-tab");
+                            for (i = 0; i < tabs.length; i++) {
+                                tabs[i].className = tabs[i].className.replace(" active", "");
+                            }
+                            event.currentTarget.className += " active";
+                        }
+                    </script>
+                </section>
+                
+                <section class="info-section">
+                    <h3 class="section-subtitle">GCC దేశాలలో తెలుగు సినిమా టికెట్లు ఎలా బుక్ చేయాలి?</h3>
+                    <p>GCC దేశాలలో తెలుగు సినిమా టికెట్లను మీరు ఈ క్రింది మార్గాల్లో బుక్ చేసుకోవచ్చు:</p>
+                    <ul>
+                        <li>Vox Cinemas వెబ్సైట్ లేదా యాప్ ద్వారా (UAE, Saudi Arabia)</li>
+                        <li>Novo Cinemas వెబ్సైట్ ద్వారా (UAE, Qatar)</li>
+                        <li>Cinescape వెబ్సైట్ ద్వారా (Kuwait)</li>
+                        <li>థియేటర్ కౌంటర్ వద్ద నేరుగా</li>
+                    </ul>
                 </section>
             </main>
         </div>
