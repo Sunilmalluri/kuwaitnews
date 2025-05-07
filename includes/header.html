@@ -309,7 +309,7 @@
       }
       console.log('Adjusting marquee speed, window width:', window.innerWidth);
       const isMobile = window.innerWidth <= 768;
-      const newScrollAmount = isMobile ? '3' : '6';
+      const newScrollAmount = isMobile ? '1' : '6';
       marquee.setAttribute('scrollamount', newScrollAmount);
       console.log('Set scrollamount to:', newScrollAmount);
       // Force marquee re-render by stopping and starting
