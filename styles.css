@@ -73,7 +73,7 @@ body {
 
 .featured-image-wrapper {
     flex: 0 0 90px;
-    height: 50px;
+    height: 60px;
 }
 
 .featured-image {
@@ -179,8 +179,8 @@ body {
 }
 
 .latest-image-wrapper {
-    flex: 0 0 80px;
-    height: 80px;
+    flex: 0 0 90px;
+    height: 60px;
 }
 
 .latest-image {
