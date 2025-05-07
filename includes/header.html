@@ -68,11 +68,15 @@
     }
     
     .gold-price {
-      color: #FFCA28; /* Softer gold for text */
+      color: #FFCA28;
     }
     
     .exchange-price {
-      color: #2ECC71; /* Darker green for text */
+      color: #2ECC71;
+    }
+    
+    .welcome-message {
+      color: white; /* White for neutral welcome text */
     }
     
     .ticker-item strong {
@@ -177,6 +181,10 @@
         margin: 0 5px;
       }
       
+      .ticker-icon {
+        font-size: 12px;
+      }
+      
       .theme-container {
         gap: 15px;
         flex-wrap: wrap;
@@ -222,6 +230,21 @@
         font-size: 12px;
       }
     }
+    
+    /* Desktop-specific styles */
+    @media (min-width: 769px) {
+      .ticker-item {
+        font-size: 12px; /* Reduced from ~14px */
+      }
+      
+      .date-display {
+        font-size: 12px; /* Reduced from 14px */
+      }
+      
+      .ticker-icon {
+        font-size: 12px; /* Match reduced text size */
+      }
+    }
   </style>
 </head>
 <body>
@@ -230,7 +253,9 @@
     <div class="ticker-bar">
       <div class="ticker-content">
         <div class="date-display" id="telugu-date"></div>
-        <marquee scrollamount="6">
+        <marquee scrollamount="6" class="ticker-marquee">
+          <span class="ticker-item welcome-message">Welcome Gulf Andhra</span>
+          <span class="ticker-separator">•</span>
           <span class="ticker-item gold-price"><i class="fas fa-coins gold-icon"></i> 22K Gold Hyderabad: <strong>₹8,775</strong></span>
           <span class="ticker-separator">•</span>
           <span class="ticker-item gold-price">Saudi: <strong>₹8,460</strong></span>
