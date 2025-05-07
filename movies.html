@@ -3,13 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="తాజా సినిమా సమాచారం: తెలుగు సినిమాలు, రివ్యూలు, రిలీజ్ డేట్స్, ట్రైలర్స్ మరియు మరిన్ని - తెలుగులో">
-    <meta name="keywords" content="తెలుగు సినిమాలు, సినిమా రివ్యూలు, సినిమా విడుదల తేదీలు, ట్రైలర్స్, తెలుగు">
-    <title>సినిమాలు - తెలుగులో</title>
+    <meta name="description" content="తాజా తెలుగు సినిమా సమాచారం: GCC దేశాలలో సినిమాలు, థియేటర్ లొకేషన్లు, షో టైమింగ్స్, రివ్యూలు, ట్రైలర్స్ మరియు మరిన్ని">
+    <meta name="keywords" content="తెలుగు సినిమాలు, GCC థియేటర్లు, సినిమా టైమింగ్స్, సినిమా రివ్యూలు, ట్రైలర్స్, తెలుగు">
+    <title>సినిమాలు - GCC దేశాలలో తెలుగు సినిమాలు</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu&family=Ramabhadra&display=swap" rel="stylesheet">
     <script src="../scripts.js" defer></script>
+    <style>
+        /* Movie Section Styles */
+        .movies-section {
+            padding: 20px 0;
+        }
+        .section-title {
+            font-family: 'Ramabhadra', sans-serif;
+            font-size: 28px;
+            color: #1976d2;
+            margin-bottom: 20px;
+        }
+        .movie-ticker {
+            background: #333;
+            color: white;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .ticker-wrapper {
+            width: 100%;
+            overflow: hidden;
+        }
+        .ticker-inner {
+            display: inline-flex;
+            white-space: nowrap;
+            animation: ticker-scroll 30s linear infinite;
+        }
+        @keyframes ticker-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+        .ticker-separator {
+            color: #888;
+            margin: 0 10px;
+        }
+        .movie-list, .theatre-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .movie-card, .theatre-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px;
+            transition: transform 0.3s ease;
+        }
+        .movie-card:hover, .theatre-card:hover {
+            transform: translateY(-5px);
+        }
+        .movie-card h3, .theatre-card h3 {
+            font-family: 'Ramabhadra', sans-serif;
+            font-size: 20px;
+            color: #333;
+            margin: 0 0 10px;
+        }
+        .movie-card p, .theatre-card p {
+            font-family: 'Noto Sans Telugu', sans-serif;
+            font-size: 14px;
+            color: #666;
+            margin: 5px 0;
+        }
+        .movie-card a, .theatre-card a {
+            color: #1976d2;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .movie-card a:hover, .theatre-card a:hover {
+            text-decoration: underline;
+        }
+        .movie-icon {
+            color: #FFD700;
+            margin-right: 5px;
+        }
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .ticker-inner {
+                animation: ticker-scroll 40s linear infinite; /* Slower for mobile */
+            }
+            .ticker-item {
+                font-size: 13px;
+            }
+            .section-title {
+                font-size: 24px;
+            }
+            .movie-card h3, .theatre-card h3 {
+                font-size: 18px;
+            }
+        }
+    </style>
 </head>
 <body data-category="movies">
     <div class="top-wrapper"></div>
@@ -17,9 +114,89 @@
         <div class="container">
             <main class="main-content">
                 <section class="movies-section">
-                    <h2 class="section-title">సినిమాలు</h2>
-                    <!-- Placeholder for movie content -->
-                    <p>ఇక్కడ తెలుగు సినిమాల సమాచారం, రివ్యూలు, ట్రైలర్స్ మరియు విడుదల తేదీలు ఉంటాయి.</p>
+                    <h2 class="section-title">GCC దేశాలలో తెలుగు సినిమాలు</h2>
+                    
+                    <!-- Movie Ticker -->
+                    <div class="movie-ticker">
+                        <div class="ticker-wrapper">
+                            <div class="ticker-inner">
+                                <!-- Repeated for seamless looping -->
+                                <span class="ticker-item"><i class="fas fa-film movie-icon"></i> HIT: The Third Case - ఇప్పుడు ప్రదర్శనలో!</span>
+                                <span class="ticker-separator">•</span>
+                                <span class="ticker-item">Retro - థియేటర్లలో గ్రాండ్ రిలీజ్!</span>
+                                <span class="ticker-separator">•</span>
+                                <span class="ticker-item">Pushpa 2: The Rule - డిసెంబర్ 2025లో విడుదల!</span>
+                                <span class="ticker-separator">•</span>
+                                <span class="ticker-item">Book tickets at BookMyShow or VOX Cinemas</span>
+                                <span class="ticker-separator">•</span>
+                                <!-- Repeat content for looping -->
+                                <span class="ticker-item"><i class="fas fa-film movie-icon"></i> HIT: The Third Case - ఇప్పుడు ప్రదర్శనలో!</span>
+                                <span class="ticker-separator">•</span>
+                                <span class="ticker-item">Retro - థియేటర్లలో గ్రాండ్ రిలీజ్!</span>
+                                <span class="ticker-separator">•</span>
+                                <span class="ticker-item">Pushpa 2: The Rule - డిసెంబర్ 2025లో విడుదల!</span>
+                                <span class="ticker-separator">•</span>
+                                <span class="ticker-item">Book tickets at BookMyShow or VOX Cinemas</span>
+                                <span class="ticker-separator">•</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Currently Showing Movies -->
+                    <h3>ఇప్పుడు ప్రదర్శనలో ఉన్న సినిమాలు</h3>
+                    <div class="movie-list">
+                        <div class="movie-card">
+                            <h3>HIT: The Third Case</h3>
+                            <p><strong>విడుదల తేదీ:</strong> 2025</p>
+                            <p><strong>వివరాలు:</strong> నాని నటించిన యాక్షన్ థ్రిల్లర్. డాల్బీ అట్మాస్‌లో అనుభవించండి!</p>
+                            <p><a href="https://in.bookmyshow.com" target="_blank">టికెట్లు బుక్ చేయండి <i class="fas fa-ticket"></i></a></p>
+                        </div>
+                        <div class="movie-card">
+                            <h3>Retro</h3>
+                            <p><strong>విడుదల తేదీ:</strong> 2025</p>
+                            <p><strong>వివరాలు:</strong> ఒక ఆసక్తికరమైన కథాంశంతో గ్రాండ్ రిలీజ్.</p>
+                            <p><a href="https://in.bookmyshow.com" target="_blank">టికెట్లు బుక్ చేయండి <i class="fas fa-ticket"></i></a></p>
+                        </div>
+                        <div class="movie-card">
+                            <h3>Pushpa 2: The Rule</h3>
+                            <p><strong>విడుదల తేదీ:</strong> డిసెంబర్ 2025 (సంభావ్య)</p>
+                            <p><strong>వివరాలు:</strong> అల్లు అర్జున్ యొక్క బ్లాక్‌బస్టర్ సీక్వెల్.</p>
+                            <p><a href="https://in.bookmyshow.com" target="_blank">టికెట్లు బుక్ చేయండి <i class="fas fa-ticket"></i></a></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Theatre Locations and Timings -->
+                    <h3>థియేటర్ లొకేషన్లు & షో టైమింగ్స్</h3>
+                    <div class="theatre-list">
+                        <div class="theatre-card">
+                            <h3>VOX Cinemas, Mall of the Emirates</h3>
+                            <p><strong>స్థానం:</strong> దుబాయ్, UAE</p>
+                            <p><strong>సినిమా:</strong> HIT: The Third Case</p>
+                            <p><strong>టైమింగ్స్:</strong> 10:30 AM, 2:00 PM, 6:30 PM, 10:00 PM</p>
+                            <p><a href="https://uae.voxcinemas.com" target="_blank">షోలు చూడండి <i class="fas fa-ticket"></i></a></p>
+                        </div>
+                        <div class="theatre-card">
+                            <h3>Novo Cinemas, Dragon Mart</h3>
+                            <p><strong>స్థానం:</strong> దుబాయ్, UAE</p>
+                            <p><strong>సినిమా:</strong> Retro</p>
+                            <p><strong>టైమింగ్స్:</strong> 11:00 AM, 3:30 PM, 7:00 PM, 10:30 PM</p>
+                            <p><a href="https://www.novocinemas.com" target="_blank">షోలు చూడండి <i class="fas fa-ticket"></i></a></p>
+                        </div>
+                        <div class="theatre-card">
+                            <h3>Al Rajhi Grand Cinemas</h3>
+                            <p><strong>స్థానం:</strong> రియాద్, సౌదీ అరేబియా</p>
+                            <p><strong>సినిమా:</strong> HIT: The Third Case</p>
+                            <p><strong>టైమింగ్స్:</strong> 12:00 PM, 4:00 PM, 8:00 PM</p>
+                            <p><a href="https://www.alrajhigrandcinemas.com" target="_blank">షోలు చూడండి <i class="fas fa-ticket"></i></a></p>
+                        </div>
+                        <div class="theatre-card">
+                            <h3>Reel Cinemas, The Avenues</h3>
+                            <p><strong>స్థానం:</strong> కువైట్ సిటీ, కువైట్</p>
+                            <p><strong>సినిమా:</strong> Retro</p>
+                            <p><strong>టైమింగ్స్:</strong> 1:00 PM, 5:30 PM, 9:00 PM</p>
+                            <p><a href="https://www.reelcinemas.com" target="_blank">షోలు చూడండి <i class="fas fa-ticket"></i></a></p>
+                        </div>
+                    </div>
                 </section>
             </main>
         </div>
