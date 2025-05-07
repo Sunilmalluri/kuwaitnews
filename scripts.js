@@ -89,7 +89,7 @@ function generateSocialShare(articleId) {
     const encodedTitle = encodeURIComponent(article.title);
     const encodedUrl = encodeURIComponent(articleUrl);
     return `
-        <div class="social-share">
+        <div class="social-share" id="social-share-${articleId}">
             <a href="https://wa.me/?text=${encodedTitle}%20${encodedUrl}" class="share-btn whatsapp" target="_blank" aria-label="Share on WhatsApp" tabindex="0">
                 <i class="fab fa-whatsapp"></i>
             </a>
@@ -340,6 +340,105 @@ async function renderHomeNews() {
     });
 }
 
+function initializeFeedback(articleId) {
+    const feedbackKey = `feedback_${articleId}`;
+    let feedback = JSON.parse(localStorage.getItem(feedbackKey)) || {
+        likes: 0,
+        dislikes: 0,
+        comments: [],
+        userLiked: false,
+        userDisliked: false
+    };
+
+    const likeBtn = document.querySelector(`#like-btn-${articleId}`);
+    const dislikeBtn = document.querySelector(`#dislike-btn-${articleId}`);
+    const commentBtn = document.querySelector(`#comment-btn-${articleId}`);
+    const commentFormContainer = document.querySelector(`#comment-form-${articleId}`);
+    const commentForm = document.querySelector(`#comment-form-${articleId} form`);
+    const commentList = document.querySelector(`#comment-list-${articleId}`);
+
+    // Update button states and counters
+    likeBtn.querySelector('span').textContent = feedback.likes;
+    dislikeBtn.querySelector('span').textContent = feedback.dislikes;
+    if (feedback.userLiked) likeBtn.classList.add('liked');
+    if (feedback.userDisliked) dislikeBtn.classList.add('disliked');
+
+    // Render comments
+    commentList.innerHTML = feedback.comments.map(comment => `
+        <div class="comment-item">${comment}</div>
+    `).join('');
+
+    // Like button handler
+    likeBtn.addEventListener('click', () => {
+        if (!feedback.userLiked && !feedback.userDisliked) {
+            feedback.likes++;
+            feedback.userLiked = true;
+            likeBtn.classList.add('liked');
+            likeBtn.querySelector('span').textContent = feedback.likes;
+        } else if (feedback.userLiked) {
+            feedback.likes--;
+            feedback.userLiked = false;
+            likeBtn.classList.remove('liked');
+            likeBtn.querySelector('span').textContent = feedback.likes;
+        } else if (feedback.userDisliked) {
+            feedback.dislikes--;
+            feedback.dislikes = Math.max(0, feedback.dislikes); // Prevent negative
+            feedback.userDisliked = false;
+            dislikeBtn.classList.remove('disliked');
+            dislikeBtn.querySelector('span').textContent = feedback.dislikes;
+            feedback.likes++;
+            feedback.userLiked = true;
+            likeBtn.classList.add('liked');
+            likeBtn.querySelector('span').textContent = feedback.likes;
+        }
+        localStorage.setItem(feedbackKey, JSON.stringify(feedback));
+    });
+
+    // Dislike button handler
+    dislikeBtn.addEventListener('click', () => {
+        if (!feedback.userDisliked && !feedback.userLiked) {
+            feedback.dislikes++;
+            feedback.userDisliked = true;
+            dislikeBtn.classList.add('disliked');
+            dislikeBtn.querySelector('span').textContent = feedback.dislikes;
+        } else if (feedback.userDisliked) {
+            feedback.dislikes--;
+            feedback.userDisliked = false;
+            dislikeBtn.classList.remove('disliked');
+            dislikeBtn.querySelector('span').textContent = feedback.dislikes;
+        } else if (feedback.userLiked) {
+            feedback.likes--;
+            feedback.likes = Math.max(0, feedback.likes); // Prevent negative
+            feedback.userLiked = false;
+            likeBtn.classList.remove('liked');
+            likeBtn.querySelector('span').textContent = feedback.likes;
+            feedback.dislikes++;
+            feedback.userDisliked = true;
+            dislikeBtn.classList.add('disliked');
+            dislikeBtn.querySelector('span').textContent = feedback.dislikes;
+        }
+        localStorage.setItem(feedbackKey, JSON.stringify(feedback));
+    });
+
+    // Comment button handler
+    commentBtn.addEventListener('click', () => {
+        commentFormContainer.classList.toggle('active');
+    });
+
+    // Comment form submission
+    commentForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const commentText = commentForm.querySelector('textarea').value.trim();
+        if (commentText) {
+            feedback.comments.push(commentText);
+            commentList.innerHTML += `<div class="comment-item">${commentText}</div>`;
+            commentForm.reset();
+            commentFormContainer.classList.remove('active');
+            localStorage.setItem(feedbackKey, JSON.stringify(feedback));
+        }
+    });
+}
+
 async function renderArticle() {
     const urlParams = new URLSearchParams(window.location.search);
     const articleId = urlParams.get('id');
@@ -382,6 +481,13 @@ async function renderArticle() {
         .replace(/^/, '<p>')
         .replace(/$/, '</p>');
 
+    const feedbackKey = `feedback_${articleId}`;
+    const feedback = JSON.parse(localStorage.getItem(feedbackKey)) || {
+        likes: 0,
+        dislikes: 0,
+        comments: []
+    };
+
     articleContainer.innerHTML = `
         <div class="article-image-wrapper">
             <img src="${article.image}" alt="${article.alt}" class="article-image" loading="lazy">
@@ -393,9 +499,50 @@ async function renderArticle() {
                 <span><i class="far fa-clock"></i> ${article.time}</span>
             </div>
             <div class="article-full-text">${fullText}</div>
-            ${generateSocialShare(articleId)}
+            <div class="share-section">
+                <a href="#" class="forward-btn" id="forward-btn-${articleId}" aria-label="Forward article" tabindex="0">
+                    <i class="fas fa-share"></i>
+                </a>
+                ${generateSocialShare(articleId)}
+            </div>
+            <div class="feedback-section">
+                <div class="feedback-buttons">
+                    <a href="#" class="feedback-btn" id="like-btn-${articleId}" aria-label="Like article" tabindex="0">
+                        <i class="fas fa-thumbs-up"></i>
+                        <span>${feedback.likes}</span>
+                    </a>
+                    <a href="#" class="feedback-btn" id="dislike-btn-${articleId}" aria-label="Dislike article" tabindex="0">
+                        <i class="fas fa-thumbs-down"></i>
+                        <span>${feedback.dislikes}</span>
+                    </a>
+                    <a href="#" class="feedback-btn" id="comment-btn-${articleId}" aria-label="Comment on article" tabindex="0">
+                        <i class="fas fa-comment"></i>
+                        <span>స్పందించు</span>
+                    </a>
+                </div>
+                <div class="comment-form-container" id="comment-form-${articleId}">
+                    <form>
+                        <textarea placeholder="మీ స్పందనను ఇక్కడ రాయండి..." required></textarea>
+                        <button type="submit">సమర్పించు</button>
+                    </form>
+                </div>
+                <div class="comment-list" id="comment-list-${articleId}"></div>
+            </div>
         </div>
     `;
+
+    // Initialize Forward button toggle
+    const forwardBtn = document.querySelector(`#forward-btn-${articleId}`);
+    const socialShare = document.querySelector(`#social-share-${articleId}`);
+    if (forwardBtn && socialShare) {
+        forwardBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            socialShare.classList.toggle('active');
+        });
+    }
+
+    // Initialize feedback functionality
+    initializeFeedback(articleId);
 }
 
 function updateTeluguDate() {
@@ -552,5 +699,3 @@ document.head.appendChild(style);
 document.addEventListener('DOMContentLoaded', () => {
     loadCommonComponents();
 });
-
-
