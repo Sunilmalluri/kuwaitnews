@@ -304,7 +304,7 @@
     function adjustMarqueeSpeed() {
       const marquee = document.querySelector('.ticker-marquee');
       if (window.innerWidth <= 768) {
-        marquee.setAttribute('scrollamount', '1'); // Slower speed for mobile
+        marquee.setAttribute('scrollamount', '0'); // Slower speed for mobile
       } else {
         marquee.setAttribute('scrollamount', '6'); // Default speed for desktop
       }
