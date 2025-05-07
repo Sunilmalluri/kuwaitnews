@@ -1,134 +1,761 @@
-window.newsData = [
-          {
-        "id": "home12",
-        "title": "పాక్ ఆర్మీ దాడులు: సరిహద్దు ఉద్రిక్తత మరింత ఎక్కువైంది",
-        "category": "national",
-        "date": "06-05-2025",
-        "time": "01:55 PM",
-        "image": "/images/national/national6.png",
-        "alt": "National News",
-        "fullText": "ఇండియన్ ఆర్మీ వాహనాలపై దాడి చేసిన నిసార్, ముస్తక్ అనే ఇద్దరిని పాక్ ఆర్మీ అరెస్టు చేసింది. ఈ సందర్భంగా జైళ్లపై ఉగ్రవాదుల దాడుల పథకాలు బయటపడ్డాయి. సరిహద్దు ప్రాంతాల్లో పాక్ ఆర్మీ కాల్పులు కొనసాగుతున్నాయి.కోట్ భవ్‌లాల్ జైలులో ఉన్న నిసార్, ముస్తక్‌లను పాక్ ఆర్మీ విచారించింది. ఇండియన్ ఆర్మీ వాహనాలపై దాడి కేసులో ఇద్దరూ అరెస్టయ్యారు. సరిహద్దు ప్రాంతాల్లో పాక్ ఆర్మీ 12 రోజులుగా కాల్పులు కొనసాగిస్తోంది. భారత సైన్యం ప్రతి దాడికి బలమైన ప్రత్యుత్తరం ఇస్తోంది.",
-        "featured": true
-    },
-                 {
-        "id": "home11",
-        "title": "భారత్-పాక్ ఉద్రిక్తత: సరిహద్దు బంకర్ల పునరుద్ధరణ",
-        "category": "national",
-        "date": "06-05-2025",
-        "time": "01:55 PM",
-        "image": "/images/national/national5.png",
-        "alt": "National News",
-        "fullText": "పహల్గాం ఉగ్రదాడి తర్వాత భారత్-పాకిస్థాన్ సరిహద్దు ప్రాంతాల్లో ఉద్రిక్తత పెరిగింది. భారత్ సైన్యం 1965, 1971 యుద్ధాల్లో ఉపయోగించిన పాత బంకర్లను పునరుద్ధరిస్తోంది. జమ్మూ-కాశ్మీర్‌లో భద్రతా చర్యలు ఇంకా కఠినమయ్యాయి.భారత్ పాక్ ఉగ్రవాదులను వెంటాడేందుకు కఠిన ప్రతిజ్ఞ చేసింది. సరిహద్దు ప్రాంతాల్లో 50 ఏళ్ల పాత బంకర్లను మరల ఉపయోగార్హంగా మారుస్తున్నారు. జమ్మూ-కాశ్మీర్‌లో ప్రజలను సురక్షితమైన భూగర్భ బంకర్లకు తరలించే ప్రణాళికలు. శ్రీనగర్‌లో ఎయిర్ రైడ్ డ్రిల్స్ నిర్వహించారు, భద్రతా చర్యలు మరింత కఠినమయ్యాయి.",
-        "featured": true
-    },
-            {
-        "id": "home10",
-        "title": "ప్రకాశంలో మళ్లీ భూకంపాలు – ప్రజలలో భయాందోళన",
-        "category": "national",
-        "date": "06-05-2025",
-        "time": "01:40 PM",
-        "image": "/images/national/national4.png",
-        "alt": "National News",
-        "fullText": "ఆంధ్రప్రదేశ్‌లోని ప్రకాశం జిల్లాలో మళ్లీ భూకంపాలు సంభవించాయి. మంగళవారం (ఇవాళ) పొదిలి, దర్శి, ముండ్లమూరు మండలాల్లో 2 సెకన్ల పాటు భూమి కంపించడంతో ప్రజలు భయంతో ఇళ్లు వదిలి బయటకు పరుగెత్తారు. గత ఏడాది డిసెంబర్‌లోనే ఈ ప్రాంతంలో వరుసగా 4 రోజులు భూకంపాలు నమోదయ్యాయి. ఎన్జీఆర్ఐ శాస్త్రవేత్తలు, గుండ్లకమ్మ నది పరివాహక ప్రాంతంలో భూగర్భ కదలికలు ఈ భూకంపాలకు కారణమని తెలిపారు. భూకంప తీవ్రత తక్కువగా ఉన్నప్పటికీ, భవిష్యత్తులో ఇంకా ఏమి జరుగుతుందో అనే భయంతో ప్రజలు ఆందోళన చెందుతున్నారు. ఈ ప్రాంతంలో గతంలో కూడా చిన్న భూకంపాలు నమోదయ్యాయి. శాస్త్రవేత్తలు, ఇవి సాధారణమేనని, కానీ భవిష్యత్తులో పర్యవేక్షణ అవసరమని చెబుతున్నారు.",
-        "featured": true
-    },
-         {
-        "id": "home9",
-        "title": "సుప్రీంకోర్టు జడ్జిల ఆస్తుల వివరాలు బహిర్గతం",
-        "category": "national",
-        "date": "06-05-2025",
-        "time": "12:17 PM",
-        "image": "/images/national/national3.png",
-        "alt": "National News",
-        "fullText": "సుప్రీంకోర్టు న్యాయమూర్తులు తమ ఆస్తుల వివరాలను బహిర్గతం చేశారు. ఏప్రిల్ 1న జడ్జెస్ ఫుల్ కోర్టు మీటింగ్‌లో ఈ నిర్ణయం తీసుకున్నారు. ప్రస్తుతం సుప్రీంకోర్టులో ఉన్న 33 మంది న్యాయమూర్తులలో 21 మంది తమ ఆస్తుల వివరాలను అధికారిక వెబ్‌సైట్‌లో పోస్ట్ చేశారు. జస్టిస్ కె.వి. విశ్వనాథన్ అత్యధిక ఆస్తులు కలిగిన న్యాయమూర్తిగా నిలిచారు. వారికి రూ.120 కోట్ల పెట్టుబడులు, రూ.91 కోట్ల ఆదాయపన్ను చెల్లింపు రికార్డ్ ఉంది. సీజేఐ సంజీవ్ కన్నాకు రూ.1.06 కోట్ల పీపీఎఫ్, రూ.55.75 లక్షల ఫిక్స్డ్ డిపాజిట్‌లు ఉన్నాయి. ఢిల్లీలో ఇద్దరు ఫ్లాట్లు కూడా వారికి ఉన్నాయి. తదుపరి సీజేఐ కానున్న జస్టిస్ గవాయ్కు రూ.19.63 లక్షల బ్యాంక్ బ్యాలెన్స్, రూ.6.59 లక్షల పీపీఎఫ్ ఉన్నాయి. అమరావతి, ముంబై, ఢిల్లీలో ఇళ్లు కూడా ఉన్నాయి.జస్టిస్ ఓకాకు రూ.92.35 లక్షల పీపీఎఫ్, రూ.21.76 లక్షల ఫిక్స్డ్ డిపాజిట్లు ఉన్నాయి. మారుతి బలేనో కారుపై రూ.5.1 లక్షల రుణం కూడా ఉంది.",
-        "featured": true
-    },
-      {
-        "id": "home8",
-        "title": "Virat Kohli IPL 2025: అందుకే కెప్టెన్సీ వదిలేశా.. కోహ్లీ సంచలన వ్యాఖ్యలు",
-        "category": "national",
-        "date": "06-05-2025",
-        "time": "11:51 AM",
-        "image": "/images/national/national2.png",
-        "alt": "National News",
-        "fullText": "విరాట్ కోహ్లీ ఐపీఎల్‌లో బ్యాటింగ్‌తో అద్భుతంగా పనిచేస్తున్నాడు. కొత్త కెప్టెన్ రజత్ పాటిదార్‌కు కూడా సహాయం చేస్తున్నాడు. కానీ, ఆర్సీబీ కెప్టెన్సీని ఎందుకు వదిలేసాడో తాజాగా వివరించాడు.\n 2016-2019 మధ్య కెప్టెన్‌గా ఉన్నప్పుడు ప్రతి మ్యాచ్‌లోనూ బాగా ఆడాలనే ఒత్తిడి ఎక్కువగా ఉండేదని, ఇది తన మనస్సాక్షికి భారంగా మారిందని అన్నాడు. టీమ్ ఇండియా మరియు ఆర్సీబీ కెప్టెన్సీలో ఎక్కువ అంచనాలు, ఒత్తిడి కారణంగా ఇప్పుడు కెప్టెన్సీకి దూరంగా ఉంటున్నానని చెప్పాడు.\n 24 గంటలు క్రికెట్ ఆలోచనలతో ఒత్తిడిలో ఉండటం వల్ల ఈ నిర్ణయం తీసుకున్నానని, ఇప్పుడు కేవలం బ్యాటింగ్‌పై దృష్టి పెట్టాలని, సుఖంగా ఆడాలని కోహ్లీ తెలిపాడు. ప్రజల ప్రేమే తనకు చాలా ముఖ్యమని కూడా అన్నాడు.",
-        "featured": true
-    },
-     {
-        "id": "home7",
-        "title": "Gold Price: మళ్లీ పెరిగిన బంగారం ధరలు.. ఎంతంటే",
-        "category": "national",
-        "date": "06-05-2025",
-        "time": "11:25 AM",
-        "image": "/images/national/national1.png",
-        "alt": "National News",
-        "fullText": "Gold Price Today: నిన్న 10 గ్రాముల 24 క్యారెట్ల బంగారం ధర 95,730 రూపాయలు.. 10 గ్రాముల 22 క్యారెట్ల బంగారం ధర 87,750 రూపాయలు.. 10 గ్రాము 18 క్యారెట్ల బంగారం ధర 71,800 రూపాయలు ఉండింది. ఈ రోజు బంగారం ధర బాగానే పెరిగింది.\n వారం రోజుల ముందు వరకు బంగారం ధరలు ఆకాశాన్ని అంటాయి. 10 గ్రాముల 24 క్యారెట్ల స్వచ్చమైన బంగారం ధర లక్ష రూపాయలకు చేరింది. పసిడి ప్రియులకు పెద్ద షాక్ ఇచ్చింది. ఇక, పేద.. మధ్య తరగతి వారి గురించి చెప్పక్కర్లేదు. బంగారం కొనాలనుకునే ఆశల్నే చంపేసుకునే పరిస్థితికి వచ్చారు. అయితే, లక్షకు చేరిన తర్వాత ఊహించని విధంగా బంగారం ధరలు తగ్గుతూ వచ్చాయి. హమ్మయ్యా.. ఇంకా కొంచెం తగ్గితే బంగారం కొనేద్దాం అనుకునేలోపే.. బంగారం బాదుడు మళ్లీ మొదలైంది. గత కొద్దిరోజులనుంచి తగ్గుతూ వచ్చిన బంగారం ధరలు ఈ రోజు పెరిగాయి.\n నిన్న 10 గ్రాముల 24 క్యారెట్ల బంగారం ధర 95,730 రూపాయలు.. 10 గ్రాముల 22 క్యారెట్ల బంగారం ధర 87,750 రూపాయలు.. 10 గ్రాము 18 క్యారెట్ల బంగారం ధర 71,800 రూపాయలు ఉండింది. ఈ రోజు బంగారం ధర బాగానే పెరిగింది. గ్రాముపై ఒక రూపాయి చొప్పున 10 గ్రాములపై 10 రూపాయలు పెరిగింది. ఈ రోజు 10 గ్రాముల 24 క్యారెట్ల బంగారం ధర 95,740 దగ్గర ట్రేడ్ అవుతోంది. 10 గ్రాముల 22 క్యారెట్ల బంగారం ధర 87,760 దగ్గర ట్రేడ్ అవుతోంది. 10 గ్రాముల 18 క్యారెట్ల బంగారం ధర 71,810 దగ్గర ట్రేడ్ అవుతోంది.",
-        "featured": true
-    },
-    {
-        "id": "home6",
-        "title": "పాక్ ఆర్మీ దాడులు: సరిహద్దు ఉద్రిక్తత మరింత ఎక్కువైంది",
-        "category": "national",
-        "date": "06-05-2025",
-        "time": "01:55 PM",
-        "image": "/images/national/national6.png",
-        "alt": "National News",
-        "fullText": "ఇండియన్ ఆర్మీ వాహనాలపై దాడి చేసిన నిసార్, ముస్తక్ అనే ఇద్దరిని పాక్ ఆర్మీ అరెస్టు చేసింది. ఈ సందర్భంగా జైళ్లపై ఉగ్రవాదుల దాడుల పథకాలు బయటపడ్డాయి. సరిహద్దు ప్రాంతాల్లో పాక్ ఆర్మీ కాల్పులు కొనసాగుతున్నాయి.కోట్ భవ్‌లాల్ జైలులో ఉన్న నిసార్, ముస్తక్‌లను పాక్ ఆర్మీ విచారించింది. ఇండియన్ ఆర్మీ వాహనాలపై దాడి కేసులో ఇద్దరూ అరెస్టయ్యారు. సరిహద్దు ప్రాంతాల్లో పాక్ ఆర్మీ 12 రోజులుగా కాల్పులు కొనసాగిస్తోంది. భారత సైన్యం ప్రతి దాడికి బలమైన ప్రత్యుత్తరం ఇస్తోంది.",
-        "featured": false
-    },
-                 {
-        "id": "home5",
-        "title": "భారత్-పాక్ ఉద్రిక్తత: సరిహద్దు బంకర్ల పునరుద్ధరణ",
-        "category": "national",
-        "date": "06-05-2025",
-        "time": "01:55 PM",
-        "image": "/images/national/national5.png",
-        "alt": "National News",
-        "fullText": "పహల్గాం ఉగ్రదాడి తర్వాత భారత్-పాకిస్థాన్ సరిహద్దు ప్రాంతాల్లో ఉద్రిక్తత పెరిగింది. భారత్ సైన్యం 1965, 1971 యుద్ధాల్లో ఉపయోగించిన పాత బంకర్లను పునరుద్ధరిస్తోంది. జమ్మూ-కాశ్మీర్‌లో భద్రతా చర్యలు ఇంకా కఠినమయ్యాయి.భారత్ పాక్ ఉగ్రవాదులను వెంటాడేందుకు కఠిన ప్రతిజ్ఞ చేసింది. సరిహద్దు ప్రాంతాల్లో 50 ఏళ్ల పాత బంకర్లను మరల ఉపయోగార్హంగా మారుస్తున్నారు. జమ్మూ-కాశ్మీర్‌లో ప్రజలను సురక్షితమైన భూగర్భ బంకర్లకు తరలించే ప్రణాళికలు. శ్రీనగర్‌లో ఎయిర్ రైడ్ డ్రిల్స్ నిర్వహించారు, భద్రతా చర్యలు మరింత కఠినమయ్యాయి.",
-        "featured": false
-    },
-            {
-        "id": "home4",
-        "title": "ప్రకాశంలో మళ్లీ భూకంపాలు – ప్రజలలో భయాందోళన",
-        "category": "national",
-        "date": "06-05-2025",
-        "time": "01:40 PM",
-        "image": "/images/national/national4.png",
-        "alt": "National News",
-        "fullText": "ఆంధ్రప్రదేశ్‌లోని ప్రకాశం జిల్లాలో మళ్లీ భూకంపాలు సంభవించాయి. మంగళవారం (ఇవాళ) పొదిలి, దర్శి, ముండ్లమూరు మండలాల్లో 2 సెకన్ల పాటు భూమి కంపించడంతో ప్రజలు భయంతో ఇళ్లు వదిలి బయటకు పరుగెత్తారు. గత ఏడాది డిసెంబర్‌లోనే ఈ ప్రాంతంలో వరుసగా 4 రోజులు భూకంపాలు నమోదయ్యాయి. ఎన్జీఆర్ఐ శాస్త్రవేత్తలు, గుండ్లకమ్మ నది పరివాహక ప్రాంతంలో భూగర్భ కదలికలు ఈ భూకంపాలకు కారణమని తెలిపారు. భూకంప తీవ్రత తక్కువగా ఉన్నప్పటికీ, భవిష్యత్తులో ఇంకా ఏమి జరుగుతుందో అనే భయంతో ప్రజలు ఆందోళన చెందుతున్నారు. ఈ ప్రాంతంలో గతంలో కూడా చిన్న భూకంపాలు నమోదయ్యాయి. శాస్త్రవేత్తలు, ఇవి సాధారణమేనని, కానీ భవిష్యత్తులో పర్యవేక్షణ అవసరమని చెబుతున్నారు.",
-        "featured": false
-    },
-         {
-        "id": "home3",
-        "title": "సుప్రీంకోర్టు జడ్జిల ఆస్తుల వివరాలు బహిర్గతం",
-        "category": "national",
-        "date": "06-05-2025",
-        "time": "12:17 PM",
-        "image": "/images/national/national3.png",
-        "alt": "National News",
-        "fullText": "సుప్రీంకోర్టు న్యాయమూర్తులు తమ ఆస్తుల వివరాలను బహిర్గతం చేశారు. ఏప్రిల్ 1న జడ్జెస్ ఫుల్ కోర్టు మీటింగ్‌లో ఈ నిర్ణయం తీసుకున్నారు. ప్రస్తుతం సుప్రీంకోర్టులో ఉన్న 33 మంది న్యాయమూర్తులలో 21 మంది తమ ఆస్తుల వివరాలను అధికారిక వెబ్‌సైట్‌లో పోస్ట్ చేశారు. జస్టిస్ కె.వి. విశ్వనాథన్ అత్యధిక ఆస్తులు కలిగిన న్యాయమూర్తిగా నిలిచారు. వారికి రూ.120 కోట్ల పెట్టుబడులు, రూ.91 కోట్ల ఆదాయపన్ను చెల్లింపు రికార్డ్ ఉంది. సీజేఐ సంజీవ్ కన్నాకు రూ.1.06 కోట్ల పీపీఎఫ్, రూ.55.75 లక్షల ఫిక్స్డ్ డిపాజిట్‌లు ఉన్నాయి. ఢిల్లీలో ఇద్దరు ఫ్లాట్లు కూడా వారికి ఉన్నాయి. తదుపరి సీజేఐ కానున్న జస్టిస్ గవాయ్కు రూ.19.63 లక్షల బ్యాంక్ బ్యాలెన్స్, రూ.6.59 లక్షల పీపీఎఫ్ ఉన్నాయి. అమరావతి, ముంబై, ఢిల్లీలో ఇళ్లు కూడా ఉన్నాయి.జస్టిస్ ఓకాకు రూ.92.35 లక్షల పీపీఎఫ్, రూ.21.76 లక్షల ఫిక్స్డ్ డిపాజిట్లు ఉన్నాయి. మారుతి బలేనో కారుపై రూ.5.1 లక్షల రుణం కూడా ఉంది.",
-        "featured": false
-    },
-      {
-        "id": "home2",
-        "title": "Virat Kohli IPL 2025: అందుకే కెప్టెన్సీ వదిలేశా.. కోహ్లీ సంచలన వ్యాఖ్యలు",
-        "category": "national",
-        "date": "06-05-2025",
-        "time": "11:51 AM",
-        "image": "/images/national/national2.png",
-        "alt": "National News",
-        "fullText": "విరాట్ కోహ్లీ ఐపీఎల్‌లో బ్యాటింగ్‌తో అద్భుతంగా పనిచేస్తున్నాడు. కొత్త కెప్టెన్ రజత్ పాటిదార్‌కు కూడా సహాయం చేస్తున్నాడు. కానీ, ఆర్సీబీ కెప్టెన్సీని ఎందుకు వదిలేసాడో తాజాగా వివరించాడు.\n 2016-2019 మధ్య కెప్టెన్‌గా ఉన్నప్పుడు ప్రతి మ్యాచ్‌లోనూ బాగా ఆడాలనే ఒత్తిడి ఎక్కువగా ఉండేదని, ఇది తన మనస్సాక్షికి భారంగా మారిందని అన్నాడు. టీమ్ ఇండియా మరియు ఆర్సీబీ కెప్టెన్సీలో ఎక్కువ అంచనాలు, ఒత్తిడి కారణంగా ఇప్పుడు కెప్టెన్సీకి దూరంగా ఉంటున్నానని చెప్పాడు.\n 24 గంటలు క్రికెట్ ఆలోచనలతో ఒత్తిడిలో ఉండటం వల్ల ఈ నిర్ణయం తీసుకున్నానని, ఇప్పుడు కేవలం బ్యాటింగ్‌పై దృష్టి పెట్టాలని, సుఖంగా ఆడాలని కోహ్లీ తెలిపాడు. ప్రజల ప్రేమే తనకు చాలా ముఖ్యమని కూడా అన్నాడు.",
-        "featured": false
-    },
-     {
-        "id": "home1",
-        "title": "Gold Price: మళ్లీ పెరిగిన బంగారం ధరలు.. ఎంతంటే",
-        "category": "national",
-        "date": "06-05-2025",
-        "time": "11:25 AM",
-        "image": "/images/national/national1.png",
-        "alt": "National News",
-        "fullText": "Gold Price Today: నిన్న 10 గ్రాముల 24 క్యారెట్ల బంగారం ధర 95,730 రూపాయలు.. 10 గ్రాముల 22 క్యారెట్ల బంగారం ధర 87,750 రూపాయలు.. 10 గ్రాము 18 క్యారెట్ల బంగారం ధర 71,800 రూపాయలు ఉండింది. ఈ రోజు బంగారం ధర బాగానే పెరిగింది.\n వారం రోజుల ముందు వరకు బంగారం ధరలు ఆకాశాన్ని అంటాయి. 10 గ్రాముల 24 క్యారెట్ల స్వచ్చమైన బంగారం ధర లక్ష రూపాయలకు చేరింది. పసిడి ప్రియులకు పెద్ద షాక్ ఇచ్చింది. ఇక, పేద.. మధ్య తరగతి వారి గురించి చెప్పక్కర్లేదు. బంగారం కొనాలనుకునే ఆశల్నే చంపేసుకునే పరిస్థితికి వచ్చారు. అయితే, లక్షకు చేరిన తర్వాత ఊహించని విధంగా బంగారం ధరలు తగ్గుతూ వచ్చాయి. హమ్మయ్యా.. ఇంకా కొంచెం తగ్గితే బంగారం కొనేద్దాం అనుకునేలోపే.. బంగారం బాదుడు మళ్లీ మొదలైంది. గత కొద్దిరోజులనుంచి తగ్గుతూ వచ్చిన బంగారం ధరలు ఈ రోజు పెరిగాయి.\n నిన్న 10 గ్రాముల 24 క్యారెట్ల బంగారం ధర 95,730 రూపాయలు.. 10 గ్రాముల 22 క్యారెట్ల బంగారం ధర 87,750 రూపాయలు.. 10 గ్రాము 18 క్యారెట్ల బంగారం ధర 71,800 రూపాయలు ఉండింది. ఈ రోజు బంగారం ధర బాగానే పెరిగింది. గ్రాముపై ఒక రూపాయి చొప్పున 10 గ్రాములపై 10 రూపాయలు పెరిగింది. ఈ రోజు 10 గ్రాముల 24 క్యారెట్ల బంగారం ధర 95,740 దగ్గర ట్రేడ్ అవుతోంది. 10 గ్రాముల 22 క్యారెట్ల బంగారం ధర 87,760 దగ్గర ట్రేడ్ అవుతోంది. 10 గ్రాముల 18 క్యారెట్ల బంగారం ధర 71,810 దగ్గర ట్రేడ్ అవుతోంది.",
-        "featured": false
+/* Ensure the body uses flexbox to push the footer to the bottom */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.content-bg {
+    flex: 1 0 auto;
+}
+
+/* Footer wrapper styles */
+.footer-wrapper {
+    flex-shrink: 0;
+}
+
+/* Container for added side space */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 13rem;
+}
+
+/* Main content */
+.main-content {
+    width: 100%;
+}
+
+/* Section Title */
+.section-title {
+    font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
+    font-size: 1.8rem;
+    color: #333;
+    margin: 1rem 0;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 0.5rem;
+}
+
+/* Sub-Section Title */
+.sub-section-title {
+    font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
+    font-size: 1.4rem;
+    color: #333;
+    margin: 1.5rem 0 0.5rem;
+    border-bottom: 1px solid #d4af37;
+    padding-bottom: 0.3rem;
+}
+
+/* Featured News Section */
+.featured-news {
+    margin-bottom: 2rem;
+}
+
+.featured-news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+.featured-card {
+    display: flex;
+    flex-direction: row;
+    background: #fff;
+    border-bottom: 1px solid #d4af37;
+    overflow: hidden;
+    cursor: pointer;
+    min-height: 120px; /* Increased for more content */
+}
+
+.featured-image-wrapper {
+    flex: 0 0 80px;
+    height: 80px;
+}
+
+.featured-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.featured-content {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.featured-title {
+    font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
+    font-size: 1.1rem; /* Slightly larger */
+    font-weight: normal;
+    color: #333;
+    margin: 0 0 0.5rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Allow 2 lines */
+    -webkit-box-orient: vertical;
+}
+
+.featured-meta {
+    display: none;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.featured-meta i {
+    margin-right: 0.3rem;
+}
+
+.featured-excerpt {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 0.95rem; /* Slightly larger */
+    color: #444;
+    margin: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Increased to 3 lines */
+    -webkit-box-orient: vertical;
+}
+
+.featured-full-text {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.6;
+    display: none;
+}
+
+.featured-full-text p {
+    margin: 0 0 0.5rem;
+}
+
+.featured-full-text ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+}
+
+.featured-full-text li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.featured-full-text li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #007bff;
+    font-size: 1.2rem;
+}
+
+/* Latest News Section */
+.latest-news {
+    margin-bottom: 2rem;
+}
+
+.latest-news-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+.latest-card {
+    display: flex;
+    flex-direction: row;
+    background: #fff;
+    border-bottom: 1px solid #d4af37;
+    overflow: hidden;
+    cursor: pointer;
+    min-height: 120px;
+}
+
+.latest-image-wrapper {
+    flex: 0 0 80px;
+    height: 80px;
+}
+
+.latest-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.latest-content {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.latest-title {
+    font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
+    font-size: 1.1rem;
+    font-weight: normal;
+    color: #333;
+    margin: 0 0 0.5rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.latest-meta {
+    display: none;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.latest-meta i {
+    margin-right: 0.3rem;
+}
+
+.latest-excerpt {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 0.95rem;
+    color: #444;
+    margin: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.latest-full-text {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.6;
+    display: none;
+}
+
+.latest-full-text p {
+    margin: 0 0 0.5rem;
+}
+
+.latest-full-text ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+}
+
+.latest-full-text li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.latest-full-text li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #007bff;
+    font-size: 1.2rem;
+}
+
+/* Gold Price Section */
+.gold-price-section {
+    margin-bottom: 2rem;
+}
+
+.gold-price-date {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.gold-price-date i {
+    margin-right: 0.3rem;
+}
+
+/* Filter Wrapper */
+.filter-wrapper {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-wrapper label {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 1rem;
+    color: #333;
+}
+
+.filter-wrapper select {
+    padding: 0.3rem;
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 1rem;
+    border: 1px solid #d4af37;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.filter-wrapper select:focus {
+    outline: 2px solid #007bff;
+}
+
+/* Gold Price Tables */
+.gold-price-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-family: 'Noto Sans Telugu', sans-serif;
+    margin-bottom: 1.5rem;
+}
+
+.gold-price-table th,
+.gold-price-table td {
+    border: 1px solid #d4af37;
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #333;
+    transition: background 0.2s ease;
+}
+
+.gold-price-table th {
+    background: #d4af37;
+    color: #fff;
+    font-weight: bold;
+}
+
+.gold-price-table td {
+    background: #fff;
+}
+
+.gold-price-table tbody tr:nth-child(even) {
+    background: #fff5e6;
+}
+
+.gold-price-table tbody tr:hover td {
+    background: #fff9e6;
+}
+
+.gold-price-table td:first-child {
+    background: #f5f5dc;
+    font-weight: bold;
+}
+
+/* Social Share Buttons */
+.social-share {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0.5rem 0 0;
+    justify-content: flex-start;
+}
+
+.share-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: #f0f0f0;
+    color: #333;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.share-btn:hover {
+    transform: scale(1.1);
+}
+
+.share-btn:focus {
+    outline: 2px solid #007bff;
+}
+
+.share-btn i {
+    font-size: 1rem;
+}
+
+.share-btn.whatsapp {
+    background: #25D366;
+    color: #fff;
+}
+
+.share-btn.facebook {
+    background: #4267B2;
+    color: #fff;
+}
+
+.share-btn.twitter {
+    background: #000000;
+    color: #fff;
+}
+
+.share-btn.telegram {
+    background: #0088cc;
+    color: #fff;
+}
+
+/* News Grid and Card Styles (for other pages) */
+.news-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0.5rem 0;
+}
+
+.news-card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    background: #fff;
+    border-bottom: 1px solid #d4af37;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.news-image-wrapper {
+    flex: 0 0 80px;
+    height: 80px;
+}
+
+.news-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.news-content {
+    flex: 1;
+    padding: 1rem;
+}
+
+.news-title {
+    font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
+    font-size: 1rem;
+    font-weight: normal;
+    margin: 0 0 0.5rem;
+    color: #333;
+}
+
+.news-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.news-card.preview .news-meta {
+    display: none;
+}
+
+.news-meta i {
+    margin-right: 0.3rem;
+}
+
+.news-excerpt {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 0.9rem;
+    color: #444;
+    margin: 0 0 0.5rem;
+}
+
+.full-text {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.6;
+    display: none;
+}
+
+.full-text p {
+    margin: 0 0 0.5rem;
+}
+
+.full-text ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+}
+
+.full-text li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.full-text li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #007bff;
+    font-size: 1.2rem;
+}
+
+/* Styles for article.html */
+.article-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.article-image-wrapper {
+    width: 100%;
+    max-height: 400px;
+    margin-bottom: 1.5rem;
+}
+
+.article-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.article-content {
+    flex: 1;
+    padding: 1rem;
+}
+
+.article-title {
+    font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
+    font-size: 2rem;
+    color: #333;
+    margin: 0 0 0.5rem;
+}
+
+.article-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.article-meta i {
+    margin-right: 0.3rem;
+}
+
+.article-full-text {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.6;
+}
+
+.article-full-text p {
+    margin: 0 0 0.5rem;
+}
+
+.article-full-text ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+}
+
+.article-full-text li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.article-full-text li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #007bff;
+    font-size: 1.2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1rem;
     }
-    ];
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .sub-section-title {
+        font-size: 1.2rem;
+    }
+
+    /* Featured News */
+    .featured-news-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .featured-card {
+        display: flex;
+        flex-direction: row;
+        min-height: auto;
+    }
+
+    .featured-image-wrapper {
+        flex: 0 0 30%;
+        height: auto;
+        aspect-ratio: 1/1;
+    }
+
+    .featured-image {
+        object-fit: cover;
+    }
+
+    .featured-content {
+        max-height: none;
+    }
+
+    .featured-title {
+        font-size: 0.9rem;
+        font-weight: normal;
+        -webkit-line-clamp: 3; /* Allow 3 lines on mobile */
+    }
+
+    .featured-excerpt {
+        font-size: 0.8rem;
+        -webkit-line-clamp: 4; /* Allow 4 lines on mobile */
+    }
+
+    .featured-full-text {
+        font-size: 0.9rem;
+    }
+
+    /* Latest News */
+    .latest-news-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .latest-card {
+        display: flex;
+        flex-direction: row;
+        min-height: auto;
+    }
+
+    .latest-image-wrapper {
+        flex: 0 0 30%;
+        height: auto;
+        aspect-ratio: 1/1;
+    }
+
+    .latest-image {
+        object-fit: cover;
+    }
+
+    .latest-content {
+        max-height: none;
+    }
+
+    .latest-title {
+        font-size: 0.9rem;
+        font-weight: normal;
+        -webkit-line-clamp: 3;
+    }
+
+    .latest-excerpt {
+        font-size: 0.8rem;
+        -webkit-line-clamp: 4;
+    }
+
+    .latest-full-text {
+        font-size: 0.9rem;
+    }
+
+    /* Gold Price Tables */
+    .gold-price-table {
+        font-size: 0.8rem;
+    }
+
+    .gold-price-table th,
+    .gold-price-table td {
+        padding: 0.3rem;
+    }
+
+    .filter-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filter-wrapper select {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    /* News Grid (for other pages) */
+    .news-grid {
+        padding: 0.5rem 0;
+    }
+
+    .news-card {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .news-image-wrapper {
+        flex: 0 0 30%;
+        height: auto;
+        aspect-ratio: 1/1;
+    }
+
+    .news-image {
+        object-fit: cover;
+    }
+
+    .news-content {
+        padding: 0.5rem;
+    }
+
+    .news-title {
+        font-size: 0.9rem;
+        font-weight: normal;
+    }
+
+    .news-excerpt, .full-text {
+        font-size: 0.8rem;
+    }
+
+    /* Article Page */
+    .article-container {
+        padding: 1rem;
+    }
+
+    .article-image-wrapper {
+        flex: 0 0 30%;
+        max-height: 250px;
+    }
+
+    .article-image {
+        object-fit: cover;
+    }
+
+    .article-title {
+        font-size: 1.5rem;
+    }
+
+    .social-share {
+        gap: 0.4rem;
+    }
+
+    .share-btn {
+        width: 1.4rem;
+        height: 1.4rem;
+    }
+
+    .share-btn i {
+        font-size: 0.9rem;
+    }
+}
+
+/* Updated on May 8, 2025: Fixed short preview content and blank card appearance in desktop view */
