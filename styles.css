@@ -68,7 +68,7 @@ body {
     border-bottom: 1px solid #d4af37;
     overflow: hidden;
     cursor: pointer;
-    min-height: 100px; /* Ensure consistent height */
+    min-height: 120px; /* Increased for more content */
 }
 
 .featured-image-wrapper {
@@ -87,19 +87,18 @@ body {
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    max-height: 80px; /* Match image height for alignment */
-    overflow: hidden;
 }
 
 .featured-title {
     font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
+    font-size: 1.1rem; /* Slightly larger */
     font-weight: normal;
     color: #333;
     margin: 0 0 0.5rem;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap; /* Prevent title wrapping */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Allow 2 lines */
+    -webkit-box-orient: vertical;
 }
 
 .featured-meta {
@@ -116,13 +115,12 @@ body {
 
 .featured-excerpt {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.95rem; /* Slightly larger */
     color: #444;
     margin: 0;
     overflow: hidden;
-    text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-line-clamp: 3; /* Increased to 3 lines */
     -webkit-box-orient: vertical;
 }
 
@@ -177,7 +175,7 @@ body {
     border-bottom: 1px solid #d4af37;
     overflow: hidden;
     cursor: pointer;
-    min-height: 100px;
+    min-height: 120px;
 }
 
 .latest-image-wrapper {
@@ -196,19 +194,18 @@ body {
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    max-height: 80px;
-    overflow: hidden;
 }
 
 .latest-title {
     font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: normal;
     color: #333;
     margin: 0 0 0.5rem;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .latest-meta {
@@ -225,13 +222,12 @@ body {
 
 .latest-excerpt {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: #444;
     margin: 0;
     overflow: hidden;
-    text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
 }
 
@@ -605,13 +601,13 @@ body {
     .featured-card {
         display: flex;
         flex-direction: row;
-        min-height: auto; /* Allow natural height on mobile */
+        min-height: auto;
     }
 
     .featured-image-wrapper {
         flex: 0 0 30%;
         height: auto;
-        aspect-ratio: 1/1; /* Ensure square images */
+        aspect-ratio: 1/1;
     }
 
     .featured-image {
@@ -619,18 +615,18 @@ body {
     }
 
     .featured-content {
-        max-height: none; /* Remove height constraint on mobile */
+        max-height: none;
     }
 
     .featured-title {
         font-size: 0.9rem;
         font-weight: normal;
-        white-space: normal; /* Allow wrapping on mobile */
+        -webkit-line-clamp: 3; /* Allow 3 lines on mobile */
     }
 
     .featured-excerpt {
         font-size: 0.8rem;
-        -webkit-line-clamp: 3; /* Allow 3 lines on mobile */
+        -webkit-line-clamp: 4; /* Allow 4 lines on mobile */
     }
 
     .featured-full-text {
@@ -665,12 +661,12 @@ body {
     .latest-title {
         font-size: 0.9rem;
         font-weight: normal;
-        white-space: normal;
+        -webkit-line-clamp: 3;
     }
 
     .latest-excerpt {
         font-size: 0.8rem;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 4;
     }
 
     .latest-full-text {
@@ -762,4 +758,4 @@ body {
     }
 }
 
-/* Updated on May 7, 2025: Fixed card height visibility for featured and latest news in desktop view */
+/* Updated on May 8, 2025: Fixed short preview content and blank card appearance in desktop view */
