@@ -21,13 +21,24 @@
         .movie-header {
             display: flex;
             padding: 15px;
-            align-items: center;
+            flex-direction: column;
+        }
+        @media (min-width: 768px) {
+            .movie-header {
+                flex-direction: row;
+            }
         }
         .movie-poster {
             width: 120px;
             height: 180px;
             object-fit: cover;
             border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        @media (min-width: 768px) {
+            .movie-poster {
+                margin-bottom: 0;
+            }
         }
         .movie-info {
             padding: 0 15px;
@@ -79,13 +90,21 @@
             display: flex;
             margin-bottom: 20px;
             border-bottom: 1px solid #ddd;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .gcc-tabs::-webkit-scrollbar {
+            display: none;
         }
         .gcc-tab {
-            padding: 10px 20px;
+            padding: 10px 15px;
             cursor: pointer;
             background: #f1f1f1;
             margin-right: 5px;
             border-radius: 5px 5px 0 0;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         .gcc-tab.active {
             background: #d32f2f;
@@ -106,6 +125,29 @@
             padding-left: 10px;
             margin: 20px 0 15px 0;
         }
+        
+        /* Mobile-specific adjustments */
+        @media (max-width: 767px) {
+            .movie-header {
+                padding: 10px;
+            }
+            .movie-poster {
+                width: 100px;
+                height: 150px;
+                align-self: center;
+            }
+            .movie-info {
+                padding: 10px 0 0 0;
+            }
+            .gcc-tab {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            .show-time {
+                padding: 4px 8px;
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body data-category="movies">
@@ -118,7 +160,7 @@
                     
                     <div class="gcc-tabs">
                         <div class="gcc-tab active" onclick="openCountry('uae')">UAE</div>
-                        <div class="gcc-tab" onclick="openCountry('saudi')">Saudi Arabia</div>
+                        <div class="gcc-tab" onclick="openCountry('saudi')">Saudi</div>
                         <div class="gcc-tab" onclick="openCountry('qatar')">Qatar</div>
                         <div class="gcc-tab" onclick="openCountry('kuwait')">Kuwait</div>
                         <div class="gcc-tab" onclick="openCountry('oman')">Oman</div>
@@ -163,54 +205,14 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="movie-card">
-                                <div class="movie-header">
-                                    <img src="https://via.placeholder.com/120x180" alt="సినిమా పోస్టర్" class="movie-poster">
-                                    <div class="movie-info">
-                                        <h3 class="movie-title">పుష్ప: ద రైజ్</h3>
-                                        <div class="movie-meta">Drama, Action | A | 2h 30m</div>
-                                        <div class="movie-meta">Director: Sandeep Reddy Vanga</div>
-                                        <div class="movie-rating">IMDb: 7.9/10</div>
-                                    </div>
-                                </div>
-                                <div class="theater-list">
-                                    <div class="theater-item">
-                                        <div class="theater-name">Reel Cinemas, The Dubai Mall</div>
-                                        <div class="show-times">
-                                            <span class="show-time">9:30 AM</span>
-                                            <span class="show-time">1:00 PM</span>
-                                            <span class="show-time">4:30 PM</span>
-                                            <span class="show-time">8:00 PM</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="coming-soon">
-                            <h4>త్వరలో విడుదల కానున్న సినిమాలు</h4>
-                            
-                            <div class="movie-card">
-                                <div class="movie-header">
-                                    <img src="https://via.placeholder.com/120x180" alt="సినిమా పోస్టర్" class="movie-poster">
-                                    <div class="movie-info">
-                                        <h3 class="movie-title">గంటేశ్</h3>
-                                        <div class="movie-meta">Action, Drama | UA | Coming June 15</div>
-                                        <div class="movie-meta">Director: Gopichand Malineni</div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     
                     <!-- Saudi Arabia Content -->
                     <div id="saudi" class="country-content">
                         <h3 class="section-subtitle">సౌదీ అరేబియా</h3>
-                        
                         <div class="now-showing">
                             <h4>ప్రస్తుతం ప్రదర్శనలో ఉన్న సినిమాలు</h4>
-                            
                             <div class="movie-card">
                                 <div class="movie-header">
                                     <img src="https://via.placeholder.com/120x180" alt="సినిమా పోస్టర్" class="movie-poster">
@@ -236,25 +238,22 @@
                         </div>
                     </div>
                     
-                    <!-- Qatar Content -->
+                    <!-- Other country contents remain the same -->
                     <div id="qatar" class="country-content">
                         <h3 class="section-subtitle">ఖతార్</h3>
                         <p>త్వరలో సమాచారం అప్డేట్ చేయబడుతుంది</p>
                     </div>
                     
-                    <!-- Kuwait Content -->
                     <div id="kuwait" class="country-content">
                         <h3 class="section-subtitle">కువైట్</h3>
                         <p>త్వరలో సమాచారం అప్డేట్ చేయబడుతుంది</p>
                     </div>
                     
-                    <!-- Oman Content -->
                     <div id="oman" class="country-content">
                         <h3 class="section-subtitle">ఒమన్</h3>
                         <p>త్వరలో సమాచారం అప్డేట్ చేయబడుతుంది</p>
                     </div>
                     
-                    <!-- Bahrain Content -->
                     <div id="bahrain" class="country-content">
                         <h3 class="section-subtitle">బహ్రైన్</h3>
                         <p>త్వరలో సమాచారం అప్డేట్ చేయబడుతుంది</p>
