@@ -85,6 +85,6 @@ window.newsData = [
         "image": "/images/national/national3.png",
         "alt": "New National Policy",
         "fullText": "ప్రభుత్వం రైతుల మరియు ఉద్యోగుల కోసం కొత్త జాతీయ విధానాన్ని ప్రకటించింది. ఈ విధానం ద్వారా ఆర్థిక సహాయం మరియు ఉపాధి అవకాశాలు పెరుగుతాయి.",
-        "featured": true
+        "featured": false
     }
 ];
