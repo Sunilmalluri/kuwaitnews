@@ -9,53 +9,202 @@
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu&family=Ramabhadra&display=swap" rel="stylesheet">
-    <script src="../data/gold-price-india.js" defer></script>
-    <script src="../data/gold-price-gulf.js" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="../scripts.js" defer></script>
 </head>
-<body data-category="gold-price">
+<body data-category="gold-price" class="flex flex-col min-h-screen">
     <div class="top-wrapper"></div>
-    <div class="content-bg">
-        <div class="container">
+    <div class="content-bg flex-1">
+        <div class="container mx-auto p-4">
             <main class="main-content">
-                <section class="gold-price-section">
-                    <h2 class="section-title">బంగారం ధరలు</h2>
-                    <p class="gold-price-date"><i class="far fa-calendar-alt"></i> <span id="gold-price-date"></span></p>
-                    <div class="filter-wrapper">
-                        <label for="gold-type-filter">బంగారం రకం: </label>
-                        <select id="gold-type-filter" onchange="updateGoldTables()">
+                <section class="gold-price-section my-8">
+                    <h2 class="section-title font-ramabhadra text-2xl text-gray-800 border-b-2 border-blue-500 pb-2">బంగారం ధరలు</h2>
+                    <p class="gold-price-date font-noto text-gray-600 mb-4"><i class="far fa-calendar-alt mr-2"></i> <span id="gold-price-date"></span></p>
+                    <div class="filter-wrapper flex items-center gap-2 mb-4">
+                        <label for="gold-type-filter" class="font-noto text-gray-700">బంగారం రకం:</label>
+                        <select id="gold-type-filter" class="p-2 border border-[#d4af37] rounded bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <option value="24K">24K</option>
                             <option value="22K" selected>22K</option>
                             <option value="18K">18K</option>
                         </select>
                     </div>
-                    <h3 class="sub-section-title">భారతదేశం (INR)</h3>
-                    <table class="gold-price-table india-table">
+                    <div id="loading" class="text-center text-gray-600 mb-4">బంగారం ధరలు లోడ్ అవుతున్నాయి...</div>
+                    <div id="error" class="text-center text-red-600 mb-4 hidden">బంగారం ధరలు లోడ్ చేయడంలో లోపం. దయచేసి మళ్లీ ప్రయత్నించండి.</div>
+                    <h3 class="sub-section-title font-ramabhadra text-lg text-gray-800 border-b border-[#d4af37] pb-2 mb-4">భారతదేశం (INR)</h3>
+                    <table id="india-table" class="w-full bg-white shadow-md mb-6">
                         <thead>
-                            <tr>
-                                <th>స్థానం</th>
-                                <th>1g</th>
-                                <th>10g</th>
+                            <tr class="bg-[#d4af37] text-white">
+                                <th class="p-3 text-center font-bold font-noto">స్థానం</th>
+                                <th class="p-3 text-center font-bold font-noto cursor-pointer" data-sort="1g">1g</th>
+                                <th class="p-3 text-center font-bold font-noto">10g</th>
                             </tr>
                         </thead>
-                        <tbody class="gold-price-table-body-india"></tbody>
+                        <tbody id="gold-price-table-body-india"></tbody>
                     </table>
-                    <h3 class="sub-section-title">గల్ఫ్ దేశాలు</h3>
-                    <table class="gold-price-table gulf-table">
+                    <h3 class="sub-section-title font-ramabhadra text-lg text-gray-800 border-b border-[#d4af37] pb-2 mb-4">గల్ఫ్ దేశాలు</h3>
+                    <table id="gulf-table" class="w-full bg-white shadow-md">
                         <thead>
-                            <tr>
-                                <th>స్థానం</th>
-                                <th>1g (స్థానిక కరెన్సీ)</th>
-                                <th>10g (స్థానిక కరెన్సీ)</th>
-                                <th>10g (INR)</th>
+                            <tr class="bg-[#d4af37] text-white">
+                                <th class="p-3 text-center font-bold font-noto">స్థానం</th>
+                                <th class="p-3 text-center font-bold font-noto cursor-pointer" data-sort="1g">1g (స్థానిక కరెన్సీ)</th>
+                                <th class="p-3 text-center font-bold font-noto">10g (స్థానిక కరెన్సీ)</th>
+                                <th class="p-3 text-center font-bold font-noto">10g (INR)</th>
                             </tr>
                         </thead>
-                        <tbody class="gold-price-table-body-gulf"></tbody>
+                        <tbody id="gold-price-table-body-gulf"></tbody>
                     </table>
                 </section>
             </main>
         </div>
     </div>
     <div class="footer-wrapper"></div>
+
+    <script>
+        // GoldAPI.io token
+        const GOLD_API_TOKEN = 'goldapi-5tnfsmab0v3ss-io';
+
+        // Location and currency mappings from Excel
+        const LOCATIONS = [
+            { name: 'Hyderabad', currency: 'INR', exchangeRate: 1, region: 'India' },
+            { name: 'Vijayawada', currency: 'INR', exchangeRate: 1, region: 'India' },
+            { name: 'Vizag', currency: 'INR', exchangeRate: 1, region: 'India' },
+            { name: 'Tirupati', currency: 'INR', exchangeRate: 1, region: 'India' },
+            { name: 'Saudi Arabia', currency: 'SAR', exchangeRate: 22.56, region: 'Gulf' },
+            { name: 'UAE', currency: 'AED', exchangeRate: 23.07, region: 'Gulf' },
+            { name: 'Qatar', currency: 'QAR', exchangeRate: 23.21, region: 'Gulf' },
+            { name: 'Kuwait', currency: 'KWD', exchangeRate: 275.91, region: 'Gulf' },
+            { name: 'Oman', currency: 'OMR', exchangeRate: 219.83, region: 'Gulf' },
+            { name: 'Bahrain', currency: 'BHD', exchangeRate: 223.4281, region: 'Gulf' }
+        ];
+
+        // Load gold prices from GoldAPI.io
+        async function loadGoldPrices() {
+            const indiaTable = document.getElementById('india-table');
+            const gulfTable = document.getElementById('gulf-table');
+            const indiaTbody = document.getElementById('gold-price-table-body-india');
+            const gulfTbody = document.getElementById('gold-price-table-body-gulf');
+            const dateSpan = document.getElementById('gold-price-date');
+            const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+            const goldTypeFilter = document.getElementById('gold-type-filter');
+
+            try {
+                // Fetch gold price in USD
+                const response = await fetch('https://www.goldapi.io/api/XAU/USD', {
+                    headers: { 'x-access-token': GOLD_API_TOKEN }
+                });
+                if (!response.ok) throw new Error('API request failed');
+                const data = await response.json();
+
+                const pricePerOunce = data.price; // USD per troy ounce
+                const pricePerGram = pricePerOunce / 31.1035; // USD per gram
+                const date = new Date(data.timestamp * 1000).toISOString().split('T')[0];
+
+                // Generate price data
+                const priceData = LOCATIONS.map(location => {
+                    const price24K = pricePerGram / location.exchangeRate;
+                    return {
+                        Date: date,
+                        Location: location.name,
+                        Region: location.region,
+                        '24K': price24K.toFixed(2),
+                        '22K': (price24K * 0.9167).toFixed(2),
+                        '18K': (price24K * 0.75).toFixed(2),
+                        'Exchange Price': location.exchangeRate.toFixed(4),
+                        Currency: location.currency
+                    };
+                });
+
+                // Cache data
+                localStorage.setItem('goldPrices', JSON.stringify(priceData));
+
+                // Update date
+                dateSpan.textContent = date;
+
+                // Render tables
+                function updateGoldTables() {
+                    const goldType = goldTypeFilter.value;
+                    indiaTbody.innerHTML = '';
+                    gulfTbody.innerHTML = '';
+
+                    // India table
+                    priceData
+                        .filter(row => row.Region === 'India')
+                        .forEach(row => {
+                            const tr = document.createElement('tr');
+                            tr.className = 'even:bg-[#fff5e6] hover:bg-[#fff9e6]';
+                            tr.innerHTML = `
+                                <td class="p-3 text-center text-gray-700 font-noto">${row.Location}</td>
+                                <td class="p-3 text-center text-gray-700 font-noto">${row[goldType]}</td>
+                                <td class="p-3 text-center text-gray-700 font-noto">${(row[goldType] * 10).toFixed(2)}</td>
+                            `;
+                            indiaTbody.appendChild(tr);
+                        });
+
+                    // Gulf table
+                    priceData
+                        .filter(row => row.Region === 'Gulf')
+                        .forEach(row => {
+                            const tr = document.createElement('tr');
+                            tr.className = 'even:bg-[#fff5e6] hover:bg-[#fff9e6]';
+                            const priceInLocal = row[goldType];
+                            const priceInINR = (row[goldType] * row['Exchange Price'] * 10).toFixed(2);
+                            tr.innerHTML = `
+                                <td class="p-3 text-center text-gray-700 font-noto">${row.Location}</td>
+                                <td class="p-3 text-center text-gray-700 font-noto">${priceInLocal} ${row.Currency}</td>
+                                <td class="p-3 text-center text-gray-700 font-noto">${(priceInLocal * 10).toFixed(2)} ${row.Currency}</td>
+                                <td class="p-3 text-center text-gray-700 font-noto">${priceInINR}</td>
+                            `;
+                            gulfTbody.appendChild(tr);
+                        });
+                }
+
+                // Sorting logic for 1g column
+                let sortDirection = { india: true, gulf: true };
+                document.querySelectorAll('th[data-sort="1g"]').forEach(th => {
+                    th.addEventListener('click', () => {
+                        const tableId = th.closest('table').id;
+                        const region = tableId === 'india-table' ? 'India' : 'Gulf';
+                        sortDirection[tableId] = !sortDirection[tableId];
+                        const filteredData = priceData.filter(row => row.Region === region);
+                        const sorted = filteredData.sort((a, b) => {
+                            const aVal = parseFloat(a[goldTypeFilter.value]);
+                            const bVal = parseFloat(b[goldTypeFilter.value]);
+                            return sortDirection[tableId] ? aVal - bVal : bVal - aVal;
+                        });
+                        indiaTbody.innerHTML = '';
+                        gulfTbody.innerHTML = '';
+                        updateGoldTables();
+                    });
+                });
+
+                // Initial render
+                goldTypeFilter.addEventListener('change', updateGoldTables);
+                loading.classList.add('hidden');
+                indiaTable.classList.remove('hidden');
+                gulfTable.classList.remove('hidden');
+                updateGoldTables();
+
+                // Auto-refresh every 1 minute
+                setTimeout(loadGoldPrices, 60 * 1000);
+            } catch (err) {
+                console.error('Error fetching gold prices:', err);
+                loading.classList.add('hidden');
+                error.classList.remove('hidden');
+                // Fallback to cached data
+                const cached = localStorage.getItem('goldPrices');
+                if (cached) {
+                    const priceData = JSON.parse(cached);
+                    dateSpan.textContent = priceData[0]?.Date || 'N/A';
+                    updateGoldTables();
+                    indiaTable.classList.remove('hidden');
+                    gulfTable.classList.remove('hidden');
+                }
+            }
+        }
+
+        // Run on page load
+        window.addEventListener('load', loadGoldPrices);
+    </script>
 </body>
 </html>
