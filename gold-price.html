@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu&family=Ramabhadra&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"></script>
     <script src="../scripts.js" defer></script>
 </head>
 <body data-category="gold-price" class="flex flex-col min-h-screen">
@@ -20,15 +21,21 @@
             <main class="main-content">
                 <section class="gold-price-section my-8">
                     <h2 class="section-title font-ramabhadra text-2xl text-gray-800 border-b-2 border-blue-500 pb-2">బంగారం ధరలు</h2>
-                    <p class="gold-price-date font-noto text-gray-600 mb-4"><i class="far fa-calendar-alt mr-2"></i> <span id="gold-price-date"></span></p>
-                    <div class="filter-wrapper flex items-center gap-2 mb-4">
-                        <label for="gold-type-filter" class="font-noto text-gray-700">బంగారం రకం:</label>
-                        <select id="gold-type-filter" class="p-2 border border-[#d4af37] rounded bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option value="24K">24K</option>
-                            <option value="22K" selected>22K</option>
-                            <option value="18K">18K</option>
-                        </select>
+                    <div class="filter-wrapper flex items-center gap-4 mb-4">
+                        <div class="flex items-center gap-2">
+                            <label for="gold-type-filter" class="font-noto text-gray-700">బంగారం రకం:</label>
+                            <select id="gold-type-filter" class="p-2 border border-[#d4af37] rounded bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="24K">24K</option>
+                                <option value="22K" selected>22K</option>
+                                <option value="18K">18K</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label for="date-filter" class="font-noto text-gray-700">తేదీ:</label>
+                            <select id="date-filter" class="p-2 border border-[#d4af37] rounded bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"></select>
+                        </div>
                     </div>
+                    <p class="gold-price-date font-noto text-gray-600 mb-4"><i class="far fa-calendar-alt mr-2"></i> <span id="gold-price-date"></span></p>
                     <div id="loading" class="text-center text-gray-600 mb-4">బంగారం ధరలు లోడ్ అవుతున్నాయి...</div>
                     <div id="error" class="text-center text-red-600 mb-4 hidden">బంగారం ధరలు లోడ్ చేయడంలో లోపం. దయచేసి మళ్లీ ప్రయత్నించండి.</div>
                     <h3 class="sub-section-title font-ramabhadra text-lg text-gray-800 border-b border-[#d4af37] pb-2 mb-4">భారతదేశం (INR)</h3>
@@ -43,7 +50,7 @@
                         <tbody id="gold-price-table-body-india"></tbody>
                     </table>
                     <h3 class="sub-section-title font-ramabhadra text-lg text-gray-800 border-b border-[#d4af37] pb-2 mb-4">గల్ఫ్ దేశాలు</h3>
-                    <table id="gulf-table" class="w-full bg-white shadow-md hidden">
+                    <table id="gulf-table" class="w-full bg-white shadow-md mb-6 hidden">
                         <thead>
                             <tr class="bg-[#d4af37] text-white">
                                 <th class="p-3 text-center font-bold font-noto">స్థానం</th>
@@ -54,6 +61,42 @@
                         </thead>
                         <tbody id="gold-price-table-body-gulf"></tbody>
                     </table>
+                    <h3 class="sub-section-title font-ramabhadra text-lg text-gray-800 border-b border-[#d4af37] pb-2 mb-4">నీడవర్సస్ రోజు వారీ పోలిక</h3>
+                    <table id="comparison-table" class="w-full bg-white shadow-md mb-6 hidden">
+                        <thead>
+                            <tr class="bg-[#d4af37] text-white">
+                                <th class="p-3 text-center font-bold font-noto">స్థానం</th>
+                                <th class="p-3 text-center font-bold font-noto">నీడవర్సస్ ధర (1g)</th>
+                                <th class="p-3 text-center font-bold font-noto">నిన్నటి ధర (1g)</th>
+                                <th class="p-3 text-center font-bold font-noto">మార్పు</th>
+                            </tr>
+                        </thead>
+                        <tbody id="comparison-table-body"></tbody>
+                    </table>
+                    <h3 class="sub-section-title font-ramabhadra text-lg text-gray-800 border-b border-[#d4af37] pb-2 mb-4">ధర ట్రెండ్స్</h3>
+                    <div class="flex items-center gap-2 mb-4">
+                        <label for="trend-location" class="font-noto text-gray-700">స్థానం:</label>
+                        <select id="trend-location" class="p-2 border border-[#d4af37] rounded bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="Hyderabad" selected>Hyderabad</option>
+                            <option value="Vijayawada">Vijayawada</option>
+                            <option value="Vizag">Vizag</option>
+                            <option value="Tirupati">Tirupati</option>
+                            <option value="Saudi Arabia">Saudi Arabia</option>
+                            <option value="UAE">UAE</option>
+                            <option value="Qatar">Qatar</option>
+                            <option value="Kuwait">Kuwait</option>
+                            <option value="Oman">Oman</option>
+                            <option value="Bahrain">Bahrain</option>
+                        </select>
+                    </div>
+                    <div class="mb-6">
+                        <h4 class="font-noto text-gray-700 mb-2">వారపు ట్రెండ్ (7 రోజులు)</h4>
+                        <canvas id="weekly-trend-chart" class="w-full h-64"></canvas>
+                    </div>
+                    <div>
+                        <h4 class="font-noto text-gray-700 mb-2">మాసపు ట్రెండ్ (11 రోజులు)</h4>
+                        <canvas id="monthly-trend-chart" class="w-full h-64"></canvas>
+                    </div>
                 </section>
             </main>
         </div>
@@ -78,11 +121,11 @@
             { name: 'Bahrain', currency: 'BHD', region: 'Gulf' }
         ];
 
-        // Static fallback data (in case CSV and cache fail)
+        // Static fallback data
         const FALLBACK_PRICES = [
             { Date: '2025-05-08', Location: 'Hyderabad', Region: 'India', '24K': '7500.00', '22K': '6875.00', '18K': '5625.00', Currency: 'INR' },
             { Date: '2025-05-08', Location: 'Vijayawada', Region: 'India', '24K': '7500.00', '22K': '6875.00', '18K': '5625.00', Currency: 'INR' },
-            { Date: '2025-05-08', Location: 'Vizag', Region: 'India', '24K': '7500.00', '22K': '6875.00', '18K': '5625.00', Currency: 'INR' },
+            { Date: '2025-05-08', Location: 'Vizag', Region: 'India', '24K': 'ประวัติการณ์', '22K': '6875.00', '18K': '5625.00', Currency: 'INR' },
             { Date: '2025-05-08', Location: 'Tirupati', Region: 'India', '24K': '7500.00', '22K': '6875.00', '18K': '5625.00', Currency: 'INR' },
             { Date: '2025-05-08', Location: 'Saudi Arabia', Region: 'Gulf', '24K': '300.00', '22K': '275.00', '18K': '225.00', Currency: 'SAR' },
             { Date: '2025-05-08', Location: 'UAE', Region: 'Gulf', '24K': '330.00', '22K': '302.50', '18K': '247.50', Currency: 'AED' },
@@ -110,7 +153,6 @@
                 };
             } catch (err) {
                 console.error('Error fetching exchange rates:', err.message);
-                // Fallback to static rates
                 return {
                     INR: 83.5,
                     SAR: 3.75,
@@ -123,16 +165,21 @@
             }
         }
 
-        // Load gold prices from CSV and exchange rates
+        // Load gold prices and initialize page
         async function loadGoldPrices() {
             const indiaTable = document.getElementById('india-table');
             const gulfTable = document.getElementById('gulf-table');
             const indiaTbody = document.getElementById('gold-price-table-body-india');
             const gulfTbody = document.getElementById('gold-price-table-body-gulf');
+            const comparisonTable = document.getElementById('comparison-table');
+            const comparisonTbody = document.getElementById('comparison-table-body');
             const dateSpan = document.getElementById('gold-price-date');
+            const dateFilter = document.getElementById('date-filter');
+            const goldTypeFilter = document.getElementById('gold-type-filter');
+            const trendLocation = document.getElementById('trend-location');
             const loading = document.getElementById('loading');
             const error = document.getElementById('error');
-            const goldTypeFilter = document.getElementById('gold-type-filter');
+            let weeklyChart, monthlyChart;
 
             try {
                 // Fetch exchange rates
@@ -151,16 +198,18 @@
                 }
 
                 // Validate and map CSV data
-                const priceData = parsed.data.map(row => ({
-                    Date: row.Date || new Date().toISOString().split('T')[0],
-                    Location: row.Location,
-                    Region: row.Region,
-                    '24K': parseFloat(row['24K']).toFixed(2),
-                    '22K': parseFloat(row['22K']).toFixed(2),
-                    '18K': parseFloat(row['18K']).toFixed(2),
-                    Currency: row.Currency,
-                    'Exchange Price': rates[row.Currency]?.toFixed(4) || FALLBACK_PRICES.find(f => f.Location === row.Location)?.['Exchange Price'] || '1.0000'
-                })).filter(row => LOCATIONS.some(loc => loc.name === row.Location && loc.currency === row.Currency));
+                const priceData = parsed.data
+                    .map(row => ({
+                        Date: row.Date || new Date().toISOString().split('T')[0],
+                        Location: row.Location,
+                        Region: row.Region,
+                        '24K': parseFloat(row['24K']).toFixed(2),
+                        '22K': parseFloat(row['22K']).toFixed(2),
+                        '18K': parseFloat(row['18K']).toFixed(2),
+                        Currency: row.Currency,
+                        'Exchange Price': rates[row.Currency]?.toFixed(4) || FALLBACK_PRICES.find(f => f.Location === row.Location)?.['Exchange Price'] || '1.0000'
+                    }))
+                    .filter(row => LOCATIONS.some(loc => loc.name === row.Location && loc.currency === row.Currency));
 
                 if (priceData.length === 0) {
                     throw new Error('No valid price data found in CSV');
@@ -169,17 +218,22 @@
                 // Cache data
                 localStorage.setItem('goldPrices', JSON.stringify(priceData));
 
-                // Update date
-                dateSpan.textContent = priceData[0].Date;
+                // Get unique dates and sort descending
+                const uniqueDates = [...new Set(priceData.map(row => row.Date))].sort((a, b) => new Date(b) - new Date(a));
+                const latestDate = uniqueDates[0];
+                dateSpan.textContent = latestDate;
 
-                // Render tables
-                function updateGoldTables(data = priceData) {
-                    const goldType = goldTypeFilter.value;
+                // Populate date filter
+                dateFilter.innerHTML = uniqueDates.map(date => `<option value="${date}" ${date === latestDate ? 'selected' : ''}>${date}</option>`).join('');
+
+                // Render tables for selected date
+                function updateGoldTables(selectedDate, goldType) {
+                    const filteredData = priceData.filter(row => row.Date === selectedDate);
                     indiaTbody.innerHTML = '';
                     gulfTbody.innerHTML = '';
 
                     // India table
-                    data
+                    filteredData
                         .filter(row => row.Region === 'India')
                         .forEach(row => {
                             const tr = document.createElement('tr');
@@ -193,7 +247,7 @@
                         });
 
                     // Gulf table
-                    data
+                    filteredData
                         .filter(row => row.Region === 'Gulf')
                         .forEach(row => {
                             const tr = document.createElement('tr');
@@ -211,31 +265,147 @@
                         });
                 }
 
-                // Sorting logic for 1g column
+                // Today vs Yesterday comparison
+                function updateComparisonTable(goldType) {
+                    const today = uniqueDates[0];
+                    const yesterday = uniqueDates[1] || today; // Fallback if only one date
+                    const todayData = priceData.filter(row => row.Date === today);
+                    const yesterdayData = priceData.filter(row => row.Date === yesterday);
+                    comparisonTbody.innerHTML = '';
+
+                    LOCATIONS.forEach(loc => {
+                        const todayRow = todayData.find(row => row.Location === loc.name);
+                        const yesterdayRow = yesterdayData.find(row => row.Location === loc.name);
+                        if (todayRow && yesterdayRow) {
+                            const todayPrice = parseFloat(todayRow[goldType]);
+                            const yesterdayPrice = parseFloat(yesterdayRow[goldType]);
+                            const change = (todayPrice - yesterdayPrice).toFixed(2);
+                            const changeClass = change >= 0 ? 'text-green-600' : 'text-red-600';
+                            const tr = document.createElement('tr');
+                            tr.className = 'even:bg-[#fff5e6] hover:bg-[#fff9e6]';
+                            tr.innerHTML = `
+                                <td class="p-3 text-center text-gray-700 font-noto">${loc.name}</td>
+                                <td class="p-3 text-center text-gray-700 font-noto">${todayPrice.toFixed(2)} ${loc.currency}</td>
+                                <td class="p-3 text-center text-gray-700 font-noto">${yesterdayPrice.toFixed(2)} ${loc.currency}</td>
+                                <td class="p-3 text-center font-noto ${changeClass}">${change >= 0 ? '+' : ''}${change} ${loc.currency}</td>
+                            `;
+                            comparisonTbody.appendChild(tr);
+                        }
+                    });
+                    comparisonTable.classList.remove('hidden');
+                }
+
+                // Trend charts
+                function updateTrendCharts(location, goldType) {
+                    const sevenDaysAgo = new Date(latestDate);
+                    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
+                    const locationData = priceData.filter(row => row.Location === location);
+
+                    // Weekly trend (7 days)
+                    const weeklyLabels = [];
+                    const weeklyData = [];
+                    for (let d = new Date(sevenDaysAgo); d <= new Date(latestDate); d.setDate(d.getDate() + 1)) {
+                        const dateStr = d.toISOString().split('T')[0];
+                        const row = locationData.find(row => row.Date === dateStr);
+                        weeklyLabels.push(dateStr);
+                        weeklyData.push(row ? parseFloat(row[goldType]) : null);
+                    }
+
+                    // Monthly trend (11 days)
+                    const monthlyLabels = uniqueDates.slice().reverse();
+                    const monthlyData = monthlyLabels.map(date => {
+                        const row = locationData.find(row => row.Date === date);
+                        return row ? parseFloat(row[goldType]) : null;
+                    });
+
+                    // Destroy existing charts
+                    if (weeklyChart) weeklyChart.destroy();
+                    if (monthlyChart) monthlyChart.destroy();
+
+                    // Weekly chart
+                    weeklyChart = new Chart(document.getElementById('weekly-trend-chart'), {
+                        type: 'line',
+                        data: {
+                            labels: weeklyLabels,
+                            datasets: [{
+                                label: `${goldType} Price (${locationData[0].Currency}/g)`,
+                                data: weeklyData,
+                                borderColor: '#d4af37',
+                                fill: false,
+                                tension: 0.1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                x: { title: { display: true, text: 'తేదీ' } },
+                                y: { title: { display: true, text: `ధర (${locationData[0].Currency}/g)` } }
+                            }
+                        }
+                    });
+
+                    // Monthly chart
+                    monthlyChart = new Chart(document.getElementById('monthly-trend-chart'), {
+                        type: 'line',
+                        data: {
+                            labels: monthlyLabels,
+                            datasets: [{
+                                label: `${goldType} Price (${locationData[0].Currency}/g)`,
+                                data: monthlyData,
+                                borderColor: '#d4af37',
+                                fill: false,
+                                tension: 0.1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                x: { title: { display: true, text: 'తేదీ' } },
+                                y: { title: { display: true, text: `ధర (${locationData[0].Currency}/g)` } }
+                            }
+                        }
+                    });
+                }
+
+                // Sorting logic
                 let sortDirection = { india: true, gulf: true };
                 document.querySelectorAll('th[data-sort="1g"]').forEach(th => {
                     th.addEventListener('click', () => {
                         const tableId = th.closest('table').id;
                         const region = tableId === 'india-table' ? 'India' : 'Gulf';
                         sortDirection[tableId] = !sortDirection[tableId];
-                        const filteredData = priceData.filter(row => row.Region === region);
+                        const filteredData = priceData.filter(row => row.Date === dateFilter.value && row.Region === region);
                         const sorted = filteredData.sort((a, b) => {
                             const aVal = parseFloat(a[goldTypeFilter.value]);
                             const bVal = parseFloat(b[goldTypeFilter.value]);
                             return sortDirection[tableId] ? aVal - bVal : bVal - aVal;
                         });
-                        indiaTbody.innerHTML = '';
-                        gulfTbody.innerHTML = '';
-                        updateGoldTables();
+                        updateGoldTables(dateFilter.value, goldTypeFilter.value);
                     });
                 });
 
+                // Event listeners
+                dateFilter.addEventListener('change', () => {
+                    dateSpan.textContent = dateFilter.value;
+                    updateGoldTables(dateFilter.value, goldTypeFilter.value);
+                    updateComparisonTable(goldTypeFilter.value);
+                });
+                goldTypeFilter.addEventListener('change', () => {
+                    updateGoldTables(dateFilter.value, goldTypeFilter.value);
+                    updateComparisonTable(goldTypeFilter.value);
+                    updateTrendCharts(trendLocation.value, goldTypeFilter.value);
+                });
+                trendLocation.addEventListener('change', () => {
+                    updateTrendCharts(trendLocation.value, goldTypeFilter.value);
+                });
+
                 // Initial render
-                goldTypeFilter.addEventListener('change', () => updateGoldTables());
                 loading.classList.add('hidden');
                 indiaTable.classList.remove('hidden');
                 gulfTable.classList.remove('hidden');
-                updateGoldTables();
+                updateGoldTables(latestDate, goldTypeFilter.value);
+                updateComparisonTable(goldTypeFilter.value);
+                updateTrendCharts(trendLocation.value, goldTypeFilter.value);
 
                 // Auto-refresh every 5 minutes
                 setTimeout(loadGoldPrices, 300 * 1000);
@@ -251,10 +421,16 @@
                         const priceData = JSON.parse(cached);
                         if (Array.isArray(priceData) && priceData.length > 0) {
                             console.log('Using cached gold prices:', priceData);
-                            dateSpan.textContent = priceData[0]?.Date || 'N/A';
-                            updateGoldTables(priceData);
+                            const uniqueDates = [...new Set(priceData.map(row => row.Date))].sort((a, b) => new Date(b) - new Date(a));
+                            const latestDate = uniqueDates[0];
+                            dateSpan.textContent = latestDate;
+                            dateFilter.innerHTML = uniqueDates.map(date => `<option value="${date}" ${date === latestDate ? 'selected' : ''}>${date}</option>`).join('');
+                            updateGoldTables(latestDate, goldTypeFilter.value);
+                            updateComparisonTable(goldTypeFilter.value);
+                            updateTrendCharts(trendLocation.value, goldTypeFilter.value);
                             indiaTable.classList.remove('hidden');
                             gulfTable.classList.remove('hidden');
+                            comparisonTable.classList.remove('hidden');
                             error.classList.add('hidden');
                             return;
                         }
@@ -266,9 +442,13 @@
                 // Use static fallback data
                 console.log('Using static fallback prices:', FALLBACK_PRICES);
                 dateSpan.textContent = FALLBACK_PRICES[0].Date;
-                updateGoldTables(FALLBACK_PRICES);
+                dateFilter.innerHTML = `<option value="${FALLBACK_PRICES[0].Date}">${FALLBACK_PRICES[0].Date}</option>`;
+                updateGoldTables(FALLBACK_PRICES[0].Date, goldTypeFilter.value);
+                updateComparisonTable(goldTypeFilter.value);
+                updateTrendCharts(trendLocation.value, goldTypeFilter.value);
                 indiaTable.classList.remove('hidden');
                 gulfTable.classList.remove('hidden');
+                comparisonTable.classList.remove('hidden');
                 error.classList.add('hidden');
             }
         }
