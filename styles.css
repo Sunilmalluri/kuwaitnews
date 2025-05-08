@@ -1,4 +1,5 @@
-/* Ensure the body uses flexbox to push the footer to the bottom */
+/* ========== IMPROVED STYLES FOR GULFANDHRA.COM ========== */
+/* Base Styles */
 body {
     min-height: 100vh;
     display: flex;
@@ -6,963 +7,498 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Noto Sans Telugu', sans-serif;
+    background-color: #f8f9fa;
 }
 
-.content-bg {
-    flex: 1 0 auto;
-}
-
-/* Footer wrapper styles */
-.footer-wrapper {
-    flex-shrink: 0;
-}
-
-/* Container for added side space */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 13rem;
-}
-
-/* Main content */
-.main-content {
-    width: 100%;
-}
-
-/* Section Title */
+/* ===== TYPOGRAPHY ENHANCEMENTS ===== */
 .section-title {
     font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1.8rem;
-    color: #333;
-    margin: 1rem 0;
-    border-bottom: 2px solid #007bff;
+    font-size: 2.2rem;
+    color: #1a365d;
+    margin: 1.5rem 0;
+    border-bottom: 3px solid #d4af37;
     padding-bottom: 0.5rem;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
-/* Sub-Section Title */
 .sub-section-title {
     font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1.4rem;
-    color: #333;
-    margin: 1.5rem 0 0.5rem;
-    border-bottom: 1px solid #d4af37;
+    font-size: 1.6rem;
+    color: #2d3748;
+    margin: 1.5rem 0 0.8rem;
+    border-bottom: 2px solid #d4af37;
     padding-bottom: 0.3rem;
+    font-weight: 600;
 }
 
-/* Featured News Section */
+/* ===== FEATURED NEWS IMPROVEMENTS ===== */
 .featured-news {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .featured-news-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
-    padding: 0.5rem 0;
+    gap: 1rem;
 }
 
 .featured-card {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start; /* Align image and text at the top */
+    flex-direction: column;
     background: #fff;
-    border-bottom: 0.5px solid #d4af37;
+    border-radius: 6px;
     overflow: hidden;
     cursor: pointer;
-    min-height: 60px; /* Reduced to fit image height */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e2e8f0;
+}
+
+.featured-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .featured-image-wrapper {
-    flex: 0 0 90px;
-    height: 60px; /* Match image height */
+    width: 100%;
+    height: 180px;
 }
 
 .featured-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.featured-card:hover .featured-image {
+    transform: scale(1.03);
 }
 
 .featured-content {
-    flex: 1;
-    padding: 0.5rem; /* Reduced padding */
-    display: flex;
-    flex-direction: column;
+    padding: 1rem;
 }
 
 .featured-title {
     font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem; /* Slightly smaller */
-    font-weight: normal;
-    color: #333;
-    margin: 0;
-    overflow: hidden;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin: 0 0 0.5rem;
+    line-height: 1.4;
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-    line-height: 1.2; /* Tighter line height */
+    overflow: hidden;
 }
 
 .featured-meta {
-    display: none;
+    display: flex;
     gap: 1rem;
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    color: #718096;
+    margin-top: 0.5rem;
 }
 
 .featured-meta i {
     margin-right: 0.3rem;
+    color: #d4af37;
 }
 
-.featured-excerpt {
-    display: none; /* Remove excerpt to reduce height */
-}
-
-.featured-full-text {
-    font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
-    color: #444;
-    line-height: 1.6;
-    display: none;
-}
-
-.featured-full-text p {
-    margin: 0 0 0.5rem;
-}
-
-.featured-full-text ul {
-    list-style: none;
-    padding: 0;
-    margin: 0.5rem 0;
-}
-
-.featured-full-text li {
-    position: relative;
-    padding-left: 1.5rem;
-    margin-bottom: 0.3rem;
-}
-
-.featured-full-text li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    color: #007bff;
-    font-size: 1.2rem;
-}
-
-/* Latest News Section */
+/* ===== LATEST NEWS IMPROVEMENTS ===== */
 .latest-news {
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .latest-news-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-    padding: 1rem 0;
+    gap: 1.2rem;
 }
 
 .latest-card {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start; /* Align image and text at the top */
+    flex-direction: column;
     background: #fff;
-    border-bottom: 1px solid #d4af37;
+    border-radius: 6px;
     overflow: hidden;
     cursor: pointer;
-    min-height: 60px; /* Reduced to fit image height */
+    transition: transform 0.3s ease;
+    border: 1px solid #e2e8f0;
+}
+
+.latest-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
 .latest-image-wrapper {
-    flex: 0 0 90px;
-    height: 60px; /* Match image height */
+    width: 100%;
+    height: 120px;
 }
 
 .latest-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.latest-card:hover .latest-image {
+    transform: scale(1.03);
 }
 
 .latest-content {
-    flex: 1;
-    padding: 0.5rem; /* Reduced padding */
-    display: flex;
-    flex-direction: column;
+    padding: 0.8rem;
 }
 
 .latest-title {
     font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem; /* Slightly smaller */
-    font-weight: normal;
-    color: #333;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2d3748;
     margin: 0;
-    overflow: hidden;
+    line-height: 1.3;
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-    line-height: 1.2; /* Tighter line height */
+    overflow: hidden;
 }
 
 .latest-meta {
-    display: none;
-    gap: 1rem;
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 0.5rem;
+    display: flex;
+    gap: 0.8rem;
+    font-size: 0.8rem;
+    color: #718096;
+    margin-top: 0.5rem;
 }
 
 .latest-meta i {
-    margin-right: 0.3rem;
+    margin-right: 0.2rem;
+    color: #d4af37;
 }
 
-.latest-excerpt {
-    display: none; /* Remove excerpt to reduce height */
+/* ===== BREAKING NEWS BANNER ===== */
+.breaking-news-banner {
+    background: #e53e3e;
+    color: white;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    animation: pulse 2s infinite;
 }
 
-.latest-full-text {
-    font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
-    color: #444;
-    line-height: 1.6;
-    display: none;
+.breaking-news-label {
+    background: white;
+    color: #e53e3e;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    margin-right: 1rem;
+    flex-shrink: 0;
 }
 
-.latest-full-text p {
-    margin: 0 0 0.5rem;
+.breaking-news-text {
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.latest-full-text ul {
-    list-style: none;
-    padding: 0;
-    margin: 0.5rem 0;
+@keyframes pulse {
+    0% { opacity: 0.9; }
+    50% { opacity: 1; }
+    100% { opacity: 0.9; }
 }
 
-.latest-full-text li {
-    position: relative;
-    padding-left: 1.5rem;
-    margin-bottom: 0.3rem;
-}
-
-.latest-full-text li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    color: #007bff;
-    font-size: 1.2rem;
-}
-
-/* Gold Price Section */
+/* ===== GOLD PRICE SECTION ENHANCEMENT ===== */
 .gold-price-section {
     margin-bottom: 2rem;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .gold-price-date {
-    font-family: 'Noto Sans Telugu', sans-serif;
     font-size: 1rem;
-    color: #666;
-    margin-bottom: 1rem;
-}
-
-.gold-price-date i {
-    margin-right: 0.3rem;
-}
-
-/* Filter Wrapper */
-.filter-wrapper {
+    color: #4a5568;
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
 }
 
-.filter-wrapper label {
-    font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
-    color: #333;
+.gold-price-date i {
+    margin-right: 0.5rem;
+    color: #d4af37;
 }
 
-.filter-wrapper select {
-    padding: 0.3rem;
-    font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
-    border: 1px solid #d4af37;
-    border-radius: 4px;
-    background: #fff;
-    cursor: pointer;
-}
-
-.filter-wrapper select:focus {
-    outline: 2px solid #007bff;
-}
-
-/* Gold Price Tables */
 .gold-price-table {
     width: 100%;
     border-collapse: collapse;
-    background: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    font-family: 'Noto Sans Telugu', sans-serif;
-    margin-bottom: 1.5rem;
-}
-
-.gold-price-table th,
-.gold-price-table td {
-    border: 1px solid #d4af37;
-    padding: 0.5rem;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #333;
-    transition: background 0.2s ease;
+    margin-bottom: 1rem;
 }
 
 .gold-price-table th {
     background: #d4af37;
-    color: #fff;
-    font-weight: bold;
+    color: white;
+    padding: 0.8rem;
+    text-align: center;
+    font-weight: 600;
 }
 
 .gold-price-table td {
-    background: #fff;
+    padding: 0.6rem;
+    text-align: center;
+    border: 1px solid #e2e8f0;
 }
 
-.gold-price-table tbody tr:nth-child(even) {
+.gold-price-table tr:nth-child(even) {
+    background: #fffaf0;
+}
+
+.gold-price-table tr:hover {
     background: #fff5e6;
 }
 
-.gold-price-table tbody tr:hover td {
-    background: #fff9e6;
+/* ===== RESPONSIVE IMPROVEMENTS ===== */
+@media (max-width: 1024px) {
+    .latest-news-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
-.gold-price-table td:first-child {
-    background: #f5f5dc;
-    font-weight: bold;
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .sub-section-title {
+        font-size: 1.4rem;
+    }
+    
+    .featured-news-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .latest-news-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .featured-image-wrapper,
+    .latest-image-wrapper {
+        height: 150px;
+    }
 }
 
-/* Social Share Buttons */
-.social-share {
-    display: none; /* Hidden by default, toggled by Forward button */
-    gap: 0.5rem;
-    margin: 0.5rem 0;
-    justify-content: flex-start;
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    .featured-news-grid,
+    .latest-news-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .featured-image-wrapper,
+    .latest-image-wrapper {
+        height: 200px;
+    }
+    
+    .breaking-news-banner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .breaking-news-label {
+        margin-bottom: 0.5rem;
+        margin-right: 0;
+    }
 }
 
-.social-share.active {
-    display: flex; /* Show when active */
+/* ===== UTILITY CLASSES ===== */
+.text-gold {
+    color: #d4af37;
 }
 
-.share-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 50%;
-    background: #f0f0f0;
-    color: #333;
-    text-decoration: none;
-    transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.share-btn:hover {
-    transform: scale(1.1);
-}
-
-.share-btn:focus {
-    outline: 2px solid #007bff;
-}
-
-.share-btn i, .share-btn svg {
-    font-size: 1rem;
-}
-
-.share-btn.whatsapp {
-    background: #25D366;
-    color: #fff;
-}
-
-.share-btn.facebook {
-    background: #4267B2;
-    color: #fff;
-}
-
-.share-btn.twitter {
-    background: #000000;
-    color: #fff;
-}
-
-.share-btn.telegram {
-    background: #0088cc;
-    color: #fff;
-}
-
-/* Forward Button */
-.share-section {
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.5rem;
-}
-
-.forward-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 50%;
-    background: #007bff;
-    color: #fff;
-    text-decoration: none;
-    transition: background 0.2s ease, transform 0.2s ease;
-    cursor: pointer;
-}
-
-.forward-btn:hover {
-    transform: scale(1.1);
-}
-
-.forward-btn:focus {
-    outline: 2px solid #007bff;
-}
-
-.forward-btn i {
-    font-size: 1rem;
-}
-
-/* Feedback Buttons */
-.feedback-section {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.feedback-buttons {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-}
-
-.feedback-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5rem;
-    border: 1px solid #d4af37;
-    border-radius: 4px;
-    background: #fff;
-    color: #333;
-    text-decoration: none;
-    transition: background 0.2s ease, transform 0.2s ease;
-    cursor: pointer;
-}
-
-.feedback-btn:hover {
-    background: #fff9e6;
-    transform: scale(1.05);
-}
-
-.feedback-btn:focus {
-    outline: 2px solid #007bff;
-}
-
-.feedback-btn i {
-    font-size: 1rem;
-    margin-right: 0.3rem;
-}
-
-.feedback-btn span {
-    font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 0.9rem;
-}
-
-.feedback-btn.liked, .feedback-btn.disliked {
+.bg-gold {
     background: #d4af37;
-    color: #fff;
 }
 
-/* Feedback Page */
-.feedback-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.highlight-box {
+    background: #fffaf0;
+    border-left: 4px solid #d4af37;
+    padding: 1rem;
+    margin: 1rem 0;
 }
 
-.feedback-title {
-    font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 2rem;
-    color: #333;
-    margin: 0 0 1rem;
-}
-
-.feedback-article-title {
-    font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 1rem;
-}
-
-/* Comment Form */
-.comment-form-container {
-    margin-top: 1rem;
-}
-
-.comment-form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.comment-form textarea {
+/* ===== MAIN CONTENT CONTAINER ===== */
+.main-content {
     width: 100%;
-    min-height: 100px;
-    padding: 0.5rem;
-    border: 1px solid #d4af37;
-    border-radius: 4px;
-    font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 0.9rem;
-    resize: vertical;
-}
-
-.comment-form textarea:focus {
-    outline: 2px solid #007bff;
-}
-
-.comment-form button {
-    align-self: flex-start;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    background: #007bff;
-    color: #fff;
-    font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background 0.2s ease;
-}
-
-.comment-form button:hover {
-    background: #0056b3;
-}
-
-.comment-form button:focus {
-    outline: 2px solid #007bff;
-}
-
-/* Comment List */
-.comment-list {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.comment-item {
-    padding: 0.5rem;
-    border-bottom: 1px solid #d4af37;
-    font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 0.9rem;
-    color: #444;
-}
-
-/* News Grid and Card Styles (for Category News and other pages) */
-.news-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Two-column layout for desktop */
-    gap: 1.5rem;
-    margin: 0 auto;
     max-width: 1200px;
-    padding: 0.5rem 0;
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
-.news-card {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start; /* Align image and text at the top */
-    background: #fff;
-    border-bottom: 1px solid #d4af37;
-    overflow: hidden;
-    cursor: pointer;
-    min-height: 60px; /* Match Featured/Latest News */
+/* ===== FOOTER STYLES ===== */
+.footer-wrapper {
+    background: #1a365d;
+    color: white;
+    padding: 2rem 0;
+    margin-top: 2rem;
 }
 
-.news-image-wrapper {
-    flex: 0 0 90px; /* Match Featured/Latest News */
-    height: 60px; /* Match Featured/Latest News */
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
-.news-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.news-content {
-    flex: 1;
-    padding: 0.5rem; /* Reduced padding to match */
-}
-
-.news-title {
+.footer-column h3 {
     font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem; /* Match Featured/Latest News */
-    font-weight: normal;
-    margin: 0;
-    color: #333;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Limit to 2 lines */
-    -webkit-box-orient: vertical;
-    line-height: 1.2; /* Tighter line height */
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #d4af37;
+    border-bottom: 2px solid #d4af37;
+    padding-bottom: 0.5rem;
 }
 
-.news-meta {
-    display: none; /* Hide meta to match Featured/Latest News */
-    gap: 1rem;
-    font-size: 0.9rem;
-    color: #666;
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
     margin-bottom: 0.5rem;
 }
 
-.news-card.preview .news-meta {
-    display: none;
+.footer-column ul li a {
+    color: #cbd5e0;
+    text-decoration: none;
+    transition: color 0.2s ease;
 }
 
-.news-meta i {
-    margin-right: 0.3rem;
+.footer-column ul li a:hover {
+    color: white;
 }
 
-.news-excerpt {
-    display: none; /* Hide excerpt to reduce height */
+.copyright {
+    text-align: center;
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid #2d3748;
+    color: #a0aec0;
+    font-size: 0.9rem;
 }
 
-.full-text {
-    font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
-    color: #444;
-    line-height: 1.6;
-    display: none;
+/* ===== SOCIAL SHARE IMPROVEMENTS ===== */
+.social-share {
+    display: flex;
+    gap: 0.8rem;
+    margin: 1rem 0;
 }
 
-.full-text p {
-    margin: 0 0 0.5rem;
-}
-
-.full-text ul {
-    list-style: none;
-    padding: 0;
-    margin: 0.5rem 0;
-}
-
-.full-text li {
-    position: relative;
-    padding-left: 1.5rem;
-    margin-bottom: 0.3rem;
-}
-
-.full-text li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    color: #007bff;
+.share-btn {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
     font-size: 1.2rem;
+    transition: transform 0.2s ease;
 }
 
-/* Styles for article.html */
+.share-btn:hover {
+    transform: translateY(-3px);
+}
+
+/* ===== ARTICLE PAGE IMPROVEMENTS ===== */
 .article-container {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 2rem auto;
+    background: white;
     padding: 2rem;
-    background: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: relative; /* For absolute positioning of share-section */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.article-title {
+    font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
+    font-size: 2.2rem;
+    color: #1a365d;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.article-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #718096;
+    font-size: 0.9rem;
 }
 
 .article-image-wrapper {
-    width: 100%;
-    max-height: 400px;
     margin-bottom: 1.5rem;
 }
 
 .article-image {
     width: 100%;
-    height: 100%;
+    max-height: 450px;
     object-fit: cover;
+    border-radius: 6px;
 }
 
 .article-content {
-    flex: 1;
-    padding: 1rem;
-    position: relative; /* For absolute positioning of share-section */
+    line-height: 1.7;
+    color: #4a5568;
 }
 
-.article-title {
+.article-content p {
+    margin-bottom: 1.2rem;
+}
+
+.article-content h2, 
+.article-content h3 {
     font-family: 'Ramabhadra', 'Noto Sans Telugu', sans-serif;
-    font-size: 2rem;
-    color: #333;
-    margin: 0 0 0.5rem;
+    color: #1a365d;
+    margin: 1.5rem 0 1rem;
 }
 
-.article-meta {
-    display: flex;
-    gap: 1rem;
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 1rem;
+.article-content h2 {
+    font-size: 1.6rem;
+    border-bottom: 2px solid #d4af37;
+    padding-bottom: 0.3rem;
 }
 
-.article-meta i {
-    margin-right: 0.3rem;
+.article-content h3 {
+    font-size: 1.3rem;
 }
 
-.article-full-text {
-    font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
-    color: #444;
-    line-height: 1.6;
+/* ===== LOADING ANIMATION ===== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-.article-full-text p {
-    margin: 0 0 0.5rem;
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
 }
-
-.article-full-text ul {
-    list-style: none;
-    padding: 0;
-    margin: 0.5rem 0;
-}
-
-.article-full-text li {
-    position: relative;
-    padding-left: 1.5rem;
-    margin-bottom: 0.3rem;
-}
-
-.article-full-text li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    color: #007bff;
-    font-size: 1.2rem;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        padding: 0 1rem;
-    }
-
-    .section-title {
-        font-size: 1.5rem;
-    }
-
-    .sub-section-title {
-        font-size: 1.2rem;
-    }
-
-    /* Featured News */
-    .featured-news-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .featured-card {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start; /* Align image and text at the top */
-        min-height: auto;
-    }
-
-    .featured-image-wrapper {
-        flex: 0 0 70px; /* Reduced by 20px */
-        height: 70px; /* Maintain square aspect ratio */
-    }
-
-    .featured-image {
-        object-fit: cover;
-    }
-
-    .featured-content {
-        padding: 0.5rem; /* Reduced padding */
-    }
-
-    .featured-title {
-        font-size: 1rem; /* Increased font size */
-        font-weight: normal;
-        -webkit-line-clamp: 2; /* Maintain 2 lines */
-        line-height: 1.2;
-    }
-
-    .featured-excerpt {
-        display: none; /* Remove excerpt */
-    }
-
-    .featured-full-text {
-        font-size: 0.9rem;
-    }
-
-    /* Latest News */
-    .latest-news-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .latest-card {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start; /* Align image and text at the top */
-        min-height: auto;
-    }
-
-    .latest-image-wrapper {
-        flex: 0 0 70px; /* Reduced by 20px */
-        height: 70px; /* Maintain square aspect ratio */
-    }
-
-    .latest-image {
-        object-fit: cover;
-    }
-
-    .latest-content {
-        padding: 0.5rem; /* Reduced padding */
-    }
-
-    .latest-title {
-        font-size: 1rem; /* Increased font size */
-        font-weight: normal;
-        -webkit-line-clamp: 2; /* Maintain 2 lines */
-        line-height: 1.2;
-    }
-
-    .latest-excerpt {
-        display: none; /* Remove excerpt */
-    }
-
-    .latest-full-text {
-        font-size: 0.9rem;
-    }
-
-    /* Category News */
-    .news-grid {
-        grid-template-columns: 1fr; /* Single column for mobile */
-    }
-
-    .news-card {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        min-height: auto;
-    }
-
-    .news-image-wrapper {
-        flex: 0 0 70px; /* Reduced by 20px from ~90px */
-        height: 70px; /* Maintain square aspect ratio */
-    }
-
-    .news-image {
-        object-fit: cover;
-    }
-
-    .news-content {
-        padding: 0.5rem;
-    }
-
-    .news-title {
-        font-size: 1rem; /* Increased font size */
-        font-weight: normal;
-        -webkit-line-clamp: 2;
-        line-height: 1.2;
-    }
-
-    .news-excerpt {
-        display: none;
-    }
-
-    .full-text {
-        font-size: 0.9rem;
-    }
-
-    /* Gold Price Tables */
-    .gold-price-table {
-        font-size: 0.8rem;
-    }
-
-    .gold-price-table th,
-    .gold-price-table td {
-        padding: 0.3rem;
-    }
-
-    .filter-wrapper {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .filter-wrapper select {
-        width: 100%;
-        max-width: 200px;
-    }
-
-    /* Article Page */
-    .article-container, .feedback-container {
-        padding: 1rem;
-    }
-
-    .article-image-wrapper {
-        max-height: 250px;
-    }
-
-    .article-image {
-        object-fit: cover;
-    }
-
-    .article-title, .feedback-title {
-        font-size: 1.5rem;
-    }
-
-    .share-section {
-        bottom: 0.5rem;
-        right: 0.5rem;
-    }
-
-    .share-btn, .forward-btn {
-        width: 1.4rem;
-        height: 1.4rem;
-    }
-
-    .share-btn i, .share-btn svg, .forward-btn i {
-        font-size: 0.9rem;
-    }
-
-    .feedback-btn {
-        padding: 0.4rem;
-    }
-
-    .feedback-btn i {
-        font-size: 0.9rem;
-    }
-
-    .feedback-btn span {
-        font-size: 0.8rem;
-    }
-
-    .comment-form textarea {
-        font-size: 0.8rem;
-    }
-
-    .comment-form button {
-        font-size: 0.8rem;
-        padding: 0.4rem 0.8rem;
-    }
-
-    .comment-item {
-        font-size: 0.8rem;
-    }
-}
-
-/* Updated on May 9, 2025: Repositioned share button to bottom right, added feedback page styles, prevented mobile zooming */
