@@ -82,8 +82,9 @@
         async function getExchangeRates() {
             try {
                 const response = await fetch(`https://v6.exchangerate-api.com/v6/${EXCHANGE_API_KEY}/latest/USD`);
-                if (!response.ok) throw new Error('Exchange rate API request failed');
+                if (!response.ok) throw new Error(`Exchange rate API request failed: ${response.status}`);
                 const data = await response.json();
+                console.log('Exchange rates:', data.conversion_rates);
                 return {
                     INR: data.conversion_rates.INR,
                     SAR: data.conversion_rates.SAR,
@@ -97,13 +98,13 @@
                 console.error('Error fetching exchange rates:', err);
                 // Fallback to static rates from Excel
                 return {
-                    INR: 1,
-                    SAR: 22.56,
-                    AED: 23.07,
-                    QAR: 23.21,
-                    KWD: 275.91,
-                    OMR: 219.83,
-                    BHD: 223.4281
+                    INR: 83.5,
+                    SAR: 3.75,
+                    AED: 3.67,
+                    QAR: 3.64,
+                    KWD: 0.307,
+                    OMR: 0.385,
+                    BHD: 0.377
                 };
             }
         }
@@ -124,19 +125,22 @@
                 const goldResponse = await fetch('https://www.goldapi.io/api/XAU/USD', {
                     headers: { 'x-access-token': GOLD_API_TOKEN }
                 });
-                if (!goldResponse.ok) throw new Error('Gold API request failed');
+                if (!goldResponse.ok) throw new Error(`Gold API request failed: ${goldResponse.status}`);
                 const goldData = await goldResponse.json();
+                console.log('Gold API response:', goldData);
 
                 // Fetch exchange rates
                 const rates = await getExchangeRates();
 
                 const pricePerOunce = goldData.price; // USD per troy ounce
                 const pricePerGram = pricePerOunce / 31.1035; // USD per gram
+                console.log(`Gold price: ${pricePerOunce} USD/oz, ${pricePerGram.toFixed(2)} USD/g`);
                 const date = new Date(goldData.timestamp * 1000).toISOString().split('T')[0];
 
                 // Generate price data
                 const priceData = LOCATIONS.map(location => {
-                    const price24K = pricePerGram / rates[location.currency];
+                    const price24K = pricePerGram * rates[location.currency]; // Local currency per gram
+                    console.log(`${location.name}: 24K = ${price24K.toFixed(2)} ${location.currency}`);
                     return {
                         Date: date,
                         Location: location.name,
@@ -169,8 +173,8 @@
                             tr.className = 'even:bg-[#fff5e6] hover:bg-[#fff9e6]';
                             tr.innerHTML = `
                                 <td class="p-3 text-center text-gray-700 font-noto">${row.Location}</td>
-                                <td class="p-3 text-center text-gray-700 font-noto">${row[goldType]}</td>
-                                <td class="p-3 text-center text-gray-700 font-noto">${(row[goldType] * 10).toFixed(2)}</td>
+                                <td class="p-3 text-center text-gray-700 font-noto">₹${row[goldType]}</td>
+                                <td class="p-3 text-center text-gray-700 font-noto">₹${(row[goldType] * 10).toFixed(2)}</td>
                             `;
                             indiaTbody.appendChild(tr);
                         });
@@ -182,12 +186,13 @@
                             const tr = document.createElement('tr');
                             tr.className = 'even:bg-[#fff5e6] hover:bg-[#fff9e6]';
                             const priceInLocal = row[goldType];
-                            const priceInINR = (row[goldType] * rates.INR * 10 / rates[row.Currency]).toFixed(2);
+                            const priceInINR = (priceInLocal * rates.INR / rates[row.Currency] * 10).toFixed(2);
+                            console.log(`${row.Location}: ${goldType} = ${priceInLocal} ${row.Currency}, 10g INR = ${priceInINR}`);
                             tr.innerHTML = `
                                 <td class="p-3 text-center text-gray-700 font-noto">${row.Location}</td>
                                 <td class="p-3 text-center text-gray-700 font-noto">${priceInLocal} ${row.Currency}</td>
                                 <td class="p-3 text-center text-gray-700 font-noto">${(priceInLocal * 10).toFixed(2)} ${row.Currency}</td>
-                                <td class="p-3 text-center text-gray-700 font-noto">${priceInINR}</td>
+                                <td class="p-3 text-center text-gray-700 font-noto">₹${priceInINR}</td>
                             `;
                             gulfTbody.appendChild(tr);
                         });
