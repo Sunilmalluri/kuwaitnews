@@ -108,106 +108,6 @@ function generateSocialShare(articleId) {
     `;
 }
 
-async function fetchGoldPriceIndia(retries = 3, delay = 100) {
-    for (let i = 0; i < retries; i++) {
-        try {
-            if (typeof window.goldPriceIndiaData === 'undefined' || !Array.isArray(window.goldPriceIndiaData)) {
-                if (i === retries - 1) {
-                    throw new Error('goldPriceIndiaData is not defined or not an array after retries.');
-                }
-                await new Promise(resolve => setTimeout(resolve, delay));
-                continue;
-            }
-            return window.goldPriceIndiaData;
-        } catch (error) {
-            console.error('Error fetching India gold price data:', error.message);
-            return [];
-        }
-    }
-    return [];
-}
-
-async function fetchGoldPriceGulf(retries = 3, delay = 100) {
-    for (let i = 0; i < retries; i++) {
-        try {
-            if (typeof window.goldPriceGulfData === 'undefined' || !Array.isArray(window.goldPriceGulfData)) {
-                if (i === retries - 1) {
-                    throw new Error('goldPriceGulfData is not defined or not an array after retries.');
-                }
-                await new Promise(resolve => setTimeout(resolve, delay));
-                continue;
-            }
-            return window.goldPriceGulfData;
-        } catch (error) {
-            console.error('Error fetching Gulf gold price data:', error.message);
-            return [];
-        }
-    }
-    return [];
-}
-
-function renderGoldTables(goldType = '22K') {
-    const indiaTableBody = document.querySelector('.gold-price-table-body-india');
-    const gulfTableBody = document.querySelector('.gold-price-table-body-gulf');
-    const dateElement = document.querySelector('#gold-price-date');
-
-    if (!indiaTableBody || !gulfTableBody || !dateElement) {
-        console.error('Table bodies or date element not found');
-        return;
-    }
-
-    Promise.all([fetchGoldPriceIndia(), fetchGoldPriceGulf()]).then(([indiaPrices, gulfPrices]) => {
-        if (indiaPrices.length > 0) {
-            dateElement.textContent = indiaPrices[0].date;
-        } else if (gulfPrices.length > 0) {
-            dateElement.textContent = gulfPrices[0].date;
-        } else {
-            dateElement.textContent = 'N/A';
-        }
-
-        if (indiaPrices.length === 0) {
-            indiaTableBody.innerHTML = '<tr><td colspan="3">భారతదేశ బంగారం ధరలు అందుబాటులో లేవు.</td></tr>';
-        } else {
-            indiaTableBody.innerHTML = indiaPrices.map(price => `
-                <tr>
-                    <td>${price.location}</td>
-                    <td>${price.currencySymbol}${price[`price_${goldType.toLowerCase()}_1g`]}</td>
-                    <td>${price.currencySymbol}${price[`price_${goldType.toLowerCase()}_10g`]}</td>
-                </tr>
-            `).join('');
-        }
-
-        if (gulfPrices.length === 0) {
-            gulfTableBody.innerHTML = '<tr><td colspan="4">గల్ఫ్ దేశాల బంగారం ధరలు అందుబాటులో లేవు.</td></tr>';
-        } else {
-            gulfTableBody.innerHTML = gulfPrices.map(price => `
-                <tr>
-                    <td>${price.location}</td>
-                    <td>${price.currencySymbol}${price[`price_${goldType.toLowerCase()}_1g`]}</td>
-                    <td>${price.currencySymbol}${price[`price_${goldType.toLowerCase()}_10g`]}</td>
-                    <td>₹${price[`price_${goldType.toLowerCase()}_10g_inr`]}</td>
-                </tr>
-            `).join('');
-        }
-    }).catch(error => {
-        console.error('Error rendering gold tables:', error);
-        indiaTableBody.innerHTML = '<tr><td colspan="3">భారతదేశ బంగారం ధరలు అందుబాటులో లేవు.</td></tr>';
-        gulfTableBody.innerHTML = '<tr><td colspan="4">గల్ఫ్ దేశాల బంగారం ధరలు అందుబాటులో లేవు.</td></tr>';
-    });
-}
-
-function updateGoldTables() {
-    const goldTypeFilter = document.querySelector('#gold-type-filter');
-    if (goldTypeFilter) {
-        const selectedGoldType = goldTypeFilter.value;
-        renderGoldTables(selectedGoldType);
-    }
-}
-
-async function renderGoldPrice() {
-    renderGoldTables('22K');
-}
-
 async function renderNews(category = null, subCategory = null) {
     const newsContainer = document.querySelector('.news-grid');
     if (!newsContainer) {
@@ -718,13 +618,11 @@ async function loadCommonComponents() {
         const pageSubCategory = document.body.dataset.subcategory || null;
         if (pageCategory === 'Home') {
             renderHomeNews();
-        } else if (pageCategory === 'gold-price') {
-            renderGoldPrice();
         } else if (pageCategory === 'article') {
             renderArticle();
         } else if (pageCategory === 'feedback') {
             renderFeedbackPage();
-        } else {
+        } else if (pageCategory !== 'gold-price') {
             renderNews(pageCategory, pageSubCategory);
         }
     } catch (error) {
