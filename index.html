@@ -32,3 +32,199 @@
 </body>
 </html>
 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Wishes for Helen | GulfAndhra.com</title>
+    <style>
+        .birthday-ad {
+            font-family: 'Arial', sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 25px;
+            background: linear-gradient(135deg, #fff9f0 0%, #ffebd6 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+            text-align: center;
+            border: 2px solid #ff6b9e;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .birthday-ad:before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            z-index: -1;
+            border-radius: 20px;
+            opacity: 0.4;
+        }
+        
+        .birthday-title {
+            color: #d23369;
+            font-size: 28px;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .birthday-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin: 15px auto;
+            display: block;
+            transition: transform 0.3s;
+        }
+        
+        .birthday-photo:hover {
+            transform: scale(1.05);
+        }
+        
+        .birthday-name {
+            font-size: 24px;
+            color: #333;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        
+        .birthday-message {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+        
+        .birthday-wishes {
+            font-size: 22px;
+            color: #e91e63;
+            font-weight: bold;
+            margin: 20px 0;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .website-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .website-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .birthday-ad {
+                padding: 15px;
+                margin: 10px;
+            }
+            
+            .birthday-title {
+                font-size: 22px;
+            }
+            
+            .birthday-photo {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="birthday-ad">
+        <h1 class="birthday-title">🌟 Special Birthday Wishes from GulfAndhra.com! 🌟</h1>
+        
+        <img src="https://raw.githubusercontent.com/Sunilmalluri/kuwaitnews/main/images/helen.jpeg" alt="Helen's Birthday" class="birthday-photo">
+        
+        <div class="birthday-name">Helen</div>
+        
+        <p class="birthday-message">
+            On this wonderful day, the entire <strong>GulfAndhra.com</strong> family comes together to celebrate the radiant <strong>Helen</strong>! 
+            May your year be filled with happiness, success, and countless blessings. 
+            Your presence brightens every moment, and we are grateful to have you in our lives.
+        </p>
+        
+        <div class="birthday-wishes">🎈 Happy Birthday, Helen! 🎈</div>
+        
+        <p class="birthday-message">
+            May your smile shine brighter with each passing day!
+        </p>
+        
+        <a href="https://www.gulfandhra.com/" class="website-link">Visit GulfAndhra.com</a>
+    </div>
+
+    <script>
+        // Simple confetti effect
+        function createConfetti() {
+            const colors = ['#ff9a9e', '#fad0c4', '#a18cd1', '#fbc2eb', '#ffecd2', '#fcb69f'];
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.top = -10 + 'px';
+            confetti.style.opacity = 1;
+            confetti.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+            
+            document.body.appendChild(confetti);
+            
+            const animationDuration = Math.random() * 3 + 2;
+            
+            confetti.style.animation = `fall ${animationDuration}s linear forwards`;
+            
+            setTimeout(() => {
+                confetti.remove();
+            }, animationDuration * 1000);
+        }
+        
+        // Add CSS for confetti animation
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes fall {
+                to {
+                    transform: translateY(100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Create confetti every 100ms for 3 seconds
+        const confettiInterval = setInterval(createConfetti, 100);
+        setTimeout(() => {
+            clearInterval(confettiInterval);
+        }, 3000);
+    </script>
+</body>
+</html>
