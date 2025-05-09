@@ -11,10 +11,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu&family=Ramabhadra&display=swap" rel="stylesheet">
     <style>
         /* Birthday Ad Styles */
+        .birthday-ad-section {
+            margin: 30px auto;
+            max-width: 1200px;
+            padding: 0 15px;
+        }
+        
         .birthday-ad {
             font-family: 'Noto Sans Telugu', sans-serif;
             max-width: 600px;
-            margin: 20px auto;
+            margin: 0 auto;
             padding: 25px;
             background: linear-gradient(135deg, #fff9f0 0%, #ffebd6 100%);
             border-radius: 15px;
@@ -110,7 +116,6 @@
         @media (max-width: 600px) {
             .birthday-ad {
                 padding: 15px;
-                margin: 10px;
             }
             
             .birthday-title {
@@ -127,11 +132,13 @@
     <script src="scripts.js" defer></script>
 </head>
 <body data-category="Home">
+    <!-- Header will be loaded dynamically -->
     <div class="top-wrapper"></div>
+    
     <div class="content-bg">
         <div class="container">
             <!-- Birthday Advertisement Section -->
-            <section class="birthday-ad-section" style="margin: 30px auto;">
+            <section class="birthday-ad-section">
                 <div class="birthday-ad">
                     <h1 class="birthday-title">🌟 GulfAndhra.com నుండి ప్రత్యేక జన్మదిన శుభాకాంక్షలు! 🌟</h1>
                     
@@ -155,6 +162,7 @@
                 </div>
             </section>
 
+            <!-- Main content will be loaded dynamically -->
             <main class="main-content">
                 <section class="featured-news">
                     <h2 class="section-title">ప్రధాన వార్తలు</h2>
@@ -167,52 +175,51 @@
             </main>
         </div>
     </div>
+    
+    <!-- Footer will be loaded dynamically -->
     <div class="footer-wrapper"></div>
 
     <script>
-        // Simple confetti effect
-        function createConfetti() {
-            const colors = ['#ff9a9e', '#fad0c4', '#a18cd1', '#fbc2eb', '#ffecd2', '#fcb69f'];
-            const confetti = document.createElement('div');
-            confetti.className = 'confetti';
-            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            confetti.style.left = Math.random() * 100 + 'vw';
-            confetti.style.top = -10 + 'px';
-            confetti.style.opacity = 1;
-            confetti.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
-            
-            document.body.appendChild(confetti);
-            
-            const animationDuration = Math.random() * 3 + 2;
-            
-            confetti.style.animation = `fall ${animationDuration}s linear forwards`;
-            
-            setTimeout(() => {
-                confetti.remove();
-            }, animationDuration * 1000);
-        }
-        
-        // Add CSS for confetti animation
-        const style = document.createElement('style');
-        style.innerHTML = `
-            .confetti {
-                position: fixed;
-                width: 10px;
-                height: 10px;
-                opacity: 0;
-                z-index: 9999;
+        // Wait for DOM and dynamic content to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simple confetti effect
+            function createConfetti() {
+                const colors = ['#ff9a9e', '#fad0c4', '#a18cd1', '#fbc2eb', '#ffecd2', '#fcb69f'];
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = -10 + 'px';
+                confetti.style.opacity = 1;
+                confetti.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+                confetti.style.position = 'fixed';
+                confetti.style.zIndex = '9999';
+                
+                document.body.appendChild(confetti);
+                
+                const animationDuration = Math.random() * 3 + 2;
+                
+                // Add animation directly to element
+                confetti.style.animation = `confetti-fall ${animationDuration}s linear forwards`;
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, animationDuration * 1000);
             }
-            @keyframes fall {
-                to {
-                    transform: translateY(100vh) rotate(360deg);
-                    opacity: 0;
+            
+            // Add CSS for confetti animation
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes confetti-fall {
+                    to {
+                        transform: translateY(100vh) rotate(360deg);
+                        opacity: 0;
+                    }
                 }
-            }
-        `;
-        document.head.appendChild(style);
-        
-        // Create confetti every 100ms for 3 seconds when page loads
-        window.addEventListener('load', () => {
+            `;
+            document.head.appendChild(style);
+            
+            // Create confetti every 100ms for 3 seconds
             const confettiInterval = setInterval(createConfetti, 100);
             setTimeout(() => {
                 clearInterval(confettiInterval);
