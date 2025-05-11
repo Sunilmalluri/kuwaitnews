@@ -78,9 +78,6 @@
                         <label for="trend-location" class="font-noto text-gray-700">స్థానం:</label>
                         <select id="trend-location" class="p-2 border border-[#d4af37] rounded bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <option value="Hyderabad" selected>Hyderabad</option>
-                            <option value="Vijayawada">Vijayawada</option>
-                            <option value="Vizag">Vizag</option>
-                            <option value="Tirupati">Tirupati</option>
                             <option value="Saudi Arabia">Saudi Arabia</option>
                             <option value="UAE">UAE</option>
                             <option value="Qatar">Qatar</option>
@@ -110,9 +107,6 @@
         // Location mappings
         const LOCATIONS = [
             { name: 'Hyderabad', currency: 'INR', region: 'India' },
-            { name: 'Vijayawada', currency: 'INR', region: 'India' },
-            { name: 'Vizag', currency: 'INR', region: 'India' },
-            { name: 'Tirupati', currency: 'INR', region: 'India' },
             { name: 'Saudi Arabia', currency: 'SAR', region: 'Gulf' },
             { name: 'UAE', currency: 'AED', region: 'Gulf' },
             { name: 'Qatar', currency: 'QAR', region: 'Gulf' },
@@ -124,9 +118,6 @@
         // Static fallback data
         const FALLBACK_PRICES = [
             { Date: '2025-05-08', Location: 'Hyderabad', Region: 'India', '24K': '7500.00', '22K': '6875.00', '18K': '5625.00', Currency: 'INR' },
-            { Date: '2025-05-08', Location: 'Vijayawada', Region: 'India', '24K': '7500.00', '22K': '6875.00', '18K': '5625.00', Currency: 'INR' },
-            { Date: '2025-05-08', Location: 'Vizag', Region: 'India', '24K': 'ประวัติการณ์', '22K': '6875.00', '18K': '5625.00', Currency: 'INR' },
-            { Date: '2025-05-08', Location: 'Tirupati', Region: 'India', '24K': '7500.00', '22K': '6875.00', '18K': '5625.00', Currency: 'INR' },
             { Date: '2025-05-08', Location: 'Saudi Arabia', Region: 'Gulf', '24K': '300.00', '22K': '275.00', '18K': '225.00', Currency: 'SAR' },
             { Date: '2025-05-08', Location: 'UAE', Region: 'Gulf', '24K': '330.00', '22K': '302.50', '18K': '247.50', Currency: 'AED' },
             { Date: '2025-05-08', Location: 'Qatar', Region: 'Gulf', '24K': '325.00', '22K': '297.92', '18K': '243.75', Currency: 'QAR' },
