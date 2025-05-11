@@ -653,3 +653,25 @@ document.head.appendChild(style);
 document.addEventListener('DOMContentLoaded', () => {
     loadCommonComponents();
 });
+
+
+// Existing scripts (e.g., for gold-price.html, rentals.html)
+
+// Banner dismissal logic
+document.addEventListener('DOMContentLoaded', () => {
+    const banner = document.getElementById('coming-soon-banner');
+    const closeBanner = document.getElementById('close-banner');
+
+    if (banner && closeBanner) {
+        // Check if banner was previously dismissed
+        if (localStorage.getItem('bannerDismissed') === 'true') {
+            banner.style.display = 'none';
+        }
+
+        // Handle close button click
+        closeBanner.addEventListener('click', () => {
+            banner.style.display = 'none';
+            localStorage.setItem('bannerDismissed', 'true');
+        });
+    }
+});
