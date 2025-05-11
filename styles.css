@@ -966,3 +966,65 @@ body {
 }
 
 /* Updated on May 9, 2025: Repositioned share button to bottom right, added feedback page styles, prevented mobile zooming */
+
+/* Existing styles (from gold-price.html, rentals.html) */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.section-title {
+    font-family: 'Ramabhadra', sans-serif;
+    font-size: 1.5rem;
+    color: #333;
+    border-bottom: 2px solid #005580;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Add banner styles */
+#coming-soon-banner {
+    background-color: #d4af37;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1000;
+}
+
+#coming-soon-banner span {
+    margin: 0 0.5rem;
+}
+
+#close-banner {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+#close-banner i {
+    font-size: 1.25rem;
+}
+
+@media (max-width: 768px) {
+    #coming-soon-banner {
+        font-size: 0.875rem;
+        padding: 0.75rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    #close-banner {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+    }
+}
