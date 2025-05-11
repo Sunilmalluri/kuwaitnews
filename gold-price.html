@@ -111,6 +111,9 @@
 
         // Load gold prices and initialize page
         async function loadGoldPrices() {
+            // Clear localStorage to avoid stale data
+            localStorage.removeItem('goldPrices');
+
             const indiaTable = document.getElementById('india-table');
             const gulfTable = document.getElementById('gulf-table');
             const indiaTbody = document.getElementById('gold-price-table-body-india');
@@ -141,17 +144,29 @@
 
                 // Validate and map CSV data
                 const priceData = parsed.data
-                    .map(row => ({
-                        Date: row.Date || new Date().toISOString().split('T')[0],
-                        Location: row.Location,
-                        Region: row.Region,
-                        '24K': parseFloat(row['24K']).toFixed(2),
-                        '22K': parseFloat(row['22K']).toFixed(2),
-                        '18K': parseFloat(row['18K']).toFixed(2),
-                        Currency: row.Currency,
-                        INR_Equivalent: parseFloat(row.INR_Equivalent).toFixed(2)
-                    }))
-                    .filter(row => LOCATIONS.some(loc => loc.name === row.Location && loc.currency === row.Currency));
+                    .map(row => {
+                        const price24K = parseFloat(row['24K']);
+                        const price22K = parseFloat(row['22K']);
+                        const price18K = parseFloat(row['18K']);
+                        const inrEquivalent = parseFloat(row.INR_Equivalent);
+                        if (isNaN(price24K) || isNaN(price22K) || isNaN(price18K) || isNaN(inrEquivalent)) {
+                            console.warn(`Invalid numeric data in row:`, row);
+                            return null;
+                        }
+                        return {
+                            Date: row.Date ? row.Date.trim() : new Date().toISOString().split('T')[0],
+                            Location: row.Location ? row.Location.trim() : '',
+                            Region: row.Region ? row.Region.trim() : '',
+                            '24K': price24K.toFixed(2),
+                            '22K': price22K.toFixed(2),
+                            '18K': price18K.toFixed(2),
+                            Currency: row.Currency ? row.Currency.trim() : '',
+                            INR_Equivalent: inrEquivalent.toFixed(2)
+                        };
+                    })
+                    .filter(row => row && LOCATIONS.some(loc => loc.name.toLowerCase() === row.Location.toLowerCase() && loc.currency === row.Currency));
+
+                console.log('Mapped priceData:', priceData);
 
                 if (priceData.length === 0) {
                     throw new Error('No valid price data found in CSV');
@@ -162,6 +177,7 @@
 
                 // Get unique dates and sort descending
                 const uniqueDates = [...new Set(priceData.map(row => row.Date))].sort((a, b) => new Date(b) - new Date(a));
+                console.log('Unique dates:', uniqueDates);
                 const latestDate = uniqueDates[0];
                 dateSpan.textContent = latestDate;
 
@@ -173,7 +189,7 @@
 
                     // India table (Hyderabad only)
                     filteredData
-                        .filter(row => row.Region === 'India' && row.Location === 'Hyderabad')
+                        .filter(row => row.Region === 'India' && row.Location.toLowerCase() === 'hyderabad')
                         .forEach(row => {
                             const tr = document.createElement('tr');
                             tr.className = 'even:bg-[#fff5e6] hover:bg-[#fff9e6]';
@@ -212,9 +228,9 @@
                     comparisonTbody.innerHTML = '';
 
                     LOCATIONS.forEach(loc => {
-                        const todayRow = todayData.find(row => row.Location === loc.name);
+                        const todayRow = todayData.find(row => row.Location.toLowerCase() === loc.name.toLowerCase());
                         if (todayRow) {
-                            const yesterdayRow = yesterdayData.find(row => row.Location === loc.name);
+                            const yesterdayRow = yesterdayData.find(row => row.Location.toLowerCase() === loc.name.toLowerCase());
                             const todayPrice = parseFloat(todayRow[goldType]);
                             let change = 'N/A';
                             let changeClass = 'text-gray-600';
@@ -241,17 +257,26 @@
                 function updateTrendCharts(location, goldType) {
                     const sevenDaysAgo = new Date(latestDate);
                     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
-                    const locationData = priceData.filter(row => row.Location === location);
+                    const locationData = priceData.filter(row => row.Location.toLowerCase() === location.toLowerCase());
+                    console.log(`Location data for ${location}:`, locationData);
+
+                    // Normalize date format
+                    const formatDate = date => {
+                        const d = new Date(date);
+                        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+                    };
 
                     // Weekly trend (7 days)
                     const weeklyLabels = [];
                     const weeklyData = [];
                     for (let d = new Date(sevenDaysAgo); d <= new Date(latestDate); d.setDate(d.getDate() + 1)) {
-                        const dateStr = d.toISOString().split('T')[0];
+                        const dateStr = formatDate(d);
                         const row = locationData.find(row => row.Date === dateStr);
-                        if (row && row[goldType]) {
+                        if (row && row[goldType] && !isNaN(parseFloat(row[goldType]))) {
                             weeklyLabels.push(dateStr);
                             weeklyData.push(parseFloat(row[goldType]));
+                        } else {
+                            console.warn(`No valid data for ${location} on ${dateStr}, goldType: ${goldType}`);
                         }
                     }
                     console.log(`Weekly trend for ${location} (${goldType}):`, { labels: weeklyLabels, data: weeklyData });
@@ -260,7 +285,11 @@
                     const monthlyLabels = uniqueDates.slice().reverse().slice(0, 11);
                     const monthlyData = monthlyLabels.map(date => {
                         const row = locationData.find(row => row.Date === date);
-                        return row && row[goldType] ? parseFloat(row[goldType]) : null;
+                        if (row && row[goldType] && !isNaN(parseFloat(row[goldType]))) {
+                            return parseFloat(row[goldType]);
+                        }
+                        console.warn(`No valid data for ${location} on ${date}, goldType: ${goldType}`);
+                        return null;
                     }).filter(val => val !== null);
                     console.log(`Monthly trend for ${location} (${goldType}):`, { labels: monthlyLabels, data: monthlyData });
 
@@ -283,7 +312,7 @@
                     }
 
                     // Weekly chart
-                    if (weeklyData.length >= 2) {
+                    if (weeklyData.length >= 1) {
                         weeklyTrendError.classList.add('hidden');
                         weeklyChart = new Chart(weeklyCanvas, {
                             type: 'line',
@@ -311,7 +340,7 @@
                     }
 
                     // Monthly chart
-                    if (monthlyData.length >= 2) {
+                    if (monthlyData.length >= 1) {
                         monthlyTrendError.classList.add('hidden');
                         monthlyChart = new Chart(monthlyCanvas, {
                             type: 'line',
