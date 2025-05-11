@@ -253,21 +253,6 @@ body {
     font-size: 1.2rem;
 }
 
-/* Gold Price Section */
-.gold-price-section {
-    margin-bottom: 2rem;
-}
-
-.gold-price-date {
-    font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 1rem;
-}
-
-.gold-price-date i {
-    margin-right: 0.3rem;
-}
 
 /* Filter Wrapper */
 .filter-wrapper {
@@ -295,49 +280,6 @@ body {
 
 .filter-wrapper select:focus {
     outline: 2px solid #007bff;
-}
-
-/* Gold Price Tables */
-.gold-price-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    font-family: 'Noto Sans Telugu', sans-serif;
-    margin-bottom: 1.5rem;
-}
-
-.gold-price-table th,
-.gold-price-table td {
-    border: 1px solid #d4af37;
-    padding: 0.5rem;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #333;
-    transition: background 0.2s ease;
-}
-
-.gold-price-table th {
-    background: #d4af37;
-    color: #fff;
-    font-weight: bold;
-}
-
-.gold-price-table td {
-    background: #fff;
-}
-
-.gold-price-table tbody tr:nth-child(even) {
-    background: #fff5e6;
-}
-
-.gold-price-table tbody tr:hover td {
-    background: #fff9e6;
-}
-
-.gold-price-table td:first-child {
-    background: #f5f5dc;
-    font-weight: bold;
 }
 
 /* Social Share Buttons */
@@ -888,16 +830,7 @@ body {
         font-size: 0.9rem;
     }
 
-    /* Gold Price Tables */
-    .gold-price-table {
-        font-size: 0.8rem;
-    }
-
-    .gold-price-table th,
-    .gold-price-table td {
-        padding: 0.3rem;
-    }
-
+    
     .filter-wrapper {
         flex-direction: column;
         align-items: flex-start;
