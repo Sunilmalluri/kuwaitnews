@@ -56,7 +56,7 @@
                                 <th class="p-3 text-center font-bold font-noto">స్థానం</th>
                                 <th class="p-3 text-center font-bold font-noto cursor-pointer" data-sort="1g">1g (స్థానిక కరెన్సీ)</th>
                                 <th class="p-3 text-center font-bold font-noto">10g (స్థానిక కరెన్సీ)</th>
-                                <th class="p-3 text-center font-bold font-noto">10g (INR)</th>
+                                <th class="p-3 text-center font-bold font-noto">1g (INR)</th>
                             </tr>
                         </thead>
                         <tbody id="gold-price-table-body-gulf"></tbody>
@@ -101,9 +101,6 @@
     <div class="footer-wrapper"></div>
 
     <script>
-        // API keys
-        const EXCHANGE_API_KEY = '3779b74acd7b24c873428a3b25';
-
         // Location mappings
         const LOCATIONS = [
             { name: 'Hyderabad', currency: 'INR', region: 'India' },
@@ -114,47 +111,6 @@
             { name: 'Oman', currency: 'OMR', region: 'Gulf' },
             { name: 'Bahrain', currency: 'BHD', region: 'Gulf' }
         ];
-
-        // Static fallback data
-        const FALLBACK_PRICES = [
-            { Date: '2025-05-08', Location: 'Hyderabad', Region: 'India', '24K': '7500.00', '22K': '6875.00', '18K': '5625.00', Currency: 'INR' },
-            { Date: '2025-05-08', Location: 'Saudi Arabia', Region: 'Gulf', '24K': '300.00', '22K': '275.00', '18K': '225.00', Currency: 'SAR' },
-            { Date: '2025-05-08', Location: 'UAE', Region: 'Gulf', '24K': '330.00', '22K': '302.50', '18K': '247.50', Currency: 'AED' },
-            { Date: '2025-05-08', Location: 'Qatar', Region: 'Gulf', '24K': '325.00', '22K': '297.92', '18K': '243.75', Currency: 'QAR' },
-            { Date: '2025-05-08', Location: 'Kuwait', Region: 'Gulf', '24K': '27.50', '22K': '25.21', '18K': '20.63', Currency: 'KWD' },
-            { Date: '2025-05-08', Location: 'Oman', Region: 'Gulf', '24K': '34.50', '22K': '31.63', '18K': '25.88', Currency: 'OMR' },
-            { Date: '2025-05-08', Location: 'Bahrain', Region: 'Gulf', '24K': '33.80', '22K': '30.99', '18K': '25.35', Currency: 'BHD' }
-        ];
-
-        // Fetch exchange rates
-        async function getExchangeRates() {
-            try {
-                const response = await fetch(`https://v6.exchangerate-api.com/v6/${EXCHANGE_API_KEY}/latest/USD`);
-                if (!response.ok) throw new Error(`Exchange rate API request failed: ${response.status} ${response.statusText}`);
-                const data = await response.json();
-                console.log('Exchange rates:', data.conversion_rates);
-                return {
-                    INR: data.conversion_rates.INR,
-                    SAR: data.conversion_rates.SAR,
-                    AED: data.conversion_rates.AED,
-                    QAR: data.conversion_rates.QAR,
-                    KWD: data.conversion_rates.KWD,
-                    OMR: data.conversion_rates.OMR,
-                    BHD: data.conversion_rates.BHD
-                };
-            } catch (err) {
-                console.error('Error fetching exchange rates:', err.message);
-                return {
-                    INR: 83.5,
-                    SAR: 3.75,
-                    AED: 3.67,
-                    QAR: 3.64,
-                    KWD: 0.307,
-                    OMR: 0.385,
-                    BHD: 0.377
-                };
-            }
-        }
 
         // Load gold prices and initialize page
         async function loadGoldPrices() {
@@ -173,9 +129,6 @@
             let weeklyChart, monthlyChart;
 
             try {
-                // Fetch exchange rates
-                const rates = await getExchangeRates();
-
                 // Fetch and parse CSV
                 console.log('Fetching gold prices from CSV...');
                 const csvResponse = await fetch('/data/gold_prices.csv');
@@ -198,7 +151,7 @@
                         '22K': parseFloat(row['22K']).toFixed(2),
                         '18K': parseFloat(row['18K']).toFixed(2),
                         Currency: row.Currency,
-                        'Exchange Price': rates[row.Currency]?.toFixed(4) || FALLBACK_PRICES.find(f => f.Location === row.Location)?.['Exchange Price'] || '1.0000'
+                        INR_Equivalent: parseFloat(row.INR_Equivalent).toFixed(2)
                     }))
                     .filter(row => LOCATIONS.some(loc => loc.name === row.Location && loc.currency === row.Currency));
 
@@ -244,8 +197,7 @@
                             const tr = document.createElement('tr');
                             tr.className = 'even:bg-[#fff5e6] hover:bg-[#fff9e6]';
                             const priceInLocal = row[goldType];
-                            const priceInINR = (priceInLocal * rates.INR / rates[row.Currency] * 10).toFixed(2);
-                            console.log(`${row.Location}: ${goldType} = ${priceInLocal} ${row.Currency}, 10g INR = ${priceInINR}`);
+                            const priceInINR = row.INR_Equivalent;
                             tr.innerHTML = `
                                 <td class="p-3 text-center text-gray-700 font-noto">${row.Location}</td>
                                 <td class="p-3 text-center text-gray-700 font-noto">${priceInLocal} ${row.Currency}</td>
@@ -430,17 +382,8 @@
                     }
                 }
 
-                // Use static fallback data
-                console.log('Using static fallback prices:', FALLBACK_PRICES);
-                dateSpan.textContent = FALLBACK_PRICES[0].Date;
-                dateFilter.innerHTML = `<option value="${FALLBACK_PRICES[0].Date}">${FALLBACK_PRICES[0].Date}</option>`;
-                updateGoldTables(FALLBACK_PRICES[0].Date, goldTypeFilter.value);
-                updateComparisonTable(goldTypeFilter.value);
-                updateTrendCharts(trendLocation.value, goldTypeFilter.value);
-                indiaTable.classList.remove('hidden');
-                gulfTable.classList.remove('hidden');
-                comparisonTable.classList.remove('hidden');
-                error.classList.add('hidden');
+                // No fallback data
+                console.log('No valid gold price data available');
             }
         }
 
