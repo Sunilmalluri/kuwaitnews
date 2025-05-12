@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu&family=Ramabhadra&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js" defer></script>
     <script src="../scripts.js" defer></script>
 </head>
 <body data-category="gold-price" class="flex flex-col min-h-screen">
@@ -109,6 +109,51 @@
             { name: 'Bahrain', currency: 'BHD', region: 'Gulf' }
         ];
 
+        // Retry fetch with fallback
+        async function fetchWithRetry(url, retries = 3, delay = 500) {
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`Fetch failed: ${response.status} ${response.statusText}`);
+                    return response;
+                } catch (err) {
+                    console.warn(`Attempt ${i + 1}/${retries} failed for ${url}: ${err.message}`);
+                    if (i === retries - 1) throw err;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        }
+
+        // Normalize various date formats to YYYY-MM-DD
+        function normalizeDate(dateStr) {
+            if (!dateStr) return null;
+            const trimmedDate = dateStr.trim();
+            let d;
+
+            // Try YYYY-MM-DD
+            d = new Date(trimmedDate);
+            if (!isNaN(d.getTime())) {
+                return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+            }
+
+            // Try MM/DD/YYYY or DD/MM/YYYY
+            const parts = trimmedDate.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);
+            if (parts) {
+                // Assume MM/DD/YYYY first
+                d = new Date(`${parts[1]}/${parts[2]}/${parts[3]}`);
+                if (isNaN(d.getTime()) || d.getFullYear() !== parseInt(parts[3])) {
+                    // Try DD/MM/YYYY
+                    d = new Date(`${parts[2]}/${parts[1]}/${parts[3]}`);
+                }
+                if (!isNaN(d.getTime())) {
+                    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+                }
+            }
+
+            console.warn(`Unable to parse date: ${trimmedDate}`);
+            return null;
+        }
+
         // Load gold prices and initialize page
         async function loadGoldPrices() {
             // Clear localStorage to avoid stale data
@@ -130,19 +175,46 @@
             let monthlyChart = null;
 
             try {
+                // Wait for Chart.js to load
+                if (typeof Chart === 'undefined') {
+                    console.warn('Chart.js not loaded yet, waiting...');
+                    await new Promise(resolve => {
+                        const checkChart = setInterval(() => {
+                            if (typeof Chart !== 'undefined') {
+                                clearInterval(checkChart);
+                                resolve();
+                            }
+                        }, 100);
+                        setTimeout(() => {
+                            clearInterval(checkChart);
+                            resolve();
+                        }, 5000);
+                    });
+                }
+                if (typeof Chart === 'undefined') {
+                    throw new Error('Chart.js failed to load');
+                }
+                console.log('Chart.js loaded successfully');
+
                 // Fetch and parse CSV
                 console.log('Fetching gold prices from CSV...');
-                const csvResponse = await fetch('/data/gold_prices.csv');
-                if (!csvResponse.ok) throw new Error(`CSV fetch failed: ${csvResponse.status} ${csvResponse.statusText}`);
+                let csvResponse;
+                try {
+                    csvResponse = await fetchWithRetry('/data/gold_prices.csv');
+                } catch (err) {
+                    console.warn('Primary CSV fetch failed, trying fallback...');
+                    csvResponse = await fetchWithRetry('https://raw.githubusercontent.com/Sunilmalluri/kuwaitnews/main/data/gold_prices.csv');
+                }
                 const csvText = await csvResponse.text();
+                console.log('Raw CSV text:', csvText.substring(0, 200) + '...');
                 const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
                 console.log('Parsed CSV data:', parsed.data);
 
                 if (parsed.errors.length > 0 || !parsed.data || parsed.data.length === 0) {
-                    throw new Error('Invalid CSV data or parsing error');
+                    throw new Error(`Invalid CSV data or parsing error: ${JSON.stringify(parsed.errors)}`);
                 }
 
-                // Validate and map CSV data
+                // Validate and map CSV data with normalized dates
                 const priceData = parsed.data
                     .map(row => {
                         const price24K = parseFloat(row['24K']);
@@ -153,8 +225,13 @@
                             console.warn(`Invalid numeric data in row:`, row);
                             return null;
                         }
+                        const normalizedDate = normalizeDate(row.Date);
+                        if (!normalizedDate) {
+                            console.warn(`Skipping row due to invalid date:`, row);
+                            return null;
+                        }
                         return {
-                            Date: row.Date ? row.Date.trim() : new Date().toISOString().split('T')[0],
+                            Date: normalizedDate,
                             Location: row.Location ? row.Location.trim() : '',
                             Region: row.Region ? row.Region.trim() : '',
                             '24K': price24K.toFixed(2),
@@ -178,6 +255,9 @@
                 // Get unique dates and sort descending
                 const uniqueDates = [...new Set(priceData.map(row => row.Date))].sort((a, b) => new Date(b) - new Date(a));
                 console.log('Unique dates:', uniqueDates);
+                if (uniqueDates.length === 0) {
+                    throw new Error('No valid dates found in price data');
+                }
                 const latestDate = uniqueDates[0];
                 dateSpan.textContent = latestDate;
 
@@ -260,9 +340,13 @@
                     const locationData = priceData.filter(row => row.Location.toLowerCase() === location.toLowerCase());
                     console.log(`Location data for ${location}:`, locationData);
 
-                    // Normalize date format
+                    // Format date for comparison
                     const formatDate = date => {
                         const d = new Date(date);
+                        if (isNaN(d.getTime())) {
+                            console.warn(`Invalid date in formatDate: ${date}`);
+                            return null;
+                        }
                         return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
                     };
 
@@ -271,12 +355,13 @@
                     const weeklyData = [];
                     for (let d = new Date(sevenDaysAgo); d <= new Date(latestDate); d.setDate(d.getDate() + 1)) {
                         const dateStr = formatDate(d);
+                        if (!dateStr) continue;
                         const row = locationData.find(row => row.Date === dateStr);
                         if (row && row[goldType] && !isNaN(parseFloat(row[goldType]))) {
                             weeklyLabels.push(dateStr);
                             weeklyData.push(parseFloat(row[goldType]));
                         } else {
-                            console.warn(`No valid data for ${location} on ${dateStr}, goldType: ${goldType}`);
+                            console.warn(`No valid data for ${location} on ${dateStr}, goldType: ${goldType}, row:`, row);
                         }
                     }
                     console.log(`Weekly trend for ${location} (${goldType}):`, { labels: weeklyLabels, data: weeklyData });
@@ -288,7 +373,7 @@
                         if (row && row[goldType] && !isNaN(parseFloat(row[goldType]))) {
                             return parseFloat(row[goldType]);
                         }
-                        console.warn(`No valid data for ${location} on ${date}, goldType: ${goldType}`);
+                        console.warn(`No valid data for ${location} on ${date}, goldType: ${goldType}, row:`, row);
                         return null;
                     }).filter(val => val !== null);
                     console.log(`Monthly trend for ${location} (${goldType}):`, { labels: monthlyLabels, data: monthlyData });
@@ -336,7 +421,7 @@
                         });
                     } else {
                         weeklyTrendError.classList.remove('hidden');
-                        console.warn('Insufficient data for weekly chart');
+                        console.warn('Insufficient data for weekly chart', { location, goldType, weeklyLabels, weeklyData });
                     }
 
                     // Monthly chart
@@ -364,7 +449,7 @@
                         });
                     } else {
                         monthlyTrendError.classList.remove('hidden');
-                        console.warn('Insufficient data for monthly chart');
+                        console.warn('Insufficient data for monthly chart', { location, goldType, monthlyLabels, monthlyData });
                     }
                 }
 
@@ -391,6 +476,7 @@
             } catch (err) {
                 console.error('Error fetching gold prices:', err.message);
                 loading.classList.add('hidden');
+                loading.textContent = 'బంగారం ధరలు అందుబాటులో లేవు. దయచేసి తర్వాత మళ్లీ ప్రయత్నించండి.';
 
                 // Try cached data
                 const cached = localStorage.getItem('goldPrices');
@@ -408,6 +494,7 @@
                             indiaTable.classList.remove('hidden');
                             gulfTable.classList.remove('hidden');
                             comparisonTable.classList.remove('hidden');
+                            loading.classList.add('hidden');
                             return;
                         }
                     } catch (cacheErr) {
@@ -415,7 +502,6 @@
                     }
                 }
 
-                // No data available
                 console.log('No valid gold price data available');
             }
         }
