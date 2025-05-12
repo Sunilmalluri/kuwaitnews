@@ -6,14 +6,13 @@
   <title>Gulf Andhra</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
   <style>
-    /* Base Styles */
+    /* [Existing CSS styles unchanged, copied for completeness] */
     body {
       margin: 0;
       font-family: 'Noto Sans Telugu', sans-serif;
     }
-    
-    /* Header Container */
     .header-container {
       width: 100%;
       background: white;
@@ -22,15 +21,12 @@
       top: 0;
       z-index: 1000;
     }
-    
-    /* Gold Price Ticker */
     .ticker-bar {
       background: #333;
       color: white;
       padding: 8px 0;
       position: relative;
     }
-    
     .ticker-content {
       max-width: 1400px;
       margin: 0 auto;
@@ -41,60 +37,47 @@
       align-items: center;
       gap: 20px;
     }
-    
     .date-display {
       font-weight: 500;
       font-size: 14px;
       white-space: nowrap;
     }
-    
     .ticker-item {
       display: inline-flex;
       align-items: center;
       margin-right: 15px;
     }
-    
     .ticker-icon {
       margin-right: 5px;
       font-size: 14px;
     }
-    
     .gold-icon {
       color: #FFD700;
     }
-    
     .exchange-icon {
       color: #00FF00;
     }
-    
     .gold-price {
       color: #FFCA28;
     }
-    
     .exchange-price {
       color: #2ECC71;
     }
-    
     .welcome-message {
       color: white;
     }
-    
     .ticker-item strong {
       font-weight: 700;
     }
-    
     .ticker-separator {
       color: #888;
       margin: 0 10px;
     }
-    
-    /* Theme Ribbon */
     .theme-ribbon {
       background: #f5f5f5;
       border-bottom: 1px solid #e0e0e0;
       padding: 10px 0;
     }
-    
     .theme-container {
       max-width: 1400px;
       margin: 0 auto;
@@ -103,7 +86,6 @@
       gap: 30px;
       padding: 0 15px;
     }
-    
     .theme-item {
       display: flex;
       align-items: center;
@@ -114,21 +96,16 @@
       border-radius: 4px;
       transition: background 0.3s ease;
     }
-    
     .theme-item:hover {
       background: rgba(0,0,0,0.05);
     }
-    
     .theme-item i {
       font-size: 18px;
     }
-    
     .agriculture { color: #388e3c; }
     .education { color: #1976d2; }
     .justice { color: #d32f2f; }
     .medicine { color: #7b1fa2; }
-    
-    /* Main Header */
     .main-header {
       max-width: 1400px;
       margin: 0 auto;
@@ -137,110 +114,87 @@
       align-items: center;
       justify-content: space-between;
     }
-    
     .logo-container {
       display: flex;
       align-items: center;
       gap: 15px;
     }
-    
     .logo {
       height: 50px;
       width: auto;
     }
-    
     .header-text h1 {
       margin: 0;
       font-size: 30px;
       color: #1976d2;
       font-weight: 700;
     }
-    
     .header-text p {
       margin: 0;
       font-size: 14px;
       color: #808080;
     }
-    
-    /* Responsive Styles */
     @media (max-width: 768px) {
       .ticker-content {
         gap: 10px;
         padding: 0 5px;
       }
-      
       .date-display {
         font-size: 13px;
       }
-      
       .ticker-item {
         margin-right: 10px;
       }
-      
       .ticker-separator {
         margin: 0 5px;
       }
-      
       .ticker-icon {
         font-size: 12px;
       }
-      
       .theme-container {
         gap: 15px;
         flex-wrap: wrap;
         justify-content: center;
       }
-      
       .theme-item {
         font-size: 13px;
         gap: 5px;
         padding: 4px 8px;
       }
-      
       .theme-item i {
         font-size: 16px;
       }
-      
       .main-header {
         padding: 15px;
         display: flex;
         align-items: center;
         justify-content: space-between;
       }
-      
       .logo-container {
         justify-content: flex-start;
       }
     }
-    
     @media (max-width: 480px) {
       .theme-item {
         font-size: 12px;
       }
-      
       .logo {
         height: 40px;
       }
-      
       .header-text h1 {
         font-size: 24px;
       }
-      
       .header-text p {
         font-size: 12px;
       }
     }
-    
-    /* Desktop-specific styles */
     @media (min-width: 769px) {
       .ticker-item {
         font-size: 12px;
       }
-      
       .date-display {
         font-size: 12px;
       }
-      
       .ticker-icon {
         font-size: 12px;
       }
@@ -253,34 +207,9 @@
     <div class="ticker-bar">
       <div class="ticker-content">
         <div class="date-display" id="telugu-date"></div>
-        <marquee scrollamount="6" class="ticker-marquee">
+        <marquee scrollamount="6" class="ticker-marquee" id="ticker-marquee">
           <span class="ticker-item welcome-message">Welcome Gulf Andhra</span>
-          <span class="ticker-separator">•</span>
-          <span class="ticker-item gold-price"><i class="fas fa-coins gold-icon"></i> 22K Gold Hyderabad: <strong>₹9,045</strong></span>
-          <span class="ticker-separator">•</span>
-          <span class="ticker-item gold-price">Saudi: <strong>₹8,362</strong></span>
-          <span class="ticker-separator">•</span>
-          <span class="ticker-item gold-price">UAE: <strong>₹8,370</strong></span>
-          <span class="ticker-separator">•</span>
-          <span class="ticker-item gold-price">Qatar: <strong>₹8,369</strong></span>
-          <span class="ticker-separator">•</span>
-          <span class="ticker-item gold-price">Kuwait: <strong>₹8,359</strong></span>
-          <span class="ticker-separator">•</span>
-          <span class="ticker-item gold-price">Oman: <strong>₹8,347</strong></span>
-          <span class="ticker-separator">•</span>
-          <span class="ticker-item gold-price">Bahrain: <strong>₹8,339</strong></span>
-          <span class="ticker-separator">•</span>
-          <span class="ticker-item exchange-price"><i class="fas fa-money-bill-wave exchange-icon"></i> SAR: <strong>₹22.75</strong></span>
-          <span class="ticker-separator">•</span>
-          <span class="ticker-item exchange-price">AED: <strong>₹23.25</strong></span>
-          <span class="ticker-separator">•</span>
-          <span class="ticker-item exchange-price">QAR: <strong>₹23.43</strong></span>
-          <span class="ticker-separator">•</span>
-          <span class="ticker-item exchange-price">KWD: <strong>₹278.19</strong></span>
-          <span class="ticker-separator">•</span>
-          <span class="ticker-item exchange-price">OMR: <strong>₹221.24</strong></span>
-          <span class="ticker-separator">•</span>
-          <span class="ticker-item exchange-price">BHD: <strong>₹225.76</strong></span>
+          <!-- Ticker items will be dynamically inserted here -->
         </marquee>
       </div>
     </div>
@@ -295,11 +224,93 @@
         </div>
       </div>
     </div>
-    
-    <!-- Your existing navigation will go here -->
   </div>
 
   <script>
+    // Function to format date in Telugu
+    function formatTeluguDate(date) {
+      const teluguNumbers = ['౦', '౧', '౨', '౩', '౪', '౫', '౬', '౭', '౮', '౯'];
+      const months = [
+        'జనవరి', 'ఫిబ్రవరి', 'మార్చి', 'ఏప్రిల్', 'మే', 'జూన్',
+        'జులై', 'ఆగస్టు', 'సెప్టెంబర్', 'అక్టోబర్', 'నవంబర్', 'డిసెంబర్'
+      ];
+      const day = date.getDate().toString().split('').map(d => teluguNumbers[parseInt(d)]).join('');
+      const month = months[date.getMonth()];
+      const year = date.getFullYear().toString().split('').map(d => teluguNumbers[parseInt(d)]).join('');
+      return `${day} ${month} ${year}`;
+    }
+
+    // Function to fetch and parse CSV, then update ticker
+    function updateTickerFromCSV() {
+      fetch('data/gold_prices.csv')
+        .then(response => response.text())
+        .then(csvText => {
+          Papa.parse(csvText, {
+            header: true,
+            complete: function(results) {
+              // Filter data for 2025-05-12
+              const latestData = results.data.filter(row => row.Date === '2025-05-12');
+              if (latestData.length === 0) {
+                console.error('No data found for 2025-05-12');
+                return;
+              }
+
+              // Map locations to their 22K gold prices and exchange rates
+              const locations = [
+                { name: 'Hyderabad', key: '22K', currency: 'INR', exchangeKey: null },
+                { name: 'Saudi', key: 'INR_Equivalent', currency: 'SAR', exchangeKey: 'Exchange_price' },
+                { name: 'UAE', key: 'INR_Equivalent', currency: 'AED', exchangeKey: 'Exchange_price' },
+                { name: 'Qatar', key: 'INR_Equivalent', currency: 'QAR', exchangeKey: 'Exchange_price' },
+                { name: 'Kuwait', key: 'INR_Equivalent', currency: 'KWD', exchangeKey: 'Exchange_price' },
+                { name: 'Oman', key: 'INR_Equivalent', currency: 'OMR', exchangeKey: 'Exchange_price' },
+                { name: 'Bahrain', key: 'INR_Equivalent', currency: 'BHD', exchangeKey: 'Exchange_price' }
+              ];
+
+              let tickerHTML = '<span class="ticker-item welcome-message">Welcome Gulf Andhra</span>';
+
+              // Add gold prices
+              locations.forEach((loc, index) => {
+                const row = latestData.find(r => r.Location === loc.name || (loc.name === 'Saudi' && r.Location === 'Saudi Arabia'));
+                if (row) {
+                  const price = parseFloat(row[loc.key]).toFixed(2);
+                  tickerHTML += `
+                    <span class="ticker-separator">•</span>
+                    <span class="ticker-item gold-price">
+                      ${index === 0 ? '<i class="fas fa-coins gold-icon"></i> 22K Gold ' : ''}${loc.name}: <strong>₹${parseFloat(price).toLocaleString('en-IN')}</strong>
+                    </span>
+                  `;
+                }
+              });
+
+              // Add exchange rates
+              locations.slice(1).forEach(loc => {
+                const row = latestData.find(r => r.Location === loc.name || (loc.name === 'Saudi' && r.Location === 'Saudi Arabia'));
+                if (row && loc.exchangeKey) {
+                  const exchange = parseFloat(row[loc.exchangeKey]).toFixed(2);
+                  tickerHTML += `
+                    <span class="ticker-separator">•</span>
+                    <span class="ticker-item exchange-price">
+                      ${loc.currency === 'SAR' ? '<i class="fas fa-money-bill-wave exchange-icon"></i>' : ''} ${loc.currency}: <strong>₹${parseFloat(exchange).toLocaleString('en-IN')}</strong>
+                    </span>
+                  `;
+                }
+              });
+
+              // Update marquee
+              const marquee = document.getElementById('ticker-marquee');
+              marquee.innerHTML = tickerHTML;
+
+              // Adjust marquee speed
+              adjustMarqueeSpeed();
+            },
+            error: function(error) {
+              console.error('Error parsing CSV:', error);
+            }
+          });
+        })
+        .catch(error => console.error('Error fetching CSV:', error));
+    }
+
     // Adjust marquee scroll speed for mobile
     function adjustMarqueeSpeed() {
       const marquee = document.querySelector('.ticker-marquee');
@@ -307,25 +318,27 @@
         console.error('Marquee element not found');
         return;
       }
-      console.log('Adjusting marquee speed, window width:', window.innerWidth);
       const isMobile = window.innerWidth <= 768;
       const newScrollAmount = isMobile ? '1' : '6';
       marquee.setAttribute('scrollamount', newScrollAmount);
-      console.log('Set scrollamount to:', newScrollAmount);
-      // Force marquee re-render by stopping and starting
       marquee.stop();
       setTimeout(() => marquee.start(), 0);
     }
 
-    // Run on load and resize
+    // Initialize
     window.addEventListener('load', () => {
-      console.log('Page loaded, running adjustMarqueeSpeed');
+      // Set Telugu date
+      const dateDisplay = document.getElementById('telugu-date');
+      dateDisplay.textContent = formatTeluguDate(new Date('2025-05-12'));
+
+      // Update ticker from CSV
+      updateTickerFromCSV();
+
+      // Adjust marquee speed
       adjustMarqueeSpeed();
     });
-    window.addEventListener('resize', () => {
-      console.log('Window resized, running adjustMarqueeSpeed');
-      adjustMarqueeSpeed();
-    });
+
+    window.addEventListener('resize', adjustMarqueeSpeed);
   </script>
 </body>
 </html>
