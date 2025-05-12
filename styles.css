@@ -435,7 +435,6 @@ body {
     padding: 2rem;
     background: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .feedback-title {
@@ -624,7 +623,6 @@ body {
     padding: 2rem;
     background: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     position: relative; /* For absolute positioning of share-section */
 }
 
